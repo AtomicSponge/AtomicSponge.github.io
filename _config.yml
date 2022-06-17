@@ -1,0 +1,26 @@
+title: atomicsponge.wtfsystems.net
+description: >-
+  My website
+url: "https://atomicsponge.wtfsystems.net"
+github_username:  wtfsystems
+
+lsi: false
+safe: true
+highlighter: rouge
+gist:
+  noscript: false
+markdown: kramdown
+kramdown:
+  syntax_highlighter: rouge
+highlighter: rouge
+plugins:
+  - jekyll-feed
+
+include: [docs]
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - .gitignore
+  - CNAME
+  - LICENSE.md
+  - README.md
