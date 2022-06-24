@@ -5,7 +5,7 @@
  * Filename:  primeWheel.js
  * By:  Matthew Evans
  *      https://www.wtfsystems.net/
- * Version:  060322
+ * Version:  062322
  *
  * Copyright (c) 2020-2022 Matthew Evans - See LICENSE.md
  *
@@ -19,210 +19,206 @@ class primeWheel {
      * Config variables
      */
     static BACKGROUND_COLOR = "#000000"       //  Background color
-    static FONT_COLOR = "#0000FF"             //  Font color
-    static FONT_SIZE = "8px"                  //  Font size
-    static FONT_FACE = "Arial"                //  Font face
-    static SCALE = 2                          //  Scale multiplier
-    static INTERVAL = 5                       //  Speed interval
     static CANVAS_NAME = "primewheel_canvas"  //  Target draw canvas
-    static USE_RANDOM_OFFSET = true           //  Offset center position
     static SPAM = false                       //  Spam the console with prime numbers
+    static MAX_WHEELS = 5                     //  Maximum number of running wheels
+    static INTERVAL = 5                       //  Interval for timer function
 
     /*
-     * Internal variables
+     * Private variables
      */
-    static #vars = {
-        start_called: null,
-        canvas: null,
-        ctx: null,
-        center_x: null,
-        center_y: null,
-        last_prime: null,
-        x_offset: null,
-        y_offset: null,
-        animate_proc: null
-    }
+    static #start_called = false  //  Track if start function was called
+    static #canvas = null         //  Canvas to draw to
+    static #ctx = null            //  2d drawing contex
+    static #animate_proc = null   //  Animation procedure
+    static #center_x = null       //  Center X of canvas
+    static #center_y = null       //  Center Y of canvas
+    static #wheels = []           //  Array of prime wheels
 
-    /*
+    /**
      * Initialize
      */
     static {
-        this.#vars.canvas = document.getElementById(this.CANVAS_NAME)
+        this.#canvas = document.getElementById(this.CANVAS_NAME)
         //  Make sure the canvas element exists
-        if(this.#vars.canvas == null || this.#vars.canvas == undefined) {
+        if(this.#canvas == null || this.#canvas == undefined) {
             //  If not inject it after the body tag
-            document.body.insertAdjacentHTML("afterbegin",
+            document.body.insertAdjacentHTML('afterbegin',
                 `<canvas id="${this.CANVAS_NAME}" style="position: fixed; top: 0; left: 0;"></canvas>`)
-            this.#vars.canvas = document.getElementById(this.CANVAS_NAME)
+            this.#canvas = document.getElementById(this.CANVAS_NAME)
         }
-        this.#vars.ctx = this.#vars.canvas.getContext("2d")
+        this.#ctx = this.#canvas.getContext("2d")
 
         //  Make the canvas fit the screen
-        this.#vars.canvas.width = window.innerWidth
-        this.#vars.canvas.height = window.innerHeight
+        this.#canvas.width = window.innerWidth
+        this.#canvas.height = window.innerHeight
         //  Calculate center position in the canvas
-        this.#vars.center_x = this.#vars.ctx.canvas.width / 2
-        this.#vars.center_y = this.#vars.ctx.canvas.height / 2
-
-        this.#vars.last_prime = 2  //  Start at 2 for finding primes
-
-        //  Set an offset if enabled
-        if(this.USE_RANDOM_OFFSET) {
-            this.#vars.x_offset = Math.floor(Math.random() * (this.#vars.center_x * 2 / 3) + 1)
-            this.#vars.x_offset = this.#vars.x_offset * (Math.random() < 0.5 ? -1 : 1)
-            this.#vars.y_offset = Math.floor(Math.random() * (this.#vars.center_y * 2 / 3) + 1)
-            this.#vars.y_offset = this.#vars.y_offset * (Math.random() < 0.5 ? -1 : 1)
-        } else {
-            this.#vars.x_offset = 0
-            this.#vars.y_offset = 0
-        }
+        this.#center_x = this.#ctx.canvas.width / 2
+        this.#center_y = this.#ctx.canvas.height / 2
 
         //  Clear the canvas
-        this.#vars.ctx.fillStyle = this.BACKGROUND_COLOR
-        this.#vars.ctx.fillRect(0, 0, this.#vars.ctx.canvas.width, this.#vars.ctx.canvas.height)
+        this.#ctx.fillStyle = this.BACKGROUND_COLOR
+        this.#ctx.fillRect(0, 0, this.#ctx.canvas.width, this.#ctx.canvas.height)
 
-        this.#vars.start_called = false  //  Allow start to be called
+        this.#start_called = false  //  Allow start to be called
     }
 
-    /*
-     * Internal functions
+    /**
+     * @prop {Number} num_wheels Number of prime wheels
      */
-    static #funcs = {
-        /**
-         * Generate a random x,y offset for drawing the wheel
-         */
-        setOffset: () => {
-            this.#vars.x_offset = Math.floor(Math.random() * (this.#vars.center_x * 2 / 3) + 1)
-            this.#vars.x_offset = this.#vars.x_offset * (Math.random() < 0.5 ? -1 : 1)
-            this.#vars.y_offset = Math.floor(Math.random() * (this.#vars.center_y * 2 / 3) + 1)
-            this.#vars.y_offset = this.#vars.y_offset * (Math.random() < 0.5 ? -1 : 1)
-        },
+    static get num_wheels() { return this.#wheels.lenght }
+    
+    /**
+     * Add a new prime wheel.
+     * @param {Object} wheelData 
+     */
+    static add(wheelData) {
+        if(this.num_wheels < this.MAX_WHEELS) {
+            wheelData = wheelData || {}
 
-        resize: () => {
-            //  Make the canvas fit the screen
-            this.#vars.canvas.width = window.innerWidth
-            this.#vars.canvas.height = window.innerHeight
-            //  Calculate center position in the canvas
-            this.#vars.center_x = this.#vars.ctx.canvas.width / 2
-            this.#vars.center_y = this.#vars.ctx.canvas.height / 2
-            this.reset()
-        },
+            wheelData.offset_x = wheelData.offset_x || 0
+            wheelData.offset_y = wheelData.offset_y || 0
+            wheelData.random_offset = wheelData.random_offset || true
+            wheelData.scale = wheelData.scale || 2
+            wheelData.speed = wheelData.speed || 5
+            wheelData.wheel_color = wheelData.wheel_color || '#0000FF'
+            wheelData.wheel_size =  wheelData.wheel_size || '8px'
+            wheelData.wheel_font =  wheelData.wheel_font || 'Arial'
+            wheelData.last_prime = 2
 
-        /**
-         * Check if a number is prime
-         * @param {*} num 
-         * @returns 
-         */
-        isPrime: (num) => {
-            for(var i = 2; i < num; i++) {
-                if(num % i == 0) return false
-            }
-            return true
-        },
+            if(wheelData.random_offset) this.#setOffset(wheelData)
 
-        /**
-         * Animation function
-         */
-        animate: () => {
-            //  Prime number found, draw it using cartesian coordinates
-            if(this.#funcs.isPrime(this.#vars.last_prime)) {
-                if(this.#vars.SPAM) console.log("Found prime: " + this.#vars.last_prime)
-                this.#vars.ctx.font = this.FONT_SIZE + " " + this.FONT_FACE
-                this.#vars.ctx.fillStyle = this.FONT_COLOR
-                this.#vars.ctx.fillText(
-                    this.#vars.last_prime,
-                    (this.#vars.center_x + this.#vars.x_offset) + (this.#vars.last_prime * Math.cos(this.#vars.last_prime)),
-                    (this.#vars.center_y + this.#vars.y_offset) - (this.#vars.last_prime * Math.sin(this.#vars.last_prime))
-                )
-            }
-
-            this.#vars.last_prime++  //  Increment counter to check for next prime
-
-            //  Once the wheel reaches (1400 * SCALE) then reset
-            if(this.#vars.last_prime > 1400 * this.#vars.SCALE) this.reset()
-        },
-
-        /**
-         * Register the prime wheel cookie
-         * @param {*} cookie_value 
-         * @rerurns True if it was registered, false if it was not.
-         */
-        regCookie: (cookie_value) => {
-            if(document.cookie.search("prime_wheel_running=") == -1) {
-                this.#funcs.setCookie(cookie_value)
-                return true
-            }
-            return false
-        },
-
-        /**
-         * Set the prime wheel cookie - expires after 1wk
-         * @param {*} cookie_value 
-         */
-        setCookie: (cookie_value) => {
-            document.cookie = `prime_wheel_running=${cookie_value} SameSite=Strict Max-Age=604800 Path=/`
-        },
-
-        /**
-         * Check the prime_wheel_running cookie value
-         * @returns True if cookie is set to true, false if set to false or not set
-         */
-        getCookie: () => {
-            if(document.cookie.search("prime_wheel_running=") == -1) return false
-            if(document.cookie.search("prime_wheel_running=true") == -1) return false
-            return true
-        }
+            this.#wheels.push(wheelData)
+        } else console.log(`Max number of wheels reached.`)
     }
 
-    /*
+    /**
      * Start the effect
      */
     static start() {
-        if(this.#vars.start_called) {
+        if(this.num_wheels === 0) {
+            console.log(`Error`)
+            return
+        }
+        if(this.#start_called) {
             console.log("Prime wheel effect already running")
             return
         }
-        this.#vars.start_called = true
-        //  Register cookie if one does not exist.
-        //  If it does and it's set to false, regCookie will just fail.
-        if(this.#funcs.getCookie()) this.#funcs.regCookie(true)
-        if(this.#funcs.getCookie()) {
-            this.#vars.canvas.style.display = "block"
-            this.#vars.animate_proc = setInterval(this.#funcs.animate, this.INTERVAL)
+        this.#start_called = true
+        if(true) console.log('stuff')
+        if(true) {
+            this.#canvas.style.display = "block"
+            this.#animate_proc = setInterval(this.#animate, this.INTERVAL)
             console.log("Running prime wheel effect")
         } else {
             console.log("Prime wheel effect disabled by setting")
-            this.#vars.canvas.style.display = "none"
+            this.#canvas.style.display = "none"
         }
     }
 
-    /*
+    /**
      * Toggle effect on/off
      */
     static toggle() {
-        if (this.#vars.canvas.style.display === "none") {
+        if (this.#canvas.style.display === "none") {
             //  If off turn on
-            this.#funcs.setCookie("true")
-            this.#vars.canvas.style.display = "block"
-            this.#vars.animate_proc = setInterval(this.#funcs.animate, this.INTERVAL)
+            //this.#setCookie("true")
+            this.#canvas.style.display = "block"
+            this.#animate_proc = setInterval(this.#animate, this.INTERVAL)
             console.log("Prime wheel toggeled on")
         } else {
             //  Otherwise turn off
-            this.#funcs.setCookie("false")
-            this.#vars.canvas.style.display = "none"
-            clearInterval(this.#vars.animate_proc)
+            //this.#setCookie("false")
+            this.#canvas.style.display = "none"
+            clearInterval(this.#animate_proc)
             console.log("Prime wheel toggeled off")
         }
     }
 
-    /*
+    /**
      * Resets the effect
      */
     static reset() {
         console.log("Resetting prime wheel effect")
-        this.#vars.ctx.fillStyle = this.BACKGROUND_COLOR
-        this.#vars.ctx.fillRect(0, 0, this.#vars.ctx.canvas.width, this.#vars.ctx.canvas.height)
-        if(this.USE_RANDOM_OFFSET) this.#funcs.setOffset()
-        this.#vars.last_prime = 2
+        this.#ctx.fillStyle = this.BACKGROUND_COLOR
+        this.#ctx.fillRect(0, 0, this.#ctx.canvas.width, this.#ctx.canvas.height)
+        this.#wheelIterator((wheel) => {
+            if(wheel.random_offset) this.#setOffset(wheel)
+            wheel.last_prime = 2
+        })
+    }
+
+    /**
+     * Set the color of a prime wheel.
+     * @param {String} color Color to set.
+     * @param {Number} IDX Prime wheel array index.
+     */
+    static setColor(color, IDX) {
+        if(IDX > this.num_wheels - 1 || IDX < 0) console.log(`error`)
+        this.#wheels[IDX].wheel_color = color
+    }
+
+    /** *** Privates *** **/
+    /**
+     * Run a function on each prime wheel.
+     * @param {Function} callback Function to run.
+     */
+    static #wheelIterator(callback) {
+        for(let IDX = 0; IDX < this.num_wheels; IDX++)
+            callback(this.#wheels[IDX], IDX)
+    }
+
+    /**
+     * Generate a random x,y offset for drawing the wheel
+     */
+    static #setOffset(wheel) {
+        wheel.x_offset = Math.floor(Math.random() * (this.#center_x * 2 / 3) + 1)
+        wheel.x_offset = wheel.x_offset * (Math.random() < 0.5 ? -1 : 1)
+        wheel.y_offset = Math.floor(Math.random() * (this.#center_y * 2 / 3) + 1)
+        wheel.y_offset = wheel.y_offset * (Math.random() < 0.5 ? -1 : 1)
+    }
+
+    static #resize() {
+        //  Make the canvas fit the screen
+        this.#canvas.width = window.innerWidth
+        this.#canvas.height = window.innerHeight
+        //  Calculate center position in the canvas
+        this.#center_x = this.#ctx.canvas.width / 2
+        this.#center_y = this.#ctx.canvas.height / 2
+        this.reset()
+    }
+
+    /**
+     * Check if a number is prime
+     * @param {*} num 
+     * @returns 
+     */
+    static #isPrime(num) {
+        for(var i = 2; i < num; i++) {
+            if(num % i == 0) return false
+        }
+        return true
+    }
+
+    /**
+     * Animation function
+     */
+    static #animate() {
+        //  Prime number found, draw it using cartesian coordinates
+        if(this.#isPrime(this.#last_prime)) {
+            if(this.SPAM) console.log(`Found prime: ${this.#last_prime}`)
+            this.#ctx.font = this.FONT_SIZE + " " + this.FONT_FACE
+            this.#ctx.fillStyle = this.FONT_COLOR
+            this.#ctx.fillText(
+                this.#last_prime,
+                (this.#center_x + this.#x_offset) + (this.#last_prime * Math.cos(this.#last_prime)),
+                (this.#center_y + this.#y_offset) - (this.#last_prime * Math.sin(this.#last_prime))
+            )
+        }
+
+        this.#last_prime++  //  Increment counter to check for next prime
+
+        //  Once the wheel reaches (1400 * SCALE) then reset
+        if(this.#last_prime > 1400 * this.#SCALE) this.reset()
     }
 }
