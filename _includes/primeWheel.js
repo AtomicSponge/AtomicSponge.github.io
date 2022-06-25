@@ -16,11 +16,11 @@
  * Prime Wheel class
  */
 class primeWheel {
-    static #bg_color = "#000000"               //  Background color
+    static #bg_color = '#000000'               //  Background color
     static #max_wheels = 5                     //  Maximum number of running wheels
     static #SPAM = false                       //  Spam the console with prime numbers
     
-    static #canvas_name = "primewheel_canvas"  //  Target draw canvas
+    static #canvas_name = 'primewheel_canvas'  //  Target draw canvas
     static #start_called = false               //  Track if start function was called
     static #ctx = null                         //  2d drawing contex
     static #canvas = null                      //  Canvas to draw to
@@ -37,7 +37,7 @@ class primeWheel {
         if(this.#canvas == null || this.#canvas == undefined) {
             console.log(`error`)
         }
-        this.#ctx = this.#canvas.getContext("2d")
+        this.#ctx = this.#canvas.getContext('2d')
 
         //  Make the canvas fit the screen
         this.#canvas.width = window.innerWidth
@@ -116,18 +116,18 @@ class primeWheel {
      */
     static start() {
         if(this.#start_called) {
-            console.log("Prime wheel effect already running")
+            console.log(`Prime wheel effect already running`)
             return
         }
         this.#start_called = true
         if(true) console.log('stuff')
         if(true) {
-            this.#canvas.style.display = "block"
+            this.#canvas.style.display = 'block'
             window.requestAnimationFrame(this.#renderer.start)
-            console.log("Running prime wheel effect")
+            console.log(`Running prime wheel effect`)
         } else {
-            console.log("Prime wheel effect disabled by setting")
-            this.#canvas.style.display = "none"
+            console.log(`Prime wheel effect disabled by setting`)
+            this.#canvas.style.display = 'none'
         }
     }
 
@@ -136,7 +136,7 @@ class primeWheel {
      */
     static end() { 
         this.#renderer.stop = true
-        this.#canvas.style.display = "none"
+        this.#canvas.style.display = 'none'
         this.#start_called = false
         console.log(`Prime wheel stopped.`)
     }
@@ -145,6 +145,7 @@ class primeWheel {
      * Pause effect
      */
     static pause() {
+        this.#renderer.pause ? console.log(`Pausing prime wheel`) : console.log(`Resuming prime wheel`)
         this.#renderer.pause ? this.#renderer.pause = false : this.#renderer.pause = true
     }
 
@@ -159,8 +160,8 @@ class primeWheel {
      * Resets the effect
      */
     static reset() {
-        console.log("Resetting prime wheel effect")
-        this.#ctx = this.#canvas.getContext("2d")
+        console.log(`Resetting prime wheel effect`)
+        this.#ctx = this.#canvas.getContext('2d')
         this.#ctx.fillStyle = this.#bg_color
         this.#ctx.fillRect(0, 0, this.#ctx.canvas.width, this.#ctx.canvas.height)
         this.#wheels.forEach(wheel => {
