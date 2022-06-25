@@ -92,7 +92,6 @@ class primeWheel {
             wheelData.wheel_size =  wheelData.wheel_size || '8px'
             wheelData.wheel_font =  wheelData.wheel_font || 'Arial'
             wheelData.last_prime = 2
-            wheelData.wheel_proc = null
 
             if(wheelData.random_offset) this.#setOffset(wheelData)
 
@@ -101,7 +100,7 @@ class primeWheel {
     }
 
     /**
-     * Start the effect
+     * Start the effect.
      */
     static start() {
         //  No wheels defined, create a default one
@@ -114,7 +113,7 @@ class primeWheel {
         if(true) console.log('stuff')
         if(true) {
             this.#canvas.style.display = "block"
-            window.requestAnimationFrame(this.#animator.run)
+            window.requestAnimationFrame(this.#renderer.start)
             console.log("Running prime wheel effect")
         } else {
             console.log("Prime wheel effect disabled by setting")
@@ -123,22 +122,31 @@ class primeWheel {
     }
 
     /**
-     * Toggle effect on/off
+     * 
+     */
+    static end() { 
+        this.#renderer.stop = true
+        this.#canvas.style.display = "none"
+        this.#start_called = false
+        console.log(`Prime wheel stopped.`)
+    }
+
+    /**
+     * Pause effect
+     */
+    static pause() {
+        (this.#renderer.pause ?
+            this.#renderer.pause = false :
+            this.#renderer.pause = true)
+    }
+
+    /**
+     * 
      */
     static toggle() {
-        if (this.#canvas.style.display === "none") {
-            //  If off turn on
-            //this.#setCookie("true")
-            this.#canvas.style.display = "block"
-            //wheel.wheel_proc = requestAnimationFrame(this.#animate.bind(null, wheel))
-            console.log("Prime wheel toggeled on")
-        } else {
-            //  Otherwise turn off
-            //this.#setCookie("false")
-            this.#canvas.style.display = "none"
-            //clearInterval(this.#animate_proc)
-            console.log("Prime wheel toggeled off")
-        }
+        (this.#start_called ?
+            this.end() :
+            this.start())
     }
 
     /**
@@ -160,8 +168,8 @@ class primeWheel {
      * @param {Number} IDX Prime wheel array index.
      */
     static setColor(color, IDX) {
-        if(IDX > this.num_wheels - 1 || IDX < 0) console.log(`error`)
-        this.#wheels[IDX].wheel_color = color
+        if(IDX > this.num_wheels - 1 || IDX < 0) console.log(`Wheel index out of range.`)
+        else this.#wheels[IDX].wheel_color = color
     }
 
     /** *** Private functions *** **/
@@ -207,10 +215,18 @@ class primeWheel {
     }
 
     /**
-     * Animation function
+     * Renderer
      */
-    static #animator = {
-        animate: (wheel) => {
+    static #renderer = {
+        pause: false,
+        stop: false,
+
+        /**
+         * Draw a wheel frame.
+         * @param {Object} wheel The wheel being drawn.
+         * @param {Number} index Index of wheel in wheel array.
+         */
+        animate: (wheel, index) => {
             //  Prime number found, draw it using cartesian coordinates
             if(this.#isPrime(wheel.last_prime)) {
                 if(this.#SPAM) console.log(`Found prime: ${wheel.last_prime}`)
@@ -226,12 +242,37 @@ class primeWheel {
             wheel.last_prime++  //  Increment counter to check for next prime
 
             //  Once the wheel reaches (1400 * SCALE) then reset
-            if(wheel.last_prime > 1400 * wheel.scale) this.reset()
+            if(wheel.last_prime > 1200 * wheel.scale) this.#renderer.reset(wheel, index)
         },
 
+        /**
+         * Reset a wheel.
+         * @param {Object} wheel The wheel being drawn.
+         * @param {Number} index Index of wheel in wheel array.
+         */
+        reset: (wheel, index) => {
+            console.log(`Resetting wheel ${index}`)
+            if(wheel.random_offset) this.#setOffset(wheel)
+            wheel.last_prime = 2
+        },
+
+        /**
+         * 
+         * @param {DOMHighResTimeStamp} timestamp Time in milliseconds.
+         */
         run: (timestamp) => {
-            this.#wheelIterator((wheel) => { this.#animator.animate(wheel) })
-            window.requestAnimationFrame(this.#animator.run)
+            if(!this.#renderer.pause) {
+                this.#wheelIterator((wheel, index) => { this.#renderer.animate(wheel, index) })
+            }
+            !this.#renderer.stop && window.requestAnimationFrame(this.#renderer.run)
+        },
+
+        /**
+         * 
+         */
+        start: () => {
+            this.#renderer.stop = false
+            window.requestAnimationFrame(this.#renderer.run)
         }
     }
 }
