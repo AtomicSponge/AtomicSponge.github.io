@@ -246,7 +246,7 @@ class primeWheel {
             wheel.last_prime++  //  Increment counter to check for next prime
 
             //  Once the wheel reaches (1400 * SCALE) flag as done
-            if(wheel.last_prime > 1200 * wheel.scale) wheel.done = true
+            if(wheel.last_prime > 1400 * wheel.scale) wheel.done = true
         },
 
         /**
