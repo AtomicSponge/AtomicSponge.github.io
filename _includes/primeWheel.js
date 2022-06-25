@@ -1,11 +1,12 @@
 /*
- * Animated background that creates a prime wheel.
- * Uses a cookie to track activity status across multiple page visits.
+ * Animated background that displays prime wheels.
+ * Inspired by the 3Blue1Brown YouTube series:
+ * https://www.youtube.com/watch?v=EK32jo7i5LQ
  *
  * Filename:  primeWheel.js
  * By:  Matthew Evans
  *      https://www.wtfsystems.net/
- * Version:  062322
+ * Version:  062522
  *
  * Copyright (c) 2020-2022 Matthew Evans - See LICENSE.md
  *
@@ -15,37 +16,14 @@
  * Prime Wheel class
  */
 class primeWheel {
-    /*
-     * Config variables
-     */
-    static BACKGROUND_COLOR = "#000000"       //  Background color
-    static CANVAS_NAME = "primewheel_canvas"  //  Target draw canvas
-    static SPAM = false                       //  Spam the console with prime numbers
-    static MAX_WHEELS = 5                     //  Maximum number of running wheels
-    static INTERVAL = 5                       //  Interval for timer function
-
-    /*
-     * Private variables
-     */
-    static #start_called = false  //  Track if start function was called
-    static #canvas = null         //  Canvas to draw to
-    static #ctx = null            //  2d drawing contex
-    static #animate_proc = null   //  Animation procedure
-    static #center_x = null       //  Center X of canvas
-    static #center_y = null       //  Center Y of canvas
-    static #wheels = []           //  Array of prime wheels
-
     /**
      * Initialize
      */
     static {
-        this.#canvas = document.getElementById(this.CANVAS_NAME)
+        this.#canvas = document.getElementById(this.#canvas_name)
         //  Make sure the canvas element exists
         if(this.#canvas == null || this.#canvas == undefined) {
-            //  If not inject it after the body tag
-            document.body.insertAdjacentHTML('afterbegin',
-                `<canvas id="${this.CANVAS_NAME}" style="position: fixed; top: 0; left: 0;"></canvas>`)
-            this.#canvas = document.getElementById(this.CANVAS_NAME)
+            console.log(`error`)
         }
         this.#ctx = this.#canvas.getContext("2d")
 
@@ -57,23 +35,27 @@ class primeWheel {
         this.#center_y = this.#ctx.canvas.height / 2
 
         //  Clear the canvas
-        this.#ctx.fillStyle = this.BACKGROUND_COLOR
+        this.#ctx.fillStyle = this.#bg_color
         this.#ctx.fillRect(0, 0, this.#ctx.canvas.width, this.#ctx.canvas.height)
 
         this.#start_called = false  //  Allow start to be called
     }
 
+    /** *** Public functions *** **/
+    /** *** Getters *** **/
     /**
      * @prop {Number} num_wheels Number of prime wheels
      */
-    static get num_wheels() { return this.#wheels.lenght }
+    static get num_wheels() { return this.#wheels.length }
+
+    /** *** Setters *** **/
     
     /**
      * Add a new prime wheel.
      * @param {Object} wheelData 
      */
     static add(wheelData) {
-        if(this.num_wheels < this.MAX_WHEELS) {
+        if(this.num_wheels < this.#max_wheels) {
             wheelData = wheelData || {}
 
             wheelData.offset_x = wheelData.offset_x || 0
@@ -85,6 +67,7 @@ class primeWheel {
             wheelData.wheel_size =  wheelData.wheel_size || '8px'
             wheelData.wheel_font =  wheelData.wheel_font || 'Arial'
             wheelData.last_prime = 2
+            wheelData.wheel_proc = null
 
             if(wheelData.random_offset) this.#setOffset(wheelData)
 
@@ -96,10 +79,8 @@ class primeWheel {
      * Start the effect
      */
     static start() {
-        if(this.num_wheels === 0) {
-            console.log(`Error`)
-            return
-        }
+        //  No wheels defined, create a default one
+        if(this.num_wheels === 0) this.add()
         if(this.#start_called) {
             console.log("Prime wheel effect already running")
             return
@@ -108,7 +89,9 @@ class primeWheel {
         if(true) console.log('stuff')
         if(true) {
             this.#canvas.style.display = "block"
-            this.#animate_proc = setInterval(this.#animate, this.INTERVAL)
+            this.#wheelIterator(wheel => {
+                //this.#animate_proc = setInterval(this.#test.animate, this.INTERVAL)
+            })
             console.log("Running prime wheel effect")
         } else {
             console.log("Prime wheel effect disabled by setting")
@@ -124,13 +107,17 @@ class primeWheel {
             //  If off turn on
             //this.#setCookie("true")
             this.#canvas.style.display = "block"
-            this.#animate_proc = setInterval(this.#animate, this.INTERVAL)
+            this.#wheelIterator(wheel => {
+                //this.#animate_proc = setInterval(this.#test.animate, this.INTERVAL)
+            })
             console.log("Prime wheel toggeled on")
         } else {
             //  Otherwise turn off
             //this.#setCookie("false")
             this.#canvas.style.display = "none"
-            clearInterval(this.#animate_proc)
+            this.#wheelIterator(wheel => {
+                //clearInterval(this.#animate_proc)
+            })
             console.log("Prime wheel toggeled off")
         }
     }
@@ -140,9 +127,9 @@ class primeWheel {
      */
     static reset() {
         console.log("Resetting prime wheel effect")
-        this.#ctx.fillStyle = this.BACKGROUND_COLOR
+        this.#ctx.fillStyle = this.#bg_color
         this.#ctx.fillRect(0, 0, this.#ctx.canvas.width, this.#ctx.canvas.height)
-        this.#wheelIterator((wheel) => {
+        this.#wheelIterator(wheel => {
             if(wheel.random_offset) this.#setOffset(wheel)
             wheel.last_prime = 2
         })
@@ -158,12 +145,17 @@ class primeWheel {
         this.#wheels[IDX].wheel_color = color
     }
 
-    /** *** Privates *** **/
+    /** *** Private functions *** **/
     /**
      * Run a function on each prime wheel.
      * @param {Function} callback Function to run.
      */
     static #wheelIterator(callback) {
+        for(let IDX = 0; IDX < this.num_wheels; IDX++)
+            callback(this.#wheels[IDX], IDX)
+    }
+
+    static async #wheelIteratorAsync(callback) {
         for(let IDX = 0; IDX < this.num_wheels; IDX++)
             callback(this.#wheels[IDX], IDX)
     }
@@ -204,21 +196,35 @@ class primeWheel {
      * Animation function
      */
     static #animate() {
-        //  Prime number found, draw it using cartesian coordinates
-        if(this.#isPrime(this.#last_prime)) {
-            if(this.SPAM) console.log(`Found prime: ${this.#last_prime}`)
-            this.#ctx.font = this.FONT_SIZE + " " + this.FONT_FACE
-            this.#ctx.fillStyle = this.FONT_COLOR
-            this.#ctx.fillText(
-                this.#last_prime,
-                (this.#center_x + this.#x_offset) + (this.#last_prime * Math.cos(this.#last_prime)),
-                (this.#center_y + this.#y_offset) - (this.#last_prime * Math.sin(this.#last_prime))
-            )
-        }
+        this.#wheelIteratorAsync(async (wheel) => {
+            //  Prime number found, draw it using cartesian coordinates
+            if(this.#isPrime(wheel.last_prime)) {
+                if(this.#SPAM) console.log(`Found prime: ${wheel.last_prime}`)
+                this.#ctx.font = wheel.wheel_color + " " + wheel.wheel_font
+                this.#ctx.fillStyle = wheel.wheel_color
+                this.#ctx.fillText(
+                    wheel.last_prime,
+                    (this.#center_x + wheel.offset_x) + (wheel.last_prime * Math.cos(wheel.last_prime)),
+                    (this.#center_y + wheel.offset_y) - (wheel.last_prime * Math.sin(wheel.last_prime))
+                )
+            }
 
-        this.#last_prime++  //  Increment counter to check for next prime
+            wheel.last_prime++  //  Increment counter to check for next prime
 
-        //  Once the wheel reaches (1400 * SCALE) then reset
-        if(this.#last_prime > 1400 * this.#SCALE) this.reset()
+            //  Once the wheel reaches (1400 * SCALE) then reset
+            if(wheel.last_prime > 1400 * wheel.scale) this.reset()
+        })
     }
+
+    static #bg_color = "#000000"               //  Background color
+    static #max_wheels = 5                     //  Maximum number of running wheels
+    static #SPAM = false                       //  #SPAM the console with prime numbers
+    
+    static #canvas_name = "primewheel_canvas"  //  Target draw canvas
+    static #start_called = false               //  Track if start function was called
+    static #ctx = null                         //  2d drawing contex
+    static #canvas = null                      //  Canvas to draw to
+    static #center_x = 0                       //  Center X of canvas
+    static #center_y = 0                       //  Center Y of canvas
+    static #wheels = []                        //  Array of prime wheels
 }
