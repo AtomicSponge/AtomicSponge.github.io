@@ -60,18 +60,14 @@ class primeWheel {
 
     /** *** Setters *** **/
     /**
-     * 
+     * Set the background color.
      */
-    static set bgColor(color) {
-        this.#bg_color = color
-    }
+    static set bgColor(color) { this.#bg_color = color }
 
     /**
-     * 
+     * Set the maximum allowed wheels.
      */
-    static set maxWheels(newNum) {
-        if(!this.#start_called) this.#max_wheels = newNum
-    }
+    static set maxWheels(newNum) { if(!this.#start_called) this.#max_wheels = newNum }
 
     /**
      * Add a new prime wheel.
@@ -133,7 +129,7 @@ class primeWheel {
     }
 
     /**
-     * 
+     * Stop the effect.
      */
     static end() { 
         this.#renderer.stop = true
@@ -143,7 +139,7 @@ class primeWheel {
     }
 
     /**
-     * Pause effect
+     * Pause the effect.
      */
     static pause() {
         this.#renderer.pause ? console.log(`Resuming prime wheel`) : console.log(`Pausing prime wheel`)
@@ -151,7 +147,7 @@ class primeWheel {
     }
 
     /**
-     * 
+     * Toggle the effect on/off.
      */
     static toggle() {
         this.#start_called ? this.end() : this.start()
