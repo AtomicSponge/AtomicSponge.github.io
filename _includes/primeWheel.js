@@ -105,6 +105,7 @@ class primeWheel {
     static remove(IDX) {
         if(IDX > this.num_wheels - 1 || IDX < 0) console.log(`Wheel index out of range.`)
         else delete this.#wheels[IDX]
+        this.#wheels = this.#wheels.filter(wheel => wheel !== null)
     }
 
     /**
