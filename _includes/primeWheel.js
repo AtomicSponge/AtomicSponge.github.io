@@ -5,7 +5,7 @@
  *
  * Filename:  primeWheel.js
  * By:  Matthew Evans
- *      https://www.wtfsystems.net/
+ *      https://atomicsponge.wtfsystems.net/
  * Version:  062522
  *
  * Copyright (c) 2020-2022 Matthew Evans - See LICENSE.md
