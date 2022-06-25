@@ -145,7 +145,7 @@ class primeWheel {
      * Pause effect
      */
     static pause() {
-        this.#renderer.pause ? console.log(`Pausing prime wheel`) : console.log(`Resuming prime wheel`)
+        this.#renderer.pause ? console.log(`Resuming prime wheel`) : console.log(`Pausing prime wheel`)
         this.#renderer.pause ? this.#renderer.pause = false : this.#renderer.pause = true
     }
 
@@ -263,10 +263,10 @@ class primeWheel {
                         status.push(false)
                     } else status.push(true)
                 })
+                if(this.num_wheels !== 0 && status.reduce((a, b) => { return (a === b) ? a : NaN }))
+                    this.reset()
             }
             !this.#renderer.stop && window.requestAnimationFrame(this.#renderer.run)
-            if(this.num_wheels !== 0 && status.reduce((a, b) => { return (a === b) ? a : NaN }))
-                this.reset()
         },
 
         /**
