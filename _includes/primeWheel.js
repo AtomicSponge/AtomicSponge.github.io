@@ -86,18 +86,21 @@ class primeWheel {
             wheelData.offset_x = wheelData.offset_x || 0
             wheelData.offset_y = wheelData.offset_y || 0
             wheelData.random_offset = wheelData.random_offset || true
-            wheelData.scale = wheelData.scale || 2
+            wheelData.scale = wheelData.scale || 1
             wheelData.speed = wheelData.speed || 5
             wheelData.wheel_color = wheelData.wheel_color || '#0000FF'
             wheelData.wheel_size =  wheelData.wheel_size || '8px'
             wheelData.wheel_font =  wheelData.wheel_font || 'Arial'
             wheelData.last_prime = 2
+            wheelData.done = false
 
             if(wheelData.random_offset) this.#setOffset(wheelData)
 
             this.#wheels.push(wheelData)
         } else console.log(`Max number of wheels reached.`)
     }
+
+    static remove(IDX) {}
 
     /**
      * Start the effect.
@@ -154,11 +157,13 @@ class primeWheel {
      */
     static reset() {
         console.log("Resetting prime wheel effect")
+        this.#ctx = this.#canvas.getContext("2d")
         this.#ctx.fillStyle = this.#bg_color
         this.#ctx.fillRect(0, 0, this.#ctx.canvas.width, this.#ctx.canvas.height)
         this.#wheelIterator(wheel => {
             if(wheel.random_offset) this.#setOffset(wheel)
             wheel.last_prime = 2
+            wheel.done = false
         })
     }
 
@@ -224,9 +229,8 @@ class primeWheel {
         /**
          * Draw a wheel frame.
          * @param {Object} wheel The wheel being drawn.
-         * @param {Number} index Index of wheel in wheel array.
          */
-        animate: (wheel, index) => {
+        animate: (wheel) => {
             //  Prime number found, draw it using cartesian coordinates
             if(this.#isPrime(wheel.last_prime)) {
                 if(this.#SPAM) console.log(`Found prime: ${wheel.last_prime}`)
@@ -241,19 +245,8 @@ class primeWheel {
 
             wheel.last_prime++  //  Increment counter to check for next prime
 
-            //  Once the wheel reaches (1400 * SCALE) then reset
-            if(wheel.last_prime > 1200 * wheel.scale) this.#renderer.reset(wheel, index)
-        },
-
-        /**
-         * Reset a wheel.
-         * @param {Object} wheel The wheel being drawn.
-         * @param {Number} index Index of wheel in wheel array.
-         */
-        reset: (wheel, index) => {
-            console.log(`Resetting wheel ${index}`)
-            if(wheel.random_offset) this.#setOffset(wheel)
-            wheel.last_prime = 2
+            //  Once the wheel reaches (1400 * SCALE) flag as done
+            if(wheel.last_prime > 1200 * wheel.scale) wheel.done = true
         },
 
         /**
@@ -261,10 +254,17 @@ class primeWheel {
          * @param {DOMHighResTimeStamp} timestamp Time in milliseconds.
          */
         run: (timestamp) => {
+            var status = []
             if(!this.#renderer.pause) {
-                this.#wheelIterator((wheel, index) => { this.#renderer.animate(wheel, index) })
+                this.#wheelIterator(wheel => {
+                    if(!wheel.done) {
+                        this.#renderer.animate(wheel)
+                        status.push(false)
+                    } else status.push(true)
+                })
             }
             !this.#renderer.stop && window.requestAnimationFrame(this.#renderer.run)
+            if(status.reduce((a, b) => { return (a === b) ? a : NaN })) this.reset()
         },
 
         /**

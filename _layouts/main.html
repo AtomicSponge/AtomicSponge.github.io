@@ -48,8 +48,18 @@
 <script>
 {% include primeWheel.js %}
 
-primeWheel.add = { wheel_color: '#00FF00', offset_x: 25, offset_y: 25 }
-primeWheel.add = { wheel_color: '#FF0000', offset_x: -25, offset_y: -25 }
+primeWheel.add = {
+	wheel_color: '#00FF00',
+	offset_x: 25,
+	offset_y: 25,
+	scale: .25
+}
+primeWheel.add = {
+	wheel_color: '#FF0000',
+	offset_x: -25,
+	offset_y: -25,
+	scale: .5
+}
 primeWheel.add = {}
 primeWheel.start()
 </script>
