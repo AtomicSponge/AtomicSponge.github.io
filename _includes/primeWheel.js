@@ -114,9 +114,7 @@ class primeWheel {
         if(true) console.log('stuff')
         if(true) {
             this.#canvas.style.display = "block"
-            this.#wheelIterator(wheel => {
-                //this.#animate_proc = setInterval(this.#test.animate, this.INTERVAL)
-            })
+            window.requestAnimationFrame(this.#animator.run)
             console.log("Running prime wheel effect")
         } else {
             console.log("Prime wheel effect disabled by setting")
@@ -132,17 +130,13 @@ class primeWheel {
             //  If off turn on
             //this.#setCookie("true")
             this.#canvas.style.display = "block"
-            this.#wheelIterator(wheel => {
-                //this.#animate_proc = setInterval(this.#test.animate, this.INTERVAL)
-            })
+            //wheel.wheel_proc = requestAnimationFrame(this.#animate.bind(null, wheel))
             console.log("Prime wheel toggeled on")
         } else {
             //  Otherwise turn off
             //this.#setCookie("false")
             this.#canvas.style.display = "none"
-            this.#wheelIterator(wheel => {
-                //clearInterval(this.#animate_proc)
-            })
+            //clearInterval(this.#animate_proc)
             console.log("Prime wheel toggeled off")
         }
     }
@@ -215,22 +209,29 @@ class primeWheel {
     /**
      * Animation function
      */
-    static #animate(wheel) {
-        //  Prime number found, draw it using cartesian coordinates
-        if(this.#isPrime(wheel.last_prime)) {
-            if(this.#SPAM) console.log(`Found prime: ${wheel.last_prime}`)
-            this.#ctx.font = wheel.wheel_color + " " + wheel.wheel_font
-            this.#ctx.fillStyle = wheel.wheel_color
-            this.#ctx.fillText(
-                wheel.last_prime,
-                (this.#center_x + wheel.offset_x) + (wheel.last_prime * Math.cos(wheel.last_prime)),
-                (this.#center_y + wheel.offset_y) - (wheel.last_prime * Math.sin(wheel.last_prime))
-            )
+    static #animator = {
+        animate: (wheel) => {
+            //  Prime number found, draw it using cartesian coordinates
+            if(this.#isPrime(wheel.last_prime)) {
+                if(this.#SPAM) console.log(`Found prime: ${wheel.last_prime}`)
+                this.#ctx.font = wheel.wheel_color + " " + wheel.wheel_font
+                this.#ctx.fillStyle = wheel.wheel_color
+                this.#ctx.fillText(
+                    wheel.last_prime,
+                    (this.#center_x + wheel.offset_x) + (wheel.last_prime * Math.cos(wheel.last_prime)),
+                    (this.#center_y + wheel.offset_y) - (wheel.last_prime * Math.sin(wheel.last_prime))
+                )
+            }
+
+            wheel.last_prime++  //  Increment counter to check for next prime
+
+            //  Once the wheel reaches (1400 * SCALE) then reset
+            if(wheel.last_prime > 1400 * wheel.scale) this.reset()
+        },
+
+        run: (timestamp) => {
+            this.#wheelIterator((wheel) => { this.#animator.animate(wheel) })
+            window.requestAnimationFrame(this.#animator.run)
         }
-
-        wheel.last_prime++  //  Increment counter to check for next prime
-
-        //  Once the wheel reaches (1400 * SCALE) then reset
-        if(wheel.last_prime > 1400 * wheel.scale) this.reset()
     }
 }
