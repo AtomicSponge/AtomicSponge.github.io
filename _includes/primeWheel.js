@@ -16,6 +16,18 @@
  * Prime Wheel class
  */
 class primeWheel {
+    static #bg_color = "#000000"               //  Background color
+    static #max_wheels = 5                     //  Maximum number of running wheels
+    static #SPAM = false                       //  Spam the console with prime numbers
+    
+    static #canvas_name = "primewheel_canvas"  //  Target draw canvas
+    static #start_called = false               //  Track if start function was called
+    static #ctx = null                         //  2d drawing contex
+    static #canvas = null                      //  Canvas to draw to
+    static #center_x = 0                       //  Center X of canvas
+    static #center_y = 0                       //  Center Y of canvas
+    static #wheels = []                        //  Array of prime wheels
+
     /**
      * Initialize
      */
@@ -49,12 +61,25 @@ class primeWheel {
     static get num_wheels() { return this.#wheels.length }
 
     /** *** Setters *** **/
-    
+    /**
+     * 
+     */
+    static set bgColor(color) {
+        this.#bg_color = color
+    }
+
+    /**
+     * 
+     */
+    static set maxWheels(newNum) {
+        if(!this.#start_called) this.#max_wheels = newNum
+    }
+
     /**
      * Add a new prime wheel.
      * @param {Object} wheelData 
      */
-    static add(wheelData) {
+    static set add(wheelData) {
         if(this.num_wheels < this.#max_wheels) {
             wheelData = wheelData || {}
 
@@ -155,11 +180,6 @@ class primeWheel {
             callback(this.#wheels[IDX], IDX)
     }
 
-    static async #wheelIteratorAsync(callback) {
-        for(let IDX = 0; IDX < this.num_wheels; IDX++)
-            callback(this.#wheels[IDX], IDX)
-    }
-
     /**
      * Generate a random x,y offset for drawing the wheel
      */
@@ -195,36 +215,22 @@ class primeWheel {
     /**
      * Animation function
      */
-    static #animate() {
-        this.#wheelIteratorAsync(async (wheel) => {
-            //  Prime number found, draw it using cartesian coordinates
-            if(this.#isPrime(wheel.last_prime)) {
-                if(this.#SPAM) console.log(`Found prime: ${wheel.last_prime}`)
-                this.#ctx.font = wheel.wheel_color + " " + wheel.wheel_font
-                this.#ctx.fillStyle = wheel.wheel_color
-                this.#ctx.fillText(
-                    wheel.last_prime,
-                    (this.#center_x + wheel.offset_x) + (wheel.last_prime * Math.cos(wheel.last_prime)),
-                    (this.#center_y + wheel.offset_y) - (wheel.last_prime * Math.sin(wheel.last_prime))
-                )
-            }
+    static #animate(wheel) {
+        //  Prime number found, draw it using cartesian coordinates
+        if(this.#isPrime(wheel.last_prime)) {
+            if(this.#SPAM) console.log(`Found prime: ${wheel.last_prime}`)
+            this.#ctx.font = wheel.wheel_color + " " + wheel.wheel_font
+            this.#ctx.fillStyle = wheel.wheel_color
+            this.#ctx.fillText(
+                wheel.last_prime,
+                (this.#center_x + wheel.offset_x) + (wheel.last_prime * Math.cos(wheel.last_prime)),
+                (this.#center_y + wheel.offset_y) - (wheel.last_prime * Math.sin(wheel.last_prime))
+            )
+        }
 
-            wheel.last_prime++  //  Increment counter to check for next prime
+        wheel.last_prime++  //  Increment counter to check for next prime
 
-            //  Once the wheel reaches (1400 * SCALE) then reset
-            if(wheel.last_prime > 1400 * wheel.scale) this.reset()
-        })
+        //  Once the wheel reaches (1400 * SCALE) then reset
+        if(wheel.last_prime > 1400 * wheel.scale) this.reset()
     }
-
-    static #bg_color = "#000000"               //  Background color
-    static #max_wheels = 5                     //  Maximum number of running wheels
-    static #SPAM = false                       //  #SPAM the console with prime numbers
-    
-    static #canvas_name = "primewheel_canvas"  //  Target draw canvas
-    static #start_called = false               //  Track if start function was called
-    static #ctx = null                         //  2d drawing contex
-    static #canvas = null                      //  Canvas to draw to
-    static #center_x = 0                       //  Center X of canvas
-    static #center_y = 0                       //  Center Y of canvas
-    static #wheels = []                        //  Array of prime wheels
 }
