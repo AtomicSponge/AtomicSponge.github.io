@@ -18,8 +18,6 @@
 class primeWheel {
     static #bg_color = '#000000'               //  Background color
     static #max_wheels = 5                     //  Maximum number of running wheels
-    static #SPAM = false                       //  Spam the console with prime numbers
-    
     static #canvas_name = 'primewheel_canvas'  //  Target draw canvas
     static #start_called = false               //  Track if start function was called
     static #ctx = null                         //  2d drawing contex
@@ -234,7 +232,6 @@ class primeWheel {
         animate: (wheel) => {
             //  Prime number found, draw it using cartesian coordinates
             if(this.#isPrime(wheel.last_prime)) {
-                if(this.#SPAM) console.log(`Found prime: ${wheel.last_prime}`)
                 this.#ctx.font = wheel.font + " " + wheel.size
                 this.#ctx.fillStyle = wheel.color
                 this.#ctx.fillText(
