@@ -95,6 +95,7 @@ class primeWheel {
             if(wheelData.random_offset) wheelData = this.#setOffset(wheelData)
 
             this.#wheels.push(wheelData)
+            console.log(`Added prime wheel at array index ${this.num_wheels}`)
         } else console.log(`Max number of wheels reached.`)
     }
 
@@ -104,8 +105,11 @@ class primeWheel {
      */
     static remove(IDX) {
         if(IDX > this.num_wheels - 1 || IDX < 0) console.log(`Wheel index out of range.`)
-        else delete this.#wheels[IDX]
-        this.#wheels = this.#wheels.filter(wheel => wheel !== null)
+        else {
+            delete this.#wheels[IDX]
+            this.#wheels = this.#wheels.filter(wheel => wheel !== null)
+            console.log(`Removed wheel index ${IDX} - New wheel array length: ${this.num_wheels}`)
+        }
     }
 
     /**
