@@ -85,22 +85,31 @@ class primeWheel {
 
             wheelData.offset_x = wheelData.offset_x || 0
             wheelData.offset_y = wheelData.offset_y || 0
-            wheelData.random_offset = wheelData.random_offset || true
+            wheelData.random_offset = wheelData.random_offset || false
             wheelData.scale = wheelData.scale || 1
             wheelData.speed = wheelData.speed || 5
-            wheelData.wheel_color = wheelData.wheel_color || '#0000FF'
-            wheelData.wheel_size =  wheelData.wheel_size || '8px'
-            wheelData.wheel_font =  wheelData.wheel_font || 'Arial'
+            wheelData.color = wheelData.color || '#0000FF'
+            wheelData.size =  wheelData.size || '8px'
+            wheelData.font =  wheelData.font || 'Arial'
             wheelData.last_prime = 2
             wheelData.done = false
 
-            if(wheelData.random_offset) this.#setOffset(wheelData)
+            if(wheelData.random_offset) wheelData = this.#setOffset(wheelData)
 
             this.#wheels.push(wheelData)
         } else console.log(`Max number of wheels reached.`)
     }
 
-    static remove(IDX) {}
+    /**
+     * Remove a prime wheel
+     * @param {Number} IDX Index to remove
+     */
+    static remove(IDX) {
+        if(IDX > this.num_wheels - 1 || IDX < 0) console.log(`Wheel index out of range.`)
+        else {
+            //
+        }
+    }
 
     /**
      * Start the effect.
@@ -138,18 +147,14 @@ class primeWheel {
      * Pause effect
      */
     static pause() {
-        (this.#renderer.pause ?
-            this.#renderer.pause = false :
-            this.#renderer.pause = true)
+        this.#renderer.pause ? this.#renderer.pause = false : this.#renderer.pause = true
     }
 
     /**
      * 
      */
     static toggle() {
-        (this.#start_called ?
-            this.end() :
-            this.start())
+        this.#start_called ? this.end() : this.start()
     }
 
     /**
@@ -161,7 +166,7 @@ class primeWheel {
         this.#ctx.fillStyle = this.#bg_color
         this.#ctx.fillRect(0, 0, this.#ctx.canvas.width, this.#ctx.canvas.height)
         this.#wheelIterator(wheel => {
-            if(wheel.random_offset) this.#setOffset(wheel)
+            if(wheel.random_offset) wheel = this.#setOffset(wheel)
             wheel.last_prime = 2
             wheel.done = false
         })
@@ -174,7 +179,7 @@ class primeWheel {
      */
     static setColor(color, IDX) {
         if(IDX > this.num_wheels - 1 || IDX < 0) console.log(`Wheel index out of range.`)
-        else this.#wheels[IDX].wheel_color = color
+        else this.#wheels[IDX].color = color
     }
 
     /** *** Private functions *** **/
@@ -191,10 +196,11 @@ class primeWheel {
      * Generate a random x,y offset for drawing the wheel
      */
     static #setOffset(wheel) {
-        wheel.x_offset = Math.floor(Math.random() * (this.#center_x * 2 / 3) + 1)
-        wheel.x_offset = wheel.x_offset * (Math.random() < 0.5 ? -1 : 1)
-        wheel.y_offset = Math.floor(Math.random() * (this.#center_y * 2 / 3) + 1)
-        wheel.y_offset = wheel.y_offset * (Math.random() < 0.5 ? -1 : 1)
+        wheel.offset_x = Math.floor(Math.random() * (this.#center_x * 2 / 3) + 1)
+        wheel.offset_x = wheel.offset_x * (Math.random() < 0.5 ? -1 : 1)
+        wheel.offset_y = Math.floor(Math.random() * (this.#center_y * 2 / 3) + 1)
+        wheel.offset_y = wheel.offset_y * (Math.random() < 0.5 ? -1 : 1)
+        return wheel
     }
 
     static #resize() {
@@ -234,8 +240,8 @@ class primeWheel {
             //  Prime number found, draw it using cartesian coordinates
             if(this.#isPrime(wheel.last_prime)) {
                 if(this.#SPAM) console.log(`Found prime: ${wheel.last_prime}`)
-                this.#ctx.font = wheel.wheel_color + " " + wheel.wheel_font
-                this.#ctx.fillStyle = wheel.wheel_color
+                this.#ctx.font = wheel.font + " " + wheel.size
+                this.#ctx.fillStyle = wheel.color
                 this.#ctx.fillText(
                     wheel.last_prime,
                     (this.#center_x + wheel.offset_x) + (wheel.last_prime * Math.cos(wheel.last_prime)),
