@@ -163,7 +163,7 @@ class primeWheel {
         this.#ctx = this.#canvas.getContext("2d")
         this.#ctx.fillStyle = this.#bg_color
         this.#ctx.fillRect(0, 0, this.#ctx.canvas.width, this.#ctx.canvas.height)
-        this.#wheelIterator(wheel => {
+        this.#wheels.forEach(wheel => {
             if(wheel.random_offset) wheel = this.#setOffset(wheel)
             wheel.last_prime = 2
             wheel.done = false
@@ -182,16 +182,9 @@ class primeWheel {
 
     /** *** Private functions *** **/
     /**
-     * Run a function on each prime wheel.
-     * @param {Function} callback Function to run.
-     */
-    static #wheelIterator(callback) {
-        for(let IDX = 0; IDX < this.num_wheels; IDX++)
-            callback(this.#wheels[IDX], IDX)
-    }
-
-    /**
-     * Generate a random x,y offset for drawing the wheel
+     * Generate a random x,y offset for drawing the wheel.
+     * @param {Object} wheel The wheel being updated.
+     * @returns {Object} Modified wheel object.
      */
     static #setOffset(wheel) {
         wheel.offset_x = Math.floor(Math.random() * (this.#center_x * 2 / 3) + 1)
@@ -201,6 +194,9 @@ class primeWheel {
         return wheel
     }
 
+    /**
+     * Resize canvas - WIP
+     */
     static #resize() {
         //  Make the canvas fit the screen
         this.#canvas.width = window.innerWidth
@@ -212,8 +208,8 @@ class primeWheel {
     }
 
     /**
-     * Check if a number is prime
-     * @param {*} num 
+     * Check if a number is prime.
+     * @param {Number} num Number to check.
      * @returns 
      */
     static #isPrime(num) {
@@ -231,7 +227,7 @@ class primeWheel {
         stop: false,
 
         /**
-         * Draw a wheel frame.
+         * Update a wheel animation.
          * @param {Object} wheel The wheel being drawn.
          */
         animate: (wheel) => {
@@ -254,13 +250,13 @@ class primeWheel {
         },
 
         /**
-         * 
+         * Rendering process
          * @param {DOMHighResTimeStamp} timestamp Time in milliseconds.
          */
         run: (timestamp) => {
             var status = []
             if(!this.#renderer.pause) {
-                this.#wheelIterator(wheel => {
+                this.#wheels.forEach(wheel => {
                     if(!wheel.done) {
                         this.#renderer.animate(wheel)
                         status.push(false)
@@ -273,7 +269,7 @@ class primeWheel {
         },
 
         /**
-         * 
+         * Start the render process
          */
         start: () => {
             this.#renderer.stop = false
