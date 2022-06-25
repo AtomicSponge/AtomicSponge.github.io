@@ -115,8 +115,6 @@ class primeWheel {
      * Start the effect.
      */
     static start() {
-        //  No wheels defined, create a default one
-        if(this.num_wheels === 0) this.add()
         if(this.#start_called) {
             console.log("Prime wheel effect already running")
             return
@@ -270,7 +268,8 @@ class primeWheel {
                 })
             }
             !this.#renderer.stop && window.requestAnimationFrame(this.#renderer.run)
-            if(status.reduce((a, b) => { return (a === b) ? a : NaN })) this.reset()
+            if(this.num_wheels !== 0 && status.reduce((a, b) => { return (a === b) ? a : NaN }))
+                this.reset()
         },
 
         /**
