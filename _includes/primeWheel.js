@@ -32,9 +32,8 @@ class primeWheel {
     static {
         this.#canvas = document.getElementById(this.#canvas_name)
         //  Make sure the canvas element exists
-        if(this.#canvas == null || this.#canvas == undefined) {
-            console.log(`error`)
-        }
+        if(this.#canvas == null || this.#canvas == undefined)
+            new Error(`Error:  Unable to find a canvas named '${this.#canvas_name}'`)
         this.#ctx = this.#canvas.getContext('2d')
 
         //  Make the canvas fit the screen
@@ -62,7 +61,13 @@ class primeWheel {
     /**
      * Set the background color.
      */
-    static set bgColor(color) { this.#bg_color = color }
+    static set bgColor(color) {
+        if(!(this.testHex(color) || this.testRgb(color))) {
+            console.log(`Invalid color format`)
+            return
+        }
+        this.#bg_color = color
+    }
 
     /**
      * Set the maximum allowed wheels.
@@ -76,7 +81,7 @@ class primeWheel {
     static set add(wheelData) {
         if(this.num_wheels < this.#max_wheels) {
             wheelData = wheelData || {}
-
+            
             wheelData.offset_x = wheelData.offset_x || 0
             wheelData.offset_y = wheelData.offset_y || 0
             wheelData.random_offset = wheelData.random_offset || false
@@ -88,9 +93,15 @@ class primeWheel {
             wheelData.last_prime = 2
             wheelData.done = false
 
+            //  Verify color format is correct
+            if(!(this.testHex(wheelData.color) || this.testRgb(wheelData.color))) {
+                console.log(`Invalid color format`)
+                return
+            }
+            //  Generate random offset if enabled
             if(wheelData.random_offset) wheelData = this.#setOffset(wheelData)
 
-            this.#wheels.push(wheelData)
+            this.#wheels.push(wheelData)  //  Add to array
             console.log(`Added prime wheel at array index ${this.num_wheels}`)
         } else console.log(`Max number of wheels reached.`)
     }
@@ -117,21 +128,15 @@ class primeWheel {
             return
         }
         this.#start_called = true
-        if(true) console.log('stuff')
-        if(true) {
-            this.#canvas.style.display = 'block'
-            window.requestAnimationFrame(this.#renderer.start)
-            console.log(`Running prime wheel effect`)
-        } else {
-            console.log(`Prime wheel effect disabled by setting`)
-            this.#canvas.style.display = 'none'
-        }
+        this.#canvas.style.display = 'block'
+        window.requestAnimationFrame(this.#renderer.start)
+        console.log(`Running prime wheel effect`)
     }
 
     /**
      * Stop the effect.
      */
-    static end() { 
+    static stop() { 
         this.#renderer.stop = true
         this.#canvas.style.display = 'none'
         this.#start_called = false
@@ -169,13 +174,30 @@ class primeWheel {
     }
 
     /**
+     * Test a string for #RRGGBBaa format.
+     * @param {String} str String to test.
+     * @returns 
+     */
+    static testHex(str) { return /^#[0-9a-f]{3,4}([0-9a-f]{3,4})?$/i.test(str) }
+
+    /**
+     * Test a string for RGBa/HSLa format.
+     * @param {String} str String to test.
+     * @returns 
+     */
+    static testRgb(str) { return /^(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d\.]+%?\)$/i.test(str) }
+
+    /**
      * Set the color of a prime wheel.
      * @param {String} color Color to set.
      * @param {Number} IDX Prime wheel array index.
      */
     static setColor(color, IDX) {
         if(IDX > this.num_wheels - 1 || IDX < 0) console.log(`Wheel index out of range.`)
-        else this.#wheels[IDX].color = color
+        else {
+            if(this.testHex(color) || this.testRgb(color)) this.#wheels[IDX].color = color
+            else console.log(`Invalid color format`)
+        }
     }
 
     /** *** Private functions *** **/
