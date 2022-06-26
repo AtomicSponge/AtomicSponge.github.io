@@ -86,6 +86,7 @@ class primeWheel {
             wheelData.offset_y = wheelData.offset_y || 0
             wheelData.random_offset = wheelData.random_offset || false
             wheelData.scale = wheelData.scale || 1
+            wheelData.spacing = wheelData.spacing || 1
             wheelData.speed = wheelData.speed || 5
             wheelData.color = wheelData.color || '#0000FF'
             wheelData.size =  wheelData.size || '8px'
@@ -257,8 +258,8 @@ class primeWheel {
                 this.#ctx.fillStyle = wheel.color
                 this.#ctx.fillText(
                     wheel.last_prime,
-                    (this.#center_x + wheel.offset_x) + (wheel.last_prime * Math.cos(wheel.last_prime)),
-                    (this.#center_y + wheel.offset_y) - (wheel.last_prime * Math.sin(wheel.last_prime))
+                    ((this.#center_x + wheel.offset_x) + (wheel.last_prime * Math.cos(wheel.last_prime)) / wheel.spacing),
+                    ((this.#center_y + wheel.offset_y) - (wheel.last_prime * Math.sin(wheel.last_prime)) / wheel.spacing)
                 )
             }
 
