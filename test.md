@@ -10,6 +10,6 @@ extras:
 
 <script>
 
-new test(FibonacciSequence(1920 * 1080))
+drawArray.drawSpiral(FibonacciSequence(100000))
 
 </script>

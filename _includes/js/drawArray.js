@@ -1,7 +1,7 @@
 /*
- * test
+ * wip
  *
- * Filename:  test.js
+ * Filename:  drawArray.js
  * By:  Matthew Evans
  *      https://atomicsponge.wtfsystems.net/
  * Version:  063022
@@ -10,7 +10,7 @@
  *
  */
 
-class test {
+class drawArray {
     static #bg_color = '#000000'  //  Background color
     static #canvas_name = 'test'  //  Target draw canvas
     static #ctx = null            //  2d drawing contex
@@ -28,8 +28,8 @@ class test {
         this.#ctx = this.#canvas.getContext('2d')
 
         //  Make the canvas fit the screen
-        this.#canvas.width = window.innerWidth
-        this.#canvas.height = window.innerHeight
+        this.#width = this.#canvas.width = window.innerWidth
+        this.#height = this.#canvas.height = window.innerHeight
         //  Calculate center position in the canvas
         this.#center_x = this.#ctx.canvas.width / 2
         this.#center_y = this.#ctx.canvas.height / 2
@@ -39,7 +39,9 @@ class test {
         this.#ctx.fillRect(0, 0, this.#ctx.canvas.width, this.#ctx.canvas.height)
     }
 
-    constructor(size) {
-        console.log(size)
+    static drawSpiral(data) {
+        this.#ctx.fillStyle = '#FFFF00'
+        for(let i = 0; i < data.length; i++)
+            this.#ctx.fillRect(this.#center_x + data[i], this.#center_y + data[i], data[i], data[i])
     }
 }
