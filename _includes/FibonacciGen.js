@@ -10,9 +10,9 @@
  *
  */
 
-class FibonacciGen {
-    #sequence = null
-
+class FibonacciSequence {
+    #sequence = []
+    
     /**
      * Constructor
      * @param {Number} len Length to generate the sequence to.
@@ -31,11 +31,9 @@ class FibonacciGen {
      * @returns {Array} Completed sequence.
      */
     #genFib(len, fibSeq, count) {
-        console.log(fibSeq)
         if(len === count) return fibSeq
         else {
             fibSeq.push((fibSeq[count - 2] + fibSeq[count - 1]))
-            console.log(fibSeq)
             this.#genFib(len, fibSeq, count + 1)
         }
     }
