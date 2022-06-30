@@ -45,6 +45,14 @@
 
 <canvas id="{{ page.canvas }}" style="position: fixed; top: 0; left: 0;"></canvas>
 
+{% if page.extras %}
+{%for item in page.extras %}
+<script>
+{% include {{ item }} %}
+</script>
+{% endfor %}
+{% endif %}
+
 <script>
 {% include {{ page.effect }} %}
 </script>
