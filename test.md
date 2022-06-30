@@ -10,7 +10,7 @@ extras:
 
 <script>
 
-const fibSeq = FibonacciSequence(10)
+const fibSeq = FibonacciSequence(5000)
 console.log(fibSeq)
 
 </script>
