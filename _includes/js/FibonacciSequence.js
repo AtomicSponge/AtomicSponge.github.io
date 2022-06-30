@@ -1,7 +1,7 @@
 /*
  * Fibonacci Sequence Generator
  *
- * Filename:  FibonacciGen.js
+ * Filename:  FibonacciSequence.js
  * By:  Matthew Evans
  *      https://atomicsponge.wtfsystems.net/
  * Version:  063022

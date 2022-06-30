@@ -37,7 +37,7 @@
 <title>{{ site.title }} - {{ page.title }}</title>
 
 <style>
-{% include {{ page.style }} %}
+{% include {{ css/page.style }} %}
 </style>
 </head>
 
@@ -47,12 +47,12 @@
 
 {%for item in page.extras %}
 <script>
-{% include {{ item }} %}
+{% include js/{{ item }} %}
 </script>
 {% endfor %}
 
 <script>
-{% include {{ page.effect }} %}
+{% include js/{{ page.effect }} %}
 </script>
 
 {{ content }}
