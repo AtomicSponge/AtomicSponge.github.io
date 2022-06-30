@@ -28,7 +28,7 @@ const FibonacciSequence = (len) => {
         if(len === count) return fibSeq
         else {
             fibSeq.push((fibSeq[count - 2] + fibSeq[count - 1]))
-            this.genFib(len, fibSeq, count + 1)
+            genFib(len, fibSeq, count + 1)
         }
     }
     return genFib(len, [ 0, 1 ], 2)
