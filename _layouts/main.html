@@ -34,7 +34,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>{{ site.title }} - Prime Wheel Effect</title>
+<title>{{ site.title }}</title>
 
 <style>
 {% include main.css %}
@@ -43,36 +43,7 @@
 
 <body>
 
-<canvas id="primewheel_canvas" style="position: fixed; top: 0; left: 0;"></canvas>
-
-<script>
-{% include primeWheel.js %}
-
-primeWheel.add = {
-	color: '#00FF00',
-	random_offset: true,
-	spacing: 3
-}
-primeWheel.add = {
-	color: '#FF0000',
-	random_offset: true,
-	spacing: 3
-}
-primeWheel.add = {
-	color: '#FFFF00',
-	random_offset: true,
-	scale: 0.5,
-	spacing: 3
-}
-primeWheel.add = {
-	color: '#FF7F00',
-	random_offset: true,
-	scale: 0.5,
-	spacing: 3
-}
-primeWheel.add = {}
-primeWheel.start()
-</script>
+{{ content }}
 
 </body>
 </html>
