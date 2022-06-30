@@ -10,7 +10,7 @@ extras:
 
 <script>
 
-const fibSeq = new FibonacciSequence(10)
-console.log(fibSeq.sequence)
+const fibSeq = FibonacciSequence(10)
+console.log(fibSeq)
 
 </script>

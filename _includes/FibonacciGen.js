@@ -10,19 +10,13 @@
  *
  */
 
-class FibonacciSequence {
-    #sequence = []
-    
-    /**
-     * Constructor
-     * @param {Number} len Length to generate the sequence to.
-     * @returns {Array} Completed sequence.
-     */
-    constructor(len) {
-        if(len === undefined || len < 2) len = 2
-        this.#sequence = this.#genFib(len, [ 0, 1 ], 2)
-    }
-
+/**
+ * Generate a Fibonacci sequence
+ * @param {Number} len Length to generate the sequence to.
+ * @returns {Array} Completed sequence.
+ */
+const FibonacciSequence = (len) => {
+    if(len === undefined || len < 2) len = 2
     /**
      * Recursive function to generate the sequence.
      * @param {Number} len Length to generate the sequence to.
@@ -30,14 +24,12 @@ class FibonacciSequence {
      * @param {Count} count Current position.
      * @returns {Array} Completed sequence.
      */
-    #genFib(len, fibSeq, count) {
+    const genFib = (len, fibSeq, count) => {
         if(len === count) return fibSeq
         else {
             fibSeq.push((fibSeq[count - 2] + fibSeq[count - 1]))
             this.#genFib(len, fibSeq, count + 1)
         }
     }
-
-    get sequence() { return this.#sequence }
-    get length() { return this.#sequence.length }
+    return genFib(len, [ 0, 1 ], 2)
 }
