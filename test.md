@@ -10,7 +10,6 @@ extras:
 
 <script>
 
-const fibSeq = FibonacciSequence(1920 * 1080)
-console.log(fibSeq)
+new test(FibonacciSequence(1920 * 1080))
 
 </script>
