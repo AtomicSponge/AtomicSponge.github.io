@@ -1,4 +1,5 @@
 *.code-workspace
+.vscode/
 *_backup/
 
 .jekyll-metadata
