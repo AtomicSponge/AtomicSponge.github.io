@@ -3,32 +3,32 @@ layout: effect
 title: Prime Wheel Effect
 style: main.css
 canvas: primewheel_canvas
-effect: primeWheel.js
+effect: PrimeWheel.js
 ---
 
 <script>
-primeWheel.add = {
+PrimeWheel.add = {
 	color: '#00FF00',
 	random_offset: true,
 	spacing: 3
 }
-primeWheel.add = {
+PrimeWheel.add = {
 	color: '#FF0000',
 	random_offset: true,
 	spacing: 3
 }
-primeWheel.add = {
+PrimeWheel.add = {
 	color: '#FFFF00',
 	random_offset: true,
 	scale: 0.5,
 	spacing: 3
 }
-primeWheel.add = {
+PrimeWheel.add = {
 	color: '#FF7F00',
 	random_offset: true,
 	scale: 0.5,
 	spacing: 3
 }
-primeWheel.add = {}
-primeWheel.start()
+PrimeWheel.add = {}
+PrimeWheel.start()
 </script>

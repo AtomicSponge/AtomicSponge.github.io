@@ -3,10 +3,10 @@
  * Inspired by the 3Blue1Brown YouTube series:
  * https://www.youtube.com/watch?v=EK32jo7i5LQ
  *
- * Filename:  primeWheel.js
+ * Filename:  PrimeWheel.js
  * By:  Matthew Evans
  *      https://atomicsponge.wtfsystems.net/
- * Version:  062522
+ * Version:  063022
  *
  * Copyright (c) 2020-2022 Matthew Evans - See LICENSE.md
  *
@@ -15,7 +15,7 @@
 /**
  * Prime Wheel class
  */
-class primeWheel {
+class PrimeWheel {
     static #bg_color = '#000000'               //  Background color
     static #max_wheels = 5                     //  Maximum number of running wheels
     static #canvas_name = 'primewheel_canvas'  //  Target draw canvas
