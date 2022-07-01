@@ -1,6 +1,5 @@
 /*
  * Draws a Fibonacci Spiral
- * wip
  *
  * Filename:  FibonacciSpiral.js
  * By:  Matthew Evans
@@ -34,6 +33,10 @@ class FibonacciSpiral {
         this.#center_y = this.#ctx.canvas.height / 2
     }
 
+    /**
+     * Call to draw the spiral
+     * @param {Number} len Length to generate the sequence to
+     */
     static draw(len) {
         var data = [ 0, 1 ]
         var beg_x = this.#center_x
