@@ -1,7 +1,7 @@
 ---
 layout: effect
 title: Prime Wheel Effect
-style: main.css
+style: effect.css
 canvas: primewheel_canvas
 effect: PrimeWheel.js
 ---

@@ -1,7 +1,7 @@
 ---
 layout: effect
 title: Fibonacci Spiral
-style: main.css
+style: effect.css
 canvas: fibSpiral
 effect: FibonacciSpiral.js
 ---
