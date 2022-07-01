@@ -5,7 +5,7 @@
  * Filename:  FibonacciSpiral.js
  * By:  Matthew Evans
  *      https://atomicsponge.wtfsystems.net/
- * Version:  063022
+ * Version:  070122
  *
  * Copyright (c) 2022 Matthew Evans - See LICENSE.md
  *
@@ -35,28 +35,67 @@ class FibonacciSpiral {
     }
 
     static draw(len) {
-        var data = []
-        this.#ctx.strokeStyle = '#FFFF00'
-        this.#ctx.lineWidth = 1
-        var pos_x = this.#center_x
-        var pos_y = this.#center_y
-        var counter = 0
+        var data = [ 0, 1 ]
+        var beg_x = this.#center_x
+        var beg_y = this.#center_y
+        var mid_x = this.#center_x + 0.5
+        var mid_y = this.#center_y + 0.5
+        var end_x = this.#center_x + 1
+        var end_y = this.#center_y + 1
+        var counter = 1
+
         this.#ctx.fillStyle = this.#bg_color
         this.#ctx.fillRect(0, 0, this.#ctx.canvas.width, this.#ctx.canvas.height)
-        for(let i = 0; i < len; i++) {
+        this.#ctx.strokeStyle = '#FFFF00'
+        this.#ctx.lineWidth = 1
+
+        this.#ctx.beginPath()
+        this.#ctx.moveTo(beg_x, beg_y)
+        this.#ctx.quadraticCurveTo(mid_x, mid_y, end_x, end_y)
+        this.#ctx.stroke()
+        
+        beg_x = end_x
+        beg_y = end_y
+
+        for(let i = 2; i < len; i++) {
+            data.push((data[data.length - 1] + data[data.length - 2]))
+            switch(counter) {
+                case 0:
+                    mid_x = beg_x
+                    mid_y = beg_y + data[i]
+                    end_x = beg_x + data[i]
+                    end_y = beg_y + data[i]
+                    counter++
+                    break
+                case 1:
+                    mid_x = beg_x + data[i]
+                    mid_y = beg_y
+                    end_x = beg_x + data[i]
+                    end_y = beg_y - data[i]
+                    counter++
+                    break
+                case 2:
+                    mid_x = beg_x
+                    mid_y = beg_y - data[i]
+                    end_x = beg_x - data[i]
+                    end_y = beg_y - data[i]
+                    counter++
+                    break
+                case 3:
+                    mid_x = beg_x - data[i]
+                    mid_y = beg_y
+                    end_x = beg_x - data[i]
+                    end_y = beg_y + data[i]
+                    counter = 0
+                    break
+            }
+
             this.#ctx.beginPath()
-            this.#ctx.moveTo(pos_x, pos_y)
-
-            if(i == 0 || i == 1) data.push(i)
-            else data.push((data[data.length - 1] + data[data.length - 2]))
-
-            console.log(data[data.length-1])
-
-            pos_x = this.#center_x + (data[i] * Math.cos(data[i]))
-            pos_y = this.#center_y + (data[i] * Math.sin(data[i]))
-
-            this.#ctx.lineTo(pos_x, pos_y)
+            this.#ctx.moveTo(beg_x, beg_y)
+            this.#ctx.quadraticCurveTo(mid_x, mid_y, end_x, end_y)
             this.#ctx.stroke()
+            beg_x = end_x
+            beg_y = end_y
         }
     }
 }
