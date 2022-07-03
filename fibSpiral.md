@@ -6,4 +6,7 @@ canvas: fibSpiral
 effect: FibonacciSpiral.js
 ---
 
-<script> FibonacciSpiral.draw(75) </script>
+<script>
+FibonacciSpiral.genSeq(75)
+FibonacciSpiral.draw(75)
+</script>

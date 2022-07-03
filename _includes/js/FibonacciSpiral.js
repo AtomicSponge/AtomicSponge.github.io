@@ -4,7 +4,7 @@
  * Filename:  FibonacciSpiral.js
  * By:  Matthew Evans
  *      https://atomicsponge.wtfsystems.net/
- * Version:  070122
+ * Version:  070322
  *
  * Copyright (c) 2022 Matthew Evans - See LICENSE.md
  *
@@ -17,6 +17,7 @@ class FibonacciSpiral {
     static #canvas = null              //  Canvas to draw to
     static #center_x = 0               //  Center X of canvas
     static #center_y = 0               //  Center Y of canvas
+    static #fib_seq = [ 0, 1 ]         //  Store calculated Fibonacci Sequence
 
     static {
         this.#canvas = document.getElementById(this.#canvas_name)
@@ -34,70 +35,76 @@ class FibonacciSpiral {
     }
 
     /**
+     * Calculate the Fibonacci Sequence to a certain length
+     * @param {Number} len Length to calculate the sequence to
+     */
+    static genSeq(len) {
+        for(let i = 2; i < len - 2; i++)
+            this.#fib_seq.push(
+                (this.#fib_seq[this.#fib_seq.length - 1] + this.#fib_seq[this.#fib_seq.length - 2]))
+    }
+
+    /**
      * Call to draw the spiral
-     * @param {Number} len Length to generate the sequence to
+     * @param {Number} len Length to draw the sequence to
      */
     static draw(len) {
-        var data = [ 0, 1 ]
-        var beg_x = this.#center_x
+        if(this.#fib_seq.length < 3) {
+            console.log(`Must call 'FibonacciSpiral.genSeq(len)' first.`)
+            return
+        }
+        var beg_x = this.#center_x  //  Start at center
         var beg_y = this.#center_y
-        var mid_x = this.#center_x + 0.5
-        var mid_y = this.#center_y + 0.5
-        var end_x = this.#center_x + 1
-        var end_y = this.#center_y + 1
-        var counter = 1
+        var mid_x = 0
+        var mid_y = 0
+        var end_x = 0
+        var end_y = 0
+        var counter = 0
 
         this.#ctx.fillStyle = this.#bg_color
         this.#ctx.fillRect(0, 0, this.#ctx.canvas.width, this.#ctx.canvas.height)
         this.#ctx.strokeStyle = '#FFFF00'
         this.#ctx.lineWidth = 1
 
-        this.#ctx.beginPath()
-        this.#ctx.moveTo(beg_x, beg_y)
-        this.#ctx.quadraticCurveTo(mid_x, mid_y, end_x, end_y)
-        this.#ctx.stroke()
-        
-        beg_x = end_x
-        beg_y = end_y
-
-        for(let i = 2; i < len; i++) {
-            data.push((data[data.length - 1] + data[data.length - 2]))
+        for(let i = 1; i < len; i++) {
+            //  For each step, swap the direction of the blocks
             switch(counter) {
                 case 0:
                     mid_x = beg_x
-                    mid_y = beg_y + data[i]
-                    end_x = beg_x + data[i]
-                    end_y = beg_y + data[i]
+                    mid_y = beg_y + this.#fib_seq[i]
+                    end_x = beg_x + this.#fib_seq[i]
+                    end_y = beg_y + this.#fib_seq[i]
                     counter++
                     break
                 case 1:
-                    mid_x = beg_x + data[i]
+                    mid_x = beg_x + this.#fib_seq[i]
                     mid_y = beg_y
-                    end_x = beg_x + data[i]
-                    end_y = beg_y - data[i]
+                    end_x = beg_x + this.#fib_seq[i]
+                    end_y = beg_y - this.#fib_seq[i]
                     counter++
                     break
                 case 2:
                     mid_x = beg_x
-                    mid_y = beg_y - data[i]
-                    end_x = beg_x - data[i]
-                    end_y = beg_y - data[i]
+                    mid_y = beg_y - this.#fib_seq[i]
+                    end_x = beg_x - this.#fib_seq[i]
+                    end_y = beg_y - this.#fib_seq[i]
                     counter++
                     break
                 case 3:
-                    mid_x = beg_x - data[i]
+                    mid_x = beg_x - this.#fib_seq[i]
                     mid_y = beg_y
-                    end_x = beg_x - data[i]
-                    end_y = beg_y + data[i]
+                    end_x = beg_x - this.#fib_seq[i]
+                    end_y = beg_y + this.#fib_seq[i]
                     counter = 0
                     break
             }
 
+            //  Draw curve using calculated points
             this.#ctx.beginPath()
             this.#ctx.moveTo(beg_x, beg_y)
             this.#ctx.quadraticCurveTo(mid_x, mid_y, end_x, end_y)
             this.#ctx.stroke()
-            beg_x = end_x
+            beg_x = end_x  //  Reset for next curve
             beg_y = end_y
         }
     }
