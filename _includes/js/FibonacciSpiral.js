@@ -35,10 +35,11 @@ class FibonacciSpiral {
     }
 
     /**
-     * Calculate the Fibonacci Sequence to a certain length
+     * Calculate the Fibonacci Sequence to a certain length (min 50 positions)
      * @param {Number} len Length to calculate the sequence to
      */
     static genSeq(len) {
+        if(len === undefined || len < 50) len = 50
         for(let i = 2; i < len - 2; i++)
             this.#fib_seq.push(
                 (this.#fib_seq[this.#fib_seq.length - 1] + this.#fib_seq[this.#fib_seq.length - 2]))
