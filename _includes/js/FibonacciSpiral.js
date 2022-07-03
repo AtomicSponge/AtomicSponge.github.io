@@ -53,6 +53,7 @@ class FibonacciSpiral {
             console.log(`Must call 'FibonacciSpiral.genSeq(len)' first.`)
             return
         }
+        if(len > this.#fib_seq.length) len = this.#fib_seq.length
         var beg_x = this.#center_x  //  Start at center
         var beg_y = this.#center_y
         var mid_x = 0
@@ -66,7 +67,7 @@ class FibonacciSpiral {
         this.#ctx.strokeStyle = '#FFFF00'
         this.#ctx.lineWidth = 1
 
-        for(let i = 1; i < len; i++) {
+        for(let i = 1; i < len - 1; i++) {
             //  For each step, swap the direction of the blocks
             switch(counter) {
                 case 0:
