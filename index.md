@@ -21,12 +21,12 @@ layout: main
 <hr style="width:65%"/>
 
 <div style="text-align:center;">Check out my
-<a href="https://www.npmjs.com/~spongex">NPM</a>
+<a href="https://www.npmjs.com/~spongex" target="_blank">NPM</a>
 for scripts I've written</div>
 
 <hr style="width:65%"/>
 <div style="text-align:center;">My working
-<a href="https://github.com/wtfsystems">C++ game engine</a>
+<a href="https://github.com/wtfsystems" target="_blank">C++ game engine</a>
 with example game
 
 <hr style="width:65%"/>
@@ -34,6 +34,6 @@ with example game
 <div style="text-align:center;">
 <h3>Fun Web Examples</h3>
 {% for item in site.data.effects %}
-<div><a href="{{ item.link }}">{{ item.name }}</a> - {{ item.desc }}</div>
+<div><a href="{{ item.link }}" target="_blank">{{ item.name }}</a> - {{ item.desc }}</div>
 {% endfor %}
 </div>
