@@ -43,7 +43,24 @@
 
 <body>
 
+<div style="text-align:center;">
+	<h1>--- Matthew Evans ---</h1>
+</div>
+	
+<div style="text-align:center;">
+<canvas id="message_canvas" width="240" height="48"></canvas>
+</div>
+
 {{ content }}
 
 </body>
+
+<script>
+{% include js/encodedMessage.js %}
+encodedMessage(     //  Display contact email
+	[ 0x63, 0x6f, 0x6e, 0x74, 0x61, 0x63, 0x74, 0x40, 0x77, 0x74, 0x66, 0x73, 0x79, 0x73, 0x74, 0x65, 0x6d, 0x73, 0x2e, 0x6e, 0x65, 0x74 ],
+	{ canvas_width: 240, canvas_height: 48 }
+)
+</script>
+
 </html>
