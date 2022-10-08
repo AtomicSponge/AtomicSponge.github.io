@@ -2,6 +2,8 @@
 layout: main
 ---
 
+<div style="text-align:center;"><img src="img/my_pic.png" width="280px"/></div>
+
 <hr style="width:65%"/>
 
 <div style="text-align:center;">
@@ -12,7 +14,6 @@ layout: main
     <br/><br/>
     I'm currently open to part time work and contact positions.  Contact me at the email address above if interested in my services.
 </td>
-<td><img src="img/my_pic.png" width="220px"/></td>
 </tr>
 </table>
 </div>
