@@ -22,7 +22,9 @@ layout: main
 
 <div style="text-align:center;">Check out my
 <a href="https://www.npmjs.com/~spongex" target="_blank" rel="noopener noreferrer">NPM</a>
-for scripts I've written</div>
+and
+<a href="https://github.com/AtomicSponge" target="_blank" rel="noopener noreferrer">GitHub</a>
+for programs I've written</div>
 
 <hr style="width:65%"/>
 <div style="text-align:center;">My working
