@@ -10,7 +10,7 @@ layout: main
 <table style="width:75%;margin-left:auto;margin-right:auto;border:3px double;">
 <tr>
 <td style="text-align:left;padding:8px;">
-    Hi I'm a multifaceted developer experienced in multiple fields of engineering.  While I may lack on appearance my knowledge of data structures makes up for it a lot.  I started my interest in computers back when I was a child and have fostered this passion all of my life.  In the past I've worked on many software projects aimed at analytics.  This has also helped my understanding of mathematics quite well.  I'm very confident in my abilities and enjoy any challenging work I can find.
+    Hi I'm a multifaceted developer experienced in multiple fields of engineering and with over 20 years in various positions.  While I may lack on appearance my knowledge of data structures makes up for it a lot.  I started my interest in computers back when I was a child and have fostered this passion all of my life.  In the past I've worked on many software projects aimed at analytics.  This has also helped my understanding of mathematics quite well.  I'm very confident in my abilities and enjoy any challenging work I can find.
     <br/><br/>
     I'm currently open to contract positions only.  Contact me at the email address above if interested in my services.
 </td>
