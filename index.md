@@ -10,7 +10,7 @@ layout: main
 <table style="width:75%;margin-left:auto;margin-right:auto;border:3px double;">
 <tr>
 <td style="text-align:left;padding:8px;">
-    Hi I'm a software developer experienced in multiple fields of engineering, and with over 20 years of work in various positions.  I started my interest in computers back when I was a child and have fostered this passion all of my life though my work and career.  You can see a good example of my work on my personal GitHub portfolio.  I'm very confident in my abilities and enjoy any challenging work I can find.
+    Hi I'm a software developer experienced in multiple fields of engineering, and with over 20 years of work in various positions.  I started my interest in computers back when I was a child and have fostered this passion all of my life through my work and career.  You can see a good example of my work on my personal GitHub portfolio.
     <br/><br/>
     Please contact me for any inquiries, thank you!
 </td>
