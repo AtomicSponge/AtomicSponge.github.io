@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import './App.css'
+//import './App.css'
 
 import Controls from './Controls'
 
@@ -10,6 +10,7 @@ export default function App() {
 
   return (
     <>
+
     {PrimeWheel.add = {
       color: '#00FF00',
       random_offset: true,
@@ -34,7 +35,7 @@ export default function App() {
     }}
     {PrimeWheel.add = {}}
     {PrimeWheel.start()}
-    <Controls></Controls>
+
     </>
   )
 }

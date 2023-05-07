@@ -6,9 +6,9 @@
  * Filename:  PrimeWheel.mjs
  * By:  Matthew Evans
  *      https://atomicsponge.wtfsystems.net/
- * Version:  063022
+ * Version:  050723
  *
- * Copyright (c) 2020-2022 Matthew Evans - See LICENSE.md
+ * Copyright (c) 2020-2023 Matthew Evans - See LICENSE.md
  *
  */
 
@@ -16,7 +16,6 @@
  * Prime Wheel class
  */
 export class PrimeWheel {
-    static #bg_color = '#000000'               //  Background color
     static #max_wheels = 5                     //  Maximum number of running wheels
     static #canvas_name = 'primewheel_canvas'  //  Target draw canvas
     static #start_called = false               //  Track if start function was called
@@ -44,30 +43,16 @@ export class PrimeWheel {
         this.#center_y = this.#ctx.canvas.height / 2
 
         //  Clear the canvas
-        this.#ctx.fillStyle = this.#bg_color
-        this.#ctx.fillRect(0, 0, this.#ctx.canvas.width, this.#ctx.canvas.height)
+        this.#ctx.clearRect(0, 0, this.#ctx.canvas.width, this.#ctx.canvas.height)
 
         this.#start_called = false  //  Allow start to be called
     }
 
     /** *** Public functions *** **/
-    /** *** Getters *** **/
     /**
      * @prop {Number} num_wheels Number of prime wheels
      */
     static get num_wheels() { return this.#wheels.length }
-
-    /** *** Setters *** **/
-    /**
-     * Set the background color.
-     */
-    static set bgColor(color) {
-        if(!(this.testHex(color) || this.testRgb(color))) {
-            console.log(`Invalid color format`)
-            return
-        }
-        this.#bg_color = color
-    }
 
     /**
      * Set the maximum allowed wheels.
@@ -165,8 +150,7 @@ export class PrimeWheel {
     static reset() {
         console.log(`Resetting prime wheel effect`)
         this.#ctx = this.#canvas.getContext('2d')
-        this.#ctx.fillStyle = this.#bg_color
-        this.#ctx.fillRect(0, 0, this.#ctx.canvas.width, this.#ctx.canvas.height)
+        this.#ctx.clearRect(0, 0, this.#ctx.canvas.width, this.#ctx.canvas.height)
         this.#wheels.forEach(wheel => {
             if(wheel.random_offset) wheel = this.#setOffset(wheel)
             wheel.last_prime = 2
