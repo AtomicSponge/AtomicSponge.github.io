@@ -1,6 +1,0 @@
-- name: Prime Wheel
-  link: primeWheel.html
-  desc: Draws multiple animated spirals to the screen
-- name: Fibonacci Spiral
-  link: fibSpiral.html
-  desc: Draws a spiral calculated using the Fibonacci sequence
