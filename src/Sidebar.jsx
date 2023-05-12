@@ -1,7 +1,11 @@
+/*
+ *
+ */
+
 import "./Sidebar.css"
 import React from "react"
 
-export default function Sidebar({ width, height, children }) {
+const Sidebar = ({ width, height, children }) => {
   const [xPosition, setX] = React.useState(-width)
 
   const toggleMenu = () => {
@@ -38,3 +42,5 @@ export default function Sidebar({ width, height, children }) {
     </React.Fragment>
   )
 }
+
+export default Sidebar
