@@ -10,14 +10,14 @@ const PrimeWheel = props => {
   const canvasRef = useRef(null)
 
   const wheelData = {
-    scale: 1,
-    spacing: 1,
-    speed: 5,
+    scale: 2,
+    spacing: 2,
+    speed: 1,
     color: '#0000FF',
     size: '8px',
     font: 'Arial',
     last_prime: 2,
-    max_size: 4000
+    max_size: 1400
   }
 
   const isPrime = (num) => {
