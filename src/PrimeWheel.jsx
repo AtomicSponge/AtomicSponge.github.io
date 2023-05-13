@@ -8,13 +8,45 @@ import './PrimeWheel.css'
 const PrimeWheel = props => {
   
   const canvasRef = useRef(null)
-  
+
+  const wheelData = {
+    scale: 1,
+    spacing: 1,
+    speed: 5,
+    color: '#0000FF',
+    size: '8px',
+    font: 'Arial',
+    last_prime: 2,
+    max_size: 4000
+  }
+
+  const isPrime = (num) => {
+    for(var i = 2; i < num; i++) {
+        if(num % i == 0) return false
+    }
+    return true
+  }
+
   const draw = (ctx, frameCount) => {
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-    ctx.fillStyle = '#FFFFFF'
-    ctx.beginPath()
-    ctx.arc(50, 100, 20*Math.sin(frameCount*0.05)**2, 0, 2*Math.PI)
-    ctx.fill()
+    //  Prime number found, draw it using cartesian coordinates
+    if(isPrime(wheelData.last_prime)) {
+      ctx.font = wheelData.font + " " + wheelData.size
+      ctx.fillStyle = wheelData.color
+      ctx.fillText(
+        wheelData.last_prime,
+          ((ctx.canvas.width / 2) + (wheelData.last_prime * Math.cos(wheelData.last_prime)) / wheelData.spacing),
+          ((ctx.canvas.height / 2) - (wheelData.last_prime * Math.sin(wheelData.last_prime)) / wheelData.spacing)
+      )
+    }
+
+    if(frameCount % wheelData.speed === 0)
+      wheelData.last_prime++  //  Increment counter to check for next prime
+
+    //  Reset wheel at max size
+    if(wheelData.last_prime > wheelData.max_size) {
+      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+      wheelData.last_prime = 2
+    }
   }
   
   useEffect(() => {
