@@ -7,40 +7,40 @@ import { useRef, useState } from 'react'
 import Sidebar from './Sidebar'
 import PrimeWheel from './PrimeWheel'
 
+let wheelColor = "#0000FF"
+
+const wheelData = {
+  color: "#0000FF"
+}
+
 const WheelColor = () => {
-  const colorRef = useRef(null)
-  
-  return <input className="wheel-color" ref={colorRef}/>
+  return <input className="wheel-color" defaultValue="#0000FF" onChange={e => {
+    wheelData.color = e.target.value
+  }}/>
 }
 
 const WheelScale = () => {
-  const scaleRef = useRef(null)
-  
-  return <select className="wheel-scale" ref={scaleRef}>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
+  return <select className="wheel-scale" onchange={e => {}}>
     <option value="5">5</option>
+    <option value="4">4</option>
+    <option value="3">3</option>
+    <option value="2">2</option>
+    <option value="1">1</option>
   </select>
 }
 
 const WheelSpacing = () => {
-  const spacingRef = useRef(null)
-  
-  return <select className="wheel-spacing" ref={spacingRef}>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
+  return <select className="wheel-spacing" onchange={e => {}}>
     <option value="5">5</option>
+    <option value="4">4</option>
+    <option value="3">3</option>
+    <option value="2">2</option>
+    <option value="1">1</option>
   </select>
 }
 
 const WheelSpeed = () => {
-  const speedRef = useRef(null)
-  
-  return <select className="wheel-speed" ref={speedRef}>
+  return <select className="wheel-speed" onchange={e => {}}>
     <option value="1">1</option>
     <option value="2">2</option>
     <option value="3">3</option>
@@ -55,7 +55,7 @@ const App = () => {
   return (
     <> 
 
-    <PrimeWheel scale="2" spacing="2" speed="1" color="#0000FF" size="8px" max_size="1400"/>
+    <PrimeWheel scale="5" spacing="5" speed="1" color={wheelData.color} size="8px" max_size="3600"/>
     <Sidebar width={300} height={"100vh"}>
       <WheelColor/>
       <WheelScale/>
