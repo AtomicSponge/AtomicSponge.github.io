@@ -38,7 +38,7 @@ const PrimeWheel = props => {
   const draw = (ctx, frameCount) => {
     //  Prime number found, draw it using cartesian coordinates
     if(isPrime(wheelData.last_prime)) {
-      ctx.font = wheelData.font + " " + wheelData.size
+      ctx.font = wheelData.size + " " + wheelData.font
       ctx.fillStyle = wheelData.color
       ctx.fillText(
         wheelData.last_prime,
