@@ -24,10 +24,10 @@ const WheelSize = ({stateChanger}) => {
   return <select className="wheel-speed" onChange={e => {
     stateChanger(e.target.value)
   }}>
-    <option value="8px">1</option>
-    <option value="6px">2</option>
-    <option value="4px">3</option>
-    <option value="2px">4</option>
+    <option value="8px">8px</option>
+    <option value="6px">6px</option>
+    <option value="4px">4px</option>
+    <option value="2px">2px</option>
   </select>
 }
 
@@ -38,11 +38,11 @@ const WheelScale = ({stateChanger}) => {
   return <select className="wheel-scale" onChange={e => {
     stateChanger(e.target.value)
   }}>
-    <option value="5">5</option>
-    <option value="4">4</option>
-    <option value="3">3</option>
-    <option value="2">2</option>
-    <option value="1">1</option>
+    <option value="5">Smallest</option>
+    <option value="4">Smaller</option>
+    <option value="3">Middle</option>
+    <option value="2">Larger</option>
+    <option value="1">Largest</option>
   </select>
 }
 
@@ -53,11 +53,11 @@ const WheelSpeed = ({stateChanger}) => {
   return <select className="wheel-speed" onChange={e => {
     stateChanger(e.target.value)
   }}>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
+    <option value="1">Fastest</option>
+    <option value="2">Faster</option>
+    <option value="3">Middle</option>
+    <option value="4">Slower</option>
+    <option value="5">Slowest</option>
   </select>
 }
 
