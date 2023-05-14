@@ -20,7 +20,9 @@ const WheelColor = () => {
 }
 
 const WheelScale = () => {
-  return <select className="wheel-scale" onchange={e => {}}>
+  return <select className="wheel-scale" onchange={e => {
+    //
+  }}>
     <option value="5">5</option>
     <option value="4">4</option>
     <option value="3">3</option>
@@ -30,7 +32,9 @@ const WheelScale = () => {
 }
 
 const WheelSpacing = () => {
-  return <select className="wheel-spacing" onchange={e => {}}>
+  return <select className="wheel-spacing" onchange={e => {
+    //
+  }}>
     <option value="5">5</option>
     <option value="4">4</option>
     <option value="3">3</option>
@@ -40,7 +44,9 @@ const WheelSpacing = () => {
 }
 
 const WheelSpeed = () => {
-  return <select className="wheel-speed" onchange={e => {}}>
+  return <select className="wheel-speed" onchange={e => {
+    //
+  }}>
     <option value="1">1</option>
     <option value="2">2</option>
     <option value="3">3</option>
