@@ -73,7 +73,7 @@ const App = () => {
   return (
     <> 
 
-    <PrimeWheel scale={wheelScale} size={wheelSize} speed={wheelSpeed} color={wheelColor} max_size="4200"/>
+    <PrimeWheel scale={wheelScale} size={wheelSize} speed={wheelSpeed} color={wheelColor} max_size={4200}/>
     <Sidebar width={300} height={"100vh"}>
       <h3>Prime Wheel controls</h3>
       <div>Color: <WheelColor stateChanger={setColorState}/></div>
