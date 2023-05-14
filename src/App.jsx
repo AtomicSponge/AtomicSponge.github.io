@@ -8,12 +8,18 @@ import { useState } from 'react'
 import Sidebar from './Sidebar'
 import PrimeWheel from './PrimeWheel'
 
+/*
+ * Set wheel color
+ */
 const WheelColor = ({stateChanger}) => {
   return <input className="wheel-color" defaultValue="#0000FF" onChange={e => {
     stateChanger(e.target.value)
   }}/>
 }
 
+/*
+ * Set wheel scale
+ */
 const WheelScale = ({stateChanger}) => {
   return <select className="wheel-scale" onChange={e => {
     stateChanger(e.target.value)
@@ -26,6 +32,9 @@ const WheelScale = ({stateChanger}) => {
   </select>
 }
 
+/*
+ * Set wheel spacing
+ */
 const WheelSpacing = ({stateChanger}) => {
   return <select className="wheel-spacing" onChange={e => {
     stateChanger(e.target.value)
@@ -38,6 +47,9 @@ const WheelSpacing = ({stateChanger}) => {
   </select>
 }
 
+/*
+ * Set wheel speed
+ */
 const WheelSpeed = ({stateChanger}) => {
   return <select className="wheel-speed" onChange={e => {
     stateChanger(e.target.value)
@@ -50,6 +62,9 @@ const WheelSpeed = ({stateChanger}) => {
   </select>
 }
 
+/*
+ * Main app function
+ */
 const App = () => {
   const [ wheelColor, setColorState ] = useState("#0000FF")
   const [ wheelScale, setScaleState ] = useState(5)
