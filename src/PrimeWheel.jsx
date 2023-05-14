@@ -14,7 +14,6 @@ const PrimeWheel = props => {
    */
   const wheelData = {
     scale: props.scale,
-    spacing: props.spacing,
     speed: props.speed,
     color: props.color,
     size: props.size,
@@ -43,8 +42,8 @@ const PrimeWheel = props => {
       ctx.fillStyle = wheelData.color
       ctx.fillText(
         wheelData.last_prime,
-          ((ctx.canvas.width / 2) + (wheelData.last_prime * Math.cos(wheelData.last_prime)) / wheelData.spacing),
-          ((ctx.canvas.height / 2) - (wheelData.last_prime * Math.sin(wheelData.last_prime)) / wheelData.spacing)
+          ((ctx.canvas.width / 2) + (wheelData.last_prime * Math.cos(wheelData.last_prime)) / wheelData.scale),
+          ((ctx.canvas.height / 2) - (wheelData.last_prime * Math.sin(wheelData.last_prime)) / wheelData.scale)
       )
     }
 
