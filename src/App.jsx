@@ -62,10 +62,10 @@ const App = () => {
     <PrimeWheel scale={wheelScale} spacing={wheelSpacing} speed={wheelSpeed} color={wheelColor} size="8px" max_size="4200"/>
     <Sidebar width={300} height={"100vh"}>
       <h3>Prime Wheel controls</h3>
-      <WheelColor stateChanger={setColorState}/>
-      <WheelScale stateChanger={setScaleState}/>
-      <WheelSpacing stateChanger={setSpacingState}/>
-      <WheelSpeed stateChanger={setSpeedState}/>
+      <div>Set color: <WheelColor stateChanger={setColorState}/></div>
+      <div>Set scale: <WheelScale stateChanger={setScaleState}/></div>
+      <div>Set spacing: <WheelSpacing stateChanger={setSpacingState}/></div>
+      <div>Set speed: <WheelSpeed stateChanger={setSpeedState}/></div>
     </Sidebar>
 
     </>
