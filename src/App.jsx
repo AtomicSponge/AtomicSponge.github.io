@@ -7,10 +7,6 @@ import { useState } from 'react'
 import Sidebar from './Sidebar'
 import PrimeWheel from './PrimeWheel'
 
-const wheelData = {
-  color: "#0000FF"
-}
-
 const WheelColor = ({stateChanger}) => {
   return <input className="wheel-color" defaultValue="#0000FF" onChange={e => {
     stateChanger(e.target.value)
