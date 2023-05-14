@@ -13,9 +13,9 @@ const WheelColor = ({stateChanger}) => {
   }}/>
 }
 
-const WheelScale = () => {
+const WheelScale = ({stateChanger}) => {
   return <select className="wheel-scale" onChange={e => {
-    //
+    stateChanger(e.target.value)
   }}>
     <option value="5">5</option>
     <option value="4">4</option>
@@ -25,9 +25,9 @@ const WheelScale = () => {
   </select>
 }
 
-const WheelSpacing = () => {
+const WheelSpacing = ({stateChanger}) => {
   return <select className="wheel-spacing" onChange={e => {
-    //
+    stateChanger(e.target.value)
   }}>
     <option value="5">5</option>
     <option value="4">4</option>
@@ -37,9 +37,9 @@ const WheelSpacing = () => {
   </select>
 }
 
-const WheelSpeed = () => {
+const WheelSpeed = ({stateChanger}) => {
   return <select className="wheel-speed" onChange={e => {
-    //
+    stateChanger(e.target.value)
   }}>
     <option value="1">1</option>
     <option value="2">2</option>
@@ -50,17 +50,20 @@ const WheelSpeed = () => {
 }
 
 const App = () => {
-  const [ wheelColor, setState ] = useState("#0000FF")
+  const [ wheelColor, setColorState ] = useState("#0000FF")
+  const [ wheelScale, setScaleState ] = useState(5)
+  const [ wheelSpacing, setSpacingState ] = useState(5)
+  const [ wheelSpeed, setSpeedState ] = useState(1)
 
   return (
     <> 
 
-    <PrimeWheel scale="5" spacing="5" speed="1" color={wheelColor} size="8px" max_size="4200"/>
+    <PrimeWheel scale={wheelScale} spacing={wheelSpacing} speed={wheelSpeed} color={wheelColor} size="8px" max_size="4200"/>
     <Sidebar width={300} height={"100vh"}>
-      <WheelColor stateChanger={setState}/>
-      <WheelScale/>
-      <WheelSpacing/>
-      <WheelSpeed/>
+      <WheelColor stateChanger={setColorState}/>
+      <WheelScale stateChanger={setScaleState}/>
+      <WheelSpacing stateChanger={setSpacingState}/>
+      <WheelSpeed stateChanger={setSpeedState}/>
     </Sidebar>
 
     </>
