@@ -61,7 +61,7 @@ const App = () => {
   return (
     <> 
 
-    <PrimeWheel scale="5" spacing="5" speed="1" color={wheelData.color} size="8px" max_size="3600"/>
+    <PrimeWheel scale="5" spacing="5" speed="1" color={wheelData.color} size="8px" max_size="4200"/>
     <Sidebar width={300} height={"100vh"}>
       <WheelColor/>
       <WheelScale/>
