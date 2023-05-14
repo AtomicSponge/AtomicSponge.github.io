@@ -1,6 +1,6 @@
 /*
  * Prime Wheel effect
- * By:  Matthew Evans
+ * Copyright (c) 2023 Matthew Evans - See LICENSE.md
  */
 
 import React, { useRef, useEffect } from 'react'

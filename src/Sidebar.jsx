@@ -1,6 +1,6 @@
 /*
  * Prime Wheel effect
- * By:  Matthew Evans
+ * Copyright (c) 2023 Matthew Evans - See LICENSE.md
  * 
  * Sidebar code from:
  * https://javascript.plainenglish.io/create-a-reusable-sidebar-component-with-react-d75cf48a053a

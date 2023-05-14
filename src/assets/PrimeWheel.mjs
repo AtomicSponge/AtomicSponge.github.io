@@ -6,7 +6,7 @@
  * Filename:  PrimeWheel.mjs
  * By:  Matthew Evans
  *      https://atomicsponge.wtfsystems.net/
- * Version:  050723
+ * Version:  051423
  *
  * Copyright (c) 2020-2023 Matthew Evans - See LICENSE.md
  *
@@ -238,7 +238,7 @@ export class PrimeWheel {
         animate: (wheel) => {
             //  Prime number found, draw it using cartesian coordinates
             if(this.#isPrime(wheel.last_prime)) {
-                this.#ctx.font = wheel.font + " " + wheel.size
+                this.#ctx.font = wheel.size + " " + wheel.font
                 this.#ctx.fillStyle = wheel.color
                 this.#ctx.fillText(
                     wheel.last_prime,
