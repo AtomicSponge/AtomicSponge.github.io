@@ -1,14 +1,17 @@
 /*
- *
+ * Prime Wheel effect
+ * By:  Matthew Evans
  */
 
 import React, { useRef, useEffect } from 'react'
 import './PrimeWheel.css'
 
-const PrimeWheel = props => {
-  
+const PrimeWheel = props => {  
   const canvasRef = useRef(null)
 
+  /*
+   * Wheel data used to render
+   */
   const wheelData = {
     scale: props.scale,
     spacing: props.spacing,
@@ -20,6 +23,9 @@ const PrimeWheel = props => {
     max_size: props.max_size
   }
 
+  /*
+   * Check for prime numbers
+   */
   const isPrime = (num) => {
     for(var i = 2; i < num; i++) {
         if(num % i == 0) return false
@@ -27,6 +33,9 @@ const PrimeWheel = props => {
     return true
   }
 
+  /*
+   * Draw the prime wheel
+   */
   const draw = (ctx, frameCount) => {
     //  Prime number found, draw it using cartesian coordinates
     if(isPrime(wheelData.last_prime)) {
@@ -49,6 +58,9 @@ const PrimeWheel = props => {
     }
   }
   
+  /*
+   * Set up drawing 
+   */
   useEffect(() => {
     const canvas = canvasRef.current
     const context = canvas.getContext('2d')

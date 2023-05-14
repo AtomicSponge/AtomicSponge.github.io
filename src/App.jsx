@@ -1,5 +1,6 @@
 /*
- *
+ * Prime Wheel effect
+ * By:  Matthew Evans
  */
 
 import { useState } from 'react'

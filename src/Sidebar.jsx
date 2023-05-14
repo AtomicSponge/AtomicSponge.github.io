@@ -1,5 +1,9 @@
 /*
- *
+ * Prime Wheel effect
+ * By:  Matthew Evans
+ * 
+ * Sidebar code from:
+ * https://javascript.plainenglish.io/create-a-reusable-sidebar-component-with-react-d75cf48a053a
  */
 
 import "./Sidebar.css"
