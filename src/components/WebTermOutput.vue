@@ -38,3 +38,9 @@ watch([()=>props.history, ()=>props.display],
     </template>
   </div>
 </template>
+
+<style lang="stylus" scoped>
+hr
+  width: 90%
+  border 1px dashed
+</style>
