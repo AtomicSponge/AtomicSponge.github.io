@@ -1,0 +1,109 @@
+/*
+ * atomicsponge.website
+ * Copyright (c) 2024 Matthew Evans - See LICENSE.md
+ */
+
+//  Font settings
+term_font = Inter, system-ui, Avenir, Helvetica, Arial, sans-serif
+term_font_size = medium
+
+//  Background & foreground colors
+default_bg_color = #242424
+default_fg_color = rgba(255, 255, 255, 0.87)
+
+//  URL colors
+url_color = #646cff
+url_hover_color = #535bf2
+url_visit_color = #646cff
+
+//  Input prompt colors
+term_pr_color = #ffcc00
+term_cr_color = #ff00ba
+
+//  Infobar colors
+time_bg_color = #dcdcdc
+time_fg_color = #000000
+user_bg_color = #000000
+user_fg_color = #ffffff
+site_bg_color = #87cefa
+site_fg_color = #696969
+
+//  Main formatting
+:root
+  font-family term_font
+  font-size: term_font_size
+  font-weight 400
+  line-height 1.2
+
+  color: default_fg_color
+  background-color default_bg_color
+
+  font-synthesis none
+  text-rendering optimizeLegibility
+  -webkit-font-smoothing antialiased
+  -moz-osx-font-smoothing grayscale
+
+//  Body formatting
+body
+  margin 0
+  display flex
+  flex-direction column
+  place-items start start
+  min-width 100vw
+  min-height 100vh
+
+//  Hyperlink formatting
+a
+  font-weight 500
+  color url_color
+  text-decoration inherit
+a:hover
+  color url_hover_color
+a:visited
+  color url_visit_color
+
+//  Horizontal rule formatting
+hr
+  width: 90%
+  border 1px dashed
+
+//  Image formatting
+img
+  float left
+  padding-right 12px
+  border-radius: 10%
+
+// Vue app formatting
+#app
+  margin 0 auto
+  padding 4px
+  padding-top 8px
+  padding-bottom 8px
+  width 100vw
+  display block
+
+//  Apply terminal color settings
+termstyle()
+  background-color default_bg_color
+  color default_fg_color
+  font-family term_font
+  font-size term_font_size
+  text-align: left
+
+//  Prompt element formatting
+prompt()
+  display inline
+  background-color default_bg_color
+  color term_pr_color
+  font-family term_font
+  font-size term_font_size
+
+//  Infobar element formatting
+infobar(bg_color, fg_color)
+  background-color bg_color
+  color fg_color
+  font-family term_font
+  font-size term_font_size
+  padding 6px
+  padding-top 4px
+  padding-bottom 3px
