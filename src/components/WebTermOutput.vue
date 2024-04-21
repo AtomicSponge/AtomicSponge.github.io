@@ -17,7 +17,10 @@ const props = defineProps<{
 
 var outputHistory:Array<{history:string, display:string}> = []
 
-watch([()=>props.history, ()=>props.display], ([newHistory, newDisplay]) => {
+watch([()=>props.history, ()=>props.display],
+  ([newHistory, newDisplay]) => {
+  //console.log(newDisplay)
+  //console.log(newHistory)
   if(newDisplay === 'clear') {
     outputHistory = []
     return

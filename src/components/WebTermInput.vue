@@ -19,8 +19,7 @@ var historyIndex:number = -1    //  Index for browsing previous commands
  * Run when the input form is submitted
  * @param event 
  */
-const submit = (event:Event) => {
-  event.preventDefault()
+const submit = () => {
   if (!userInput.value) return  //  no input, don't process
   //  add the entered command to the start of the history
   history.unshift(<string>userInput.value)
@@ -28,7 +27,7 @@ const submit = (event:Event) => {
   if(history.length > 20) history = history.slice(0, 19)
   historyIndex = -1  //  reset history index
   infoKey += 1  //  force update info display
-  if(infoKey == Number.MAX_SAFE_INTEGER) infoKey = 0
+  if(infoKey === Number.MAX_SAFE_INTEGER) infoKey = 0
   emit('user-input', userInput.value)  //  send the input
   userInput.value = ''  //  reset user input
 }
@@ -67,7 +66,7 @@ const historyDown = () => {
     <WebTermInfo :key="infoKey" :userip="props.userip"/>
     <span id="input-area">
       <span class="prompt">$</span>&nbsp;
-      <form @submit="submit">
+      <form @submit.prevent="submit">
       <input type="text" name="input-box" v-model="userInput" @keyup.up="historyUp" @keyup.down="historyDown" autofocus/>
       </form>
     </span>
