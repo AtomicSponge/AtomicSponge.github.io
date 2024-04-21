@@ -26,7 +26,7 @@ export class AboutCmd extends Command {
    * @returns 
    */
   exec(args:Array<string>):string {
-    args = []
     return this.renderText(aboutMarkdown)
+    console.log(args)
   }
 }
