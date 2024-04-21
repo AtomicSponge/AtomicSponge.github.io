@@ -26,7 +26,7 @@ export class JabbaCmd extends Command {
    * @returns 
    */
   exec(args:Array<string>):string {
-    args = []
     return this.renderText(jabbaMarkdown)
+    console.log(args)
   }
 }

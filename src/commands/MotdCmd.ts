@@ -26,7 +26,7 @@ export class MotdCmd extends Command {
    * @returns 
    */
   exec(args:Array<string>):string {
-    args = []
     return this.renderText(motdMarkdown)
+    console.log(args)
   }
 }
