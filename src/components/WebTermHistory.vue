@@ -1,6 +1,7 @@
 <!--
   atomicsponge.website
-  Copyright (c) 2024 Matthew Evans - See LICENSE.md
+  By:  Matthew Evans
+  See LICENSE.md
 -->
 
 <script setup lang="ts">
