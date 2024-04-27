@@ -23,6 +23,8 @@ export class TermRenderer {
   static #renderProc:number
   /** Rendering function */
   static #renderFunc:FrameRequestCallback
+  /** Background color */
+  static #bgColor:string = 'rgba(0, 0, 0, 0.66)'
 
   constructor() { return false }  //  Don't allow direct construction
 
@@ -37,7 +39,7 @@ export class TermRenderer {
         display: none;
         margin: 0;
         padding: 0;
-        background-color: rgba(0, 0, 0, 0.66);
+        background-color: ${TermRenderer.#bgColor};
       }`
     document.body.appendChild(cssElem)
 
@@ -77,6 +79,7 @@ export class TermRenderer {
     if(!TermRenderer.isReady)
       throw new TermError('TermRender not ready!  Was it properly configured?', TermRenderer.start)
     if(TermRenderer.isRunning) TermRenderer.stop()
+    TermRenderer.clear()
     TermRenderer.show()
     TermRenderer.#renderProc = window.requestAnimationFrame(TermRenderer.#renderFunc)
   }
@@ -86,6 +89,11 @@ export class TermRenderer {
     TermRenderer.hide()
     window.cancelAnimationFrame(TermRenderer.#renderProc)
     TermRenderer.#renderProc = 0
+  }
+
+  /** Clear the renderer */
+  static clear = () => {
+    TermRenderer.#ctx.clearRect(0, 0, TermRenderer.width, TermRenderer.height)
   }
 
   /** Show the renderer */
@@ -120,7 +128,7 @@ export class TermRenderer {
    * Get the renderer's drawing context
    * @retunrs The drawing context
    */
-  static get draw():CanvasRenderingContext2D { return TermRenderer.#ctx }
+  static get ctx():CanvasRenderingContext2D { return TermRenderer.#ctx }
 
   /**
    * Get the renderer's width
@@ -133,32 +141,4 @@ export class TermRenderer {
    * @retunrs Height in pixels
    */
   static get height():number { return TermRenderer.#canvas.height }
-
-  /**
-   * Set the renderer's color
-   * @param color Color code in hex, rgb(a) or hsl(a)
-   */
-  static set bgColor(color:string) {
-    if(!TermRenderer.#testHex(color) || !TermRenderer.#testRgb(color))
-      throw new TermError('Not a valid color code!', TermRenderer.bgColor)
-    Object.assign(TermRenderer.#canvas, { backgroundColor: color })
-  }
-
-  /**
-   * Regex that tests for hex
-   * @param str String to test
-   * @returns True if valid, else false
-   */
-  static #testHex(str:string):boolean {
-    return /^#[0-9a-f]{3,4}([0-9a-f]{3,4})?$/i.test(str)
-  }
-
-  /**
-   * Regex that tests for rgb(a) or hsl(a)
-   * @param str String to test
-   * @returns True if valid, else false
-   */
-  static #testRgb(str:string):boolean {
-    return /^(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d\.]+%?\)$/i.test(str)
-  }
 }
