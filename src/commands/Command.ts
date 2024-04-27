@@ -69,6 +69,51 @@ export class Command {
   }
 
   /**
+   * Regex that tests for hex
+   * @param str String to test
+   * @returns True if valid, else false
+   */
+  testHex(str:string) {
+    return /^#[0-9a-f]{3,4}([0-9a-f]{3,4})?$/i.test(str)
+  }
+
+  /**
+   * Regex that tests for rgb(a) or hsl(a)
+   * @param str String to test
+   * @returns True if valid, else false
+   */
+  testRgb(str:string) {
+    return /^(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d\.]+%?\)$/i.test(str)
+  }
+
+  /**
+   * Test for alphabetic charecters
+   * @param str String to test
+   * @returns True if the string is only alpha, else false
+   */
+  testAlpha(str:string) {
+    return /^[A-Za-z]+$/g.test(str)
+  }
+
+  /**
+   * Test for numeric charecters
+   * @param str String to test
+   * @returns True if the string is only numeric, else false
+   */
+  testNumeric(str:string) {
+    return /^\d+$/g.test(str)
+  }
+
+  /**
+   * Test for alphabetic and numeric charecters
+   * @param str String to test
+   * @returns True if the string is only alpha and numeric, else false
+   */
+  testAlphaNumeric(str:string) {
+    return /^[a-zA-Z0-9]+$/g.test(str)
+  }
+
+  /**
    * Get the command used to perform execution
    * @returns The command
    */

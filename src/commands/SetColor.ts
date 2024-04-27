@@ -58,37 +58,19 @@ export class SetColor extends Command {
         if(this.#loadColors()) return 'Color settings loaded.'
         return 'Error loading color settings!'
       case 'background':
-        if(this.#testHex(args[1]) || this.#testRgb(args[1])) {
+        if(this.testHex(args[1]) || this.testRgb(args[1])) {
           this.#setBgColor(args[1])
           return 'Background color set.'
         }
         return 'Incorrect color code. ' + errMsg
       case 'font':
-        if(this.#testHex(args[1]) || this.#testRgb(args[1])) {
+        if(this.testHex(args[1]) || this.testRgb(args[1])) {
           this.#setFontColor(args[1])
           return 'Font color set.'
         }
         return 'Incorrect color code. ' + errMsg
     }
     return this.help
-  }
-
-  /**
-   * Regex that tests for hex
-   * @param str String to test
-   * @returns True if valid, else false
-   */
-  #testHex(str:string) {
-    return /^#[0-9a-f]{3,4}([0-9a-f]{3,4})?$/i.test(str)
-  }
-
-  /**
-   * Regex that tests for rgb(a) or hsl(a)
-   * @param str String to test
-   * @returns True if valid, else false
-   */
-  #testRgb(str:string) {
-    return /^(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d\.]+%?\)$/i.test(str)
   }
 
   /**
