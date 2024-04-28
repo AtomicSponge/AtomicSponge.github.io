@@ -6,6 +6,9 @@
   "license": "MIT",
   "url": "https://atomicsponge.wtfsystems.net",
   "type": "module",
+  "bin": {
+    "getstats": "scripts/getstats.js"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
