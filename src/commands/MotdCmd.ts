@@ -30,7 +30,8 @@ export class MotdCmd extends Command {
       try {
         const response = await fetch('https://atomicsponge.wtfsystems.net/site_stats.json')
         return response.json()
-      } catch (error) {  //  Catch connection errors
+      } catch (error:any) {  //  Catch connection errors
+        console.log(error.message)
         return { 'error': 1 }
       }
     })()
