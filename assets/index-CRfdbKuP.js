@@ -163,7 +163,7 @@ __Matthew Evans__ |
 This site emulates a basic terminal.  Type a command below and press enter.
 
 For a list of available commands, enter __\`help\`__
-`;class Co extends hr{constructor(){super(),this.command="motd",this.description="Message of the Day"}async exec(r){const d=await(async()=>{try{return(await fetch("https://atomicsponge.wtfsystems.net/site_stats.json")).json()}catch(t){return console.log(t.message),{error:1}}})();return console.log(d),this.renderText(ko)}}const Po=`Created with:
+`;class Co extends hr{constructor(){super(),this.command="motd",this.description="Message of the Day"}async exec(r){const d=await(async()=>{try{return(await fetch("https://atomicsponge.wtfsystems.net/site_stats.json",{method:"GET",mode:"cors",credentials:"same-origin"})).json()}catch(t){return t.message}})();return console.log(d),this.renderText(ko)}}const Po=`Created with:
 
 <a href="https://www.typescriptlang.org/">![TypeScript](/img/typescript.svg =80x80 "TypeScript")</a>
 <a href="https://vitejs.dev/">![Vite](/img/vite.svg =80x80 "Vite")</a>
