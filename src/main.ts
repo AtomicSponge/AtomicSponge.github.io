@@ -27,6 +27,7 @@ import { TermProcessor } from './modules/TermProcessor'
 import { TermRenderer } from './modules/TermRenderer'
 
 TermRenderer.initialize()
+//TermRenderer.show()
 
 //  Add commands
 import { MotdCmd } from './commands/MotdCmd'

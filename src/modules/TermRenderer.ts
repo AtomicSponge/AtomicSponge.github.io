@@ -34,6 +34,8 @@ export class TermRenderer {
 
   /** Set up the TermRenderer */
   static initialize = () => {
+    if(TermRenderer.#initialized)
+      throw new TermError('TermRenderer already initialized!', this.constructor)
     //  Append canvas css styling
     const cssElem = document.createElement('style')
     cssElem.innerHTML = `
@@ -44,6 +46,7 @@ export class TermRenderer {
         margin: 0;
         padding: 0;
         background-color: ${TermRenderer.#bgColor};
+        z-index: 99;
       }`
     document.body.appendChild(cssElem)
 
@@ -56,7 +59,7 @@ export class TermRenderer {
 
     TermRenderer.#canvas = <HTMLCanvasElement>document.getElementById(TermRenderer.#canvas_name)
     TermRenderer.#ctx = <CanvasRenderingContext2D>TermRenderer.#canvas.getContext("2d")
-    TermRenderer.#renderProc == 0
+    TermRenderer.#renderProc = 0
 
     const observer = new ResizeObserver(() => {
       TermRenderer.#canvas.width = document.documentElement.clientWidth
@@ -73,15 +76,14 @@ export class TermRenderer {
    */
   static setRenderer = (func:FrameRequestCallback) => {
     if(!(func instanceof Function))
-      throw new TermError('Not a function!', TermRenderer.setRenderer)
+      throw new TermError('Provided animation is not a function!', TermRenderer.setRenderer)
     TermRenderer.#renderFunc = func
     TermRenderer.#ready = true
   }
 
   /** Start the renderer */
   static start = () => {
-    if(!TermRenderer.isReady)
-      throw new TermError('TermRender not ready!  Was it properly configured?', TermRenderer.start)
+    if(!TermRenderer.isReady) return  //  Prevent running if an animation function was not set
     if(TermRenderer.isRunning) TermRenderer.stop()
     TermRenderer.clear()
     TermRenderer.show()
