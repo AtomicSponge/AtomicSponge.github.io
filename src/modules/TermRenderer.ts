@@ -42,7 +42,6 @@ export class TermRenderer {
       #${TermRenderer.#canvas_name} {
         pointer-events: none;
         position: fixed;
-        display: none;
         margin: 0;
         padding: 0;
         background-color: ${TermRenderer.#bgColor};
@@ -57,6 +56,7 @@ export class TermRenderer {
     document.body.prepend(canvas)
 
     TermRenderer.#canvas = <HTMLCanvasElement>document.getElementById(TermRenderer.#canvas_name)
+    TermRenderer.#canvas.style.display = 'none'
     TermRenderer.#ctx = <CanvasRenderingContext2D>TermRenderer.#canvas.getContext("2d")
     TermRenderer.#renderProc = 0
 
@@ -124,12 +124,12 @@ export class TermRenderer {
 
   /** Show the renderer */
   static show = () => {
-    Object.assign(TermRenderer.#canvas, { display: 'block' })
+    TermRenderer.#canvas.style.display = 'block'
   }
 
   /** Hide the renderer */
   static hide = () => {
-    Object.assign(TermRenderer.#canvas, { display: 'none' })
+    TermRenderer.#canvas.style.display = 'none'
   }
 
   /**

@@ -3,4 +3,3 @@ dist
 
 src/commands/FibonacciSequence.ts
 src/commands/PostRenderer.ts
-src/commands/PrimeWheel.ts

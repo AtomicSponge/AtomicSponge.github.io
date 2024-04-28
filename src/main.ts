@@ -27,7 +27,6 @@ import { TermProcessor } from './modules/TermProcessor'
 import { TermRenderer } from './modules/TermRenderer'
 
 TermRenderer.initialize()
-//TermRenderer.show()
 
 //  Add commands
 import { MotdCmd } from './commands/MotdCmd'
@@ -42,11 +41,10 @@ TermProcessor.addModule(new JabbaCmd())
 import { SetColor } from './commands/SetColor'
 TermProcessor.addModule(new SetColor())
 
-/*import { PrimeWheel } from './commands/PrimeWheel'
+import { PrimeWheel } from './commands/PrimeWheel'
 TermProcessor.addModule(new PrimeWheel({
-	fontColor: '#ff4500', fontSize: '16px', fontFace: 'Arial',
-	spam: true, debug: true
-}))*/
+	fontColor: '#ff4500', useRandomOffset: true, scale: 1, spam: true, debug: true
+}))
 
 //import { PostRenderer } from './modules/PostRenderer'
 //TermProcessor.addModule(new PostRenderer('api/posts.json'))
