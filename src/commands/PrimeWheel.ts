@@ -67,6 +67,7 @@ export class PrimeWheel extends Command {
     PrimeWheel.#centerX = PrimeWheel.#width / 2
     PrimeWheel.#centerY = PrimeWheel.#height / 2
 
+    //  Primewheel animation function
     PrimeWheel.#animateFunc = ((timeStamp:number) => {
       //  Prime number found, draw it using cartesian coordinates
       if(PrimeWheel.#isPrime(PrimeWheel.#lastPrime)) {
@@ -138,9 +139,7 @@ export class PrimeWheel extends Command {
     PrimeWheel.#yOffset = PrimeWheel.#yOffset * (Math.random() < 0.5 ? -1 : 1)
   }
 
-  /**
-   * Resets the effect
-   */
+  /** Resets the effect */
   static #primeWheelReset() {
     TermRenderer.clear()
     PrimeWheel.#lastPrime = 2
@@ -148,10 +147,7 @@ export class PrimeWheel extends Command {
     if(PrimeWheel.#debug) console.log('Prime wheel reset')
   }
 
-  /**
-   * Start the prime wheel
-   * @returns 
-   */
+  /** Start the prime wheel */
   static #primeWheelStart() {
     PrimeWheel.#primeWheelStop()
     TermRenderer.setRenderer(PrimeWheel.#animateFunc)
@@ -159,9 +155,7 @@ export class PrimeWheel extends Command {
     if(PrimeWheel.#debug) console.log('Prime wheel started')
   }
 
-  /**
-   * Stop the prime wheel
-   */
+  /** Stop the prime wheel */
   static #primeWheelStop() {
     PrimeWheel.#primeWheelReset()
     TermRenderer.stop()
