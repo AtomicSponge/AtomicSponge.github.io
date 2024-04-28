@@ -102,7 +102,7 @@ export class PrimeWheel extends Command {
    * @param args Arguments to the command
    * @returns Result of the command
    */
-  exec(args:Array<string>):string {
+  async exec(args:Array<string>):Promise<string> {
     if(String(args[0]).toLowerCase() === 'start') {
       PrimeWheel.#primeWheelStart()
       return 'Prime wheel started.'

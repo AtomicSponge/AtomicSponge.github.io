@@ -25,7 +25,7 @@ export class JabbaCmd extends Command {
    * @param args 
    * @returns 
    */
-  exec(args:Array<string>):string {
+  async exec(args:Array<string>):Promise<string> {
     return this.renderText(jabbaMarkdown)
     console.log(args)
   }

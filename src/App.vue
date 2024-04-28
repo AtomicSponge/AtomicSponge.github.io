@@ -20,8 +20,8 @@ const userIP = ref('127.0.0.1')
  * Get data from input component
  * @param cmd 
  */
-const processInput = (cmd:string) => {
-  const displayData = resolveCommand(cmd)
+const processInput = async (cmd:string) => {
+  const displayData = await resolveCommand(cmd)
   history.value = cmd
   display.value = displayData
   nextTick(() => { 
@@ -34,10 +34,10 @@ const processInput = (cmd:string) => {
  * @param cmd 
  * @returns 
  */
-const resolveCommand = (cmd:string) => {
+const resolveCommand = async (cmd:string) => {
   const cmdArr:Array<string> = cmd.split(' ')
   if(String(cmdArr[0]).toLowerCase() === 'clear') return 'clear'  //  Special case for clearing console
-  return TermProcessor.processCommand(cmdArr)
+  return await TermProcessor.processCommand(cmdArr)
 }
 
 //  Set vue before mount
@@ -53,7 +53,7 @@ onBeforeMount(async () => {
   })()
   userIP.value = res.ip
 
-  display.value = TermProcessor.processCommand(['motd'])
+  display.value = await TermProcessor.processCommand(['motd'])
 })
 </script>
 

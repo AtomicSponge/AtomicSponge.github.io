@@ -20,12 +20,12 @@ export class TermProcessor {
    * @param cmd The command and parameters in an array
    * @returns A string with the result
    */
-  static processCommand(cmd:Array<string>):string {
+  static async processCommand(cmd:Array<string>):Promise<string> {
     if(String(cmd[0]).toLowerCase() === "help") return this.#render.help(TermProcessor.#commands)
     const res = TermProcessor.#commands.find(elm => elm.command === String(cmd[0]).toLowerCase())
     if(res === undefined)
       return "<span style=\"font-weight: bold;\">command not found:</span> " + cmd[0]
-    return res.exec(cmd.splice(1, cmd.length))
+    return await res.exec(cmd.splice(1, cmd.length))
   }
 
   /**
