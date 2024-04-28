@@ -51,4 +51,7 @@ TermProcessor.addModule(new PrimeWheel({
 //  Load posts
 //TermProcessor.getModule('posts').getPosts()
 
+const results = await fetch('https://atomicsponge.wtfsystems.net/site_stats.json', { mode: 'same-origin'})
+console.log(results.json())
+
 createApp(App).mount('#app')

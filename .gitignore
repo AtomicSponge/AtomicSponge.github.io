@@ -1,7 +1,7 @@
 node_modules
 dist
 
-public/site_stats.json
+public/site_stats.js
 
 src/commands/FibonacciSequence.ts
 src/commands/PostRenderer.ts
