@@ -44,7 +44,7 @@ TermProcessor.addModule(new SetColor())
 /*import { PrimeWheel } from './commands/PrimeWheel'
 TermProcessor.addModule(new PrimeWheel({
 	fontColor: '#ff4500', fontSize: '16px', fontFace: 'Arial',
-	spam: false, debug: true
+	spam: true, debug: true
 }))*/
 
 //import { PostRenderer } from './modules/PostRenderer'
