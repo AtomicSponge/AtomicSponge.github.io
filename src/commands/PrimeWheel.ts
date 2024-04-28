@@ -25,7 +25,7 @@ export class PrimeWheel extends Command {
   static #fontSize:string
   static #fontFace:string
   static #scale:number
-  static #interval:number
+  //static #interval:number
   static #useRandomOffset:boolean
   static #spam:boolean
   static #debug:boolean
@@ -54,7 +54,7 @@ export class PrimeWheel extends Command {
     PrimeWheel.#fontSize = options.fontSize || '8px'
     PrimeWheel.#fontFace = options.fontFace || 'Arial'
     PrimeWheel.#scale = options.scale || 4
-    PrimeWheel.#interval = options.interval || 1
+    //PrimeWheel.#interval = options.interval || 1
     PrimeWheel.#useRandomOffset = options.useRandomOffset || true
     PrimeWheel.#spam = options.spam || false
     PrimeWheel.#debug = options.debug || false
@@ -68,7 +68,7 @@ export class PrimeWheel extends Command {
     PrimeWheel.#centerY = PrimeWheel.#height / 2
 
     //  Primewheel animation function
-    PrimeWheel.#animateFunc = ((timeStamp:number) => {
+    PrimeWheel.#animateFunc = (() => {
       //  Prime number found, draw it using cartesian coordinates
       if(PrimeWheel.#isPrime(PrimeWheel.#lastPrime)) {
         if(PrimeWheel.#spam) console.log('Found prime: ' + PrimeWheel.#lastPrime)
