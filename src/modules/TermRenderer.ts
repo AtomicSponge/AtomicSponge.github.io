@@ -46,7 +46,6 @@ export class TermRenderer {
         margin: 0;
         padding: 0;
         background-color: ${TermRenderer.#bgColor};
-        z-index: 99;
       }`
     document.body.appendChild(cssElem)
 
@@ -91,11 +90,17 @@ export class TermRenderer {
     TermRenderer.#renderProc = window.requestAnimationFrame(TermRenderer.#firstFrame)
   }
 
+  /** First animation frame */
   static #firstFrame() {
     TermRenderer.#zero = <number>document.timeline.currentTime
     TermRenderer.#animate(<number>document.timeline.currentTime)
   }
 
+  /**
+   * Perform rendering
+   * Calls the provided animation function
+   * @param timeStamp Current time
+   */
   static #animate(timeStamp:number) {
     const value = (timeStamp - TermRenderer.#zero) /
       (<number>document.timeline.currentTime - TermRenderer.#start)
