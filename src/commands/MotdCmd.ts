@@ -26,20 +26,6 @@ export class MotdCmd extends Command {
    * @returns 
    */
   async exec(args:Array<string>):Promise<string> {
-    const res = await (async () => {
-      try {
-        const options:RequestInit = {
-          method: 'GET',
-          mode: 'same-origin',
-          credentials: 'same-origin'
-        }
-        const response = await fetch('https://atomicsponge.wtfsystems.net/site_stats.json', options)
-        return response.json()
-      } catch (error:any) {  //  Catch connection errors
-        return error.message
-      }
-    })()
-    console.log(res)
     return this.renderText(motdMarkdown)
     console.log(args)
   }
