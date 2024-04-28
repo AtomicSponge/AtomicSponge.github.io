@@ -13,7 +13,6 @@ jobs:
           node-version: '20.x'
       - run: npm ci
       - run: npm run build
-      - run: npx getstats
 
       - name: Deploy website
         uses: s0/git-publish-subdir-action@develop
