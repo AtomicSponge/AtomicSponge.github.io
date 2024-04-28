@@ -28,11 +28,15 @@ export class MotdCmd extends Command {
   async exec(args:Array<string>):Promise<string> {
     const res = await (async () => {
       try {
-        const response = await fetch('https://atomicsponge.wtfsystems.net/site_stats.json')
+        const options = {
+          method: 'GET',
+          mode: 'cors',
+          credentials: 'same-origin'
+        }
+        const response = await fetch('https://atomicsponge.wtfsystems.net/site_stats.json', options)
         return response.json()
       } catch (error:any) {  //  Catch connection errors
-        console.log(error.message)
-        return { 'error': 1 }
+        return error.message
       }
     })()
     console.log(res)
