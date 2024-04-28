@@ -30,7 +30,7 @@ export class MotdCmd extends Command {
       try {
         const options:RequestInit = {
           method: 'GET',
-          mode: 'cors',
+          mode: 'same-origin',
           credentials: 'same-origin'
         }
         const response = await fetch('https://atomicsponge.wtfsystems.net/site_stats.json', options)
