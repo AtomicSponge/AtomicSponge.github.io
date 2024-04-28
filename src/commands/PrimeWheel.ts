@@ -83,10 +83,18 @@ export class PrimeWheel extends Command {
       PrimeWheel.#lastPrime++
 
       if(PrimeWheel.#lastPrime > 1400 * PrimeWheel.#scale) {
-        TermRenderer.clear()
         PrimeWheel.#lastPrime = 2
+        PrimeWheel.#centerX = PrimeWheel.#width / 2
+        PrimeWheel.#centerY = PrimeWheel.#height / 2
+        TermRenderer.clear()
       }
     })
+
+    const observer = new ResizeObserver(() => {
+      PrimeWheel.#width = TermRenderer.width
+      PrimeWheel.#height = TermRenderer.height
+    })
+    observer.observe(document.documentElement)
   }
 
   /**

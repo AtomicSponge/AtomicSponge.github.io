@@ -61,8 +61,10 @@ export class TermRenderer {
     TermRenderer.#renderProc = 0
 
     const observer = new ResizeObserver(() => {
+      const temp = TermRenderer.#ctx.getImageData(0, 0, TermRenderer.#canvas.width, TermRenderer.#canvas.height)
       TermRenderer.#canvas.width = document.documentElement.clientWidth
       TermRenderer.#canvas.height = document.documentElement.clientHeight
+      TermRenderer.#ctx.putImageData(temp, 0, 0, 0, 0, TermRenderer.#canvas.width, TermRenderer.#canvas.height)
     })
     observer.observe(document.documentElement)
 
