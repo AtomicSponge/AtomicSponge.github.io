@@ -43,7 +43,7 @@ TermProcessor.addModule(new SetColor())
 
 import { PrimeWheel } from './commands/PrimeWheel'
 TermProcessor.addModule(new PrimeWheel({
-	fontColor: '#ff4500', useRandomOffset: true, scale: 1, spam: true, debug: true
+	fontColor: '#ff4500', useRandomOffset: true, scale: 1
 }))
 
 //import { PostRenderer } from './modules/PostRenderer'
