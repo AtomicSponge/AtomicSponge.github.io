@@ -28,7 +28,7 @@ export class MotdCmd extends Command {
   async exec(args:Array<string>):Promise<string> {
     const res = await (async () => {
       try {
-        const options = {
+        const options:RequestInit = {
           method: 'GET',
           mode: 'cors',
           credentials: 'same-origin'
