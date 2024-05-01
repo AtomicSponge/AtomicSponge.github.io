@@ -14,7 +14,7 @@
   "dependencies": {
     "prismjs": "^1.29.0",
     "showdown": "^2.1.0",
-    "vue": "^3.4.25"
+    "vue": "^3.4.26"
   },
   "devDependencies": {
     "@types/prismjs": "^1.26.3",
@@ -24,6 +24,6 @@
     "stylus-loader": "^8.1.0",
     "typescript": "^5.4.5",
     "vite": "^5.2.10",
-    "vue-tsc": "^2.0.14"
+    "vue-tsc": "^2.0.16"
   }
 }
