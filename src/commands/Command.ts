@@ -49,9 +49,8 @@ export class Command {
    * @param args List of arguments to pass to command
    * @throws Throws error if not implemented in overriding class
    */
-  async exec(args:Array<string>):Promise<string> {
+  async exec(_args:Array<string>):Promise<string> {
     throw new TermError('Member \'exec()\' must be implemented!', this.exec)
-    console.log(args)  //  Silence 'declared but never read' compile error
   }
 
   /**

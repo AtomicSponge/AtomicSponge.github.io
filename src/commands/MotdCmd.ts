@@ -25,8 +25,7 @@ export class MotdCmd extends Command {
    * @param args 
    * @returns 
    */
-  async exec(args:Array<string>):Promise<string> {
+  async exec():Promise<string> {
     return this.renderText(motdMarkdown)
-    console.log(args)
   }
 }
