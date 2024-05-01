@@ -16,10 +16,7 @@ var infoKey:number = 0          //  Key for forcing info display update
 var history:Array<string> = []  //  Array of previously ran commands
 var historyIndex:number = -1    //  Index for browsing previous commands
 
-/**
- * Run when the input form is submitted
- * @param event 
- */
+/** Run when the input form is submitted */
 const submit = () => {
   if (!userInput.value) return  //  no input, don't process
   //  add the entered command to the start of the history
@@ -33,9 +30,7 @@ const submit = () => {
   userInput.value = ''  //  reset user input
 }
 
-/**
- * Up arrow event to cycle input history
- */
+/** Up arrow event to cycle input history */
 const historyUp = () => {
   if(history.length > 0) {  //  Make sure there's history
     //  Iterate only if we're not at the end
@@ -46,9 +41,7 @@ const historyUp = () => {
   }
 }
 
-/**
- * Down arrow event to cycle input history
- */
+/** Down arrow event to cycle input history */
 const historyDown = () => {
   //  Iterate only if we're not at the start
   if(historyIndex > 0) {
