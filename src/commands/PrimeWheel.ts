@@ -78,10 +78,10 @@ export class PrimeWheel extends Command {
         TermRenderer.ctx.font = PrimeWheel.#fontSize + ' ' + PrimeWheel.#fontFace
         TermRenderer.ctx.fillStyle = PrimeWheel.#fontColor
         const locX = (PrimeWheel.#centerX + PrimeWheel.#xOffset) +
-                    (PrimeWheel.#primeTable[PrimeWheel.#tableIdx] *
+                     (PrimeWheel.#primeTable[PrimeWheel.#tableIdx] *
                       Math.cos(PrimeWheel.#primeTable[PrimeWheel.#tableIdx])) / PrimeWheel.#spacing
         const locY = (PrimeWheel.#centerY + PrimeWheel.#yOffset) -
-                    (PrimeWheel.#primeTable[PrimeWheel.#tableIdx] *
+                     (PrimeWheel.#primeTable[PrimeWheel.#tableIdx] *
                       Math.sin(PrimeWheel.#primeTable[PrimeWheel.#tableIdx])) / PrimeWheel.#spacing
         TermRenderer.ctx.fillText(`${PrimeWheel.#primeTable[PrimeWheel.#tableIdx]}`, locX, locY)
 
@@ -147,10 +147,8 @@ export class PrimeWheel extends Command {
   /** Start the prime wheel */
   static #primeWheelStart() {
     PrimeWheel.#primeWheelStop()
-    PrimeWheel.#tableIdx = 0
-    if(PrimeWheel.#useRandomOffset) PrimeWheel.#setOffset()
-    PrimeWheel.#startTime = <DOMHighResTimeStamp>document.timeline.currentTime
     TermRenderer.setRenderer(PrimeWheel.#animateFunc)
+    PrimeWheel.#startTime = <DOMHighResTimeStamp>document.timeline.currentTime
     TermRenderer.start()
   }
 
