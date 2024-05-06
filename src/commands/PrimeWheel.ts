@@ -9,33 +9,31 @@
 import { Command } from './Command.js'
 import { TermRenderer } from '../modules/TermRenderer.js'
 
+import primeTableString from '../assets/markdown/primetable.md?raw'
+
 export interface PrimeWheelOptions {
     fontColor?:string
     fontSize?:string
     fontFace?:string
-    scale?:number
     interval?:number
     useRandomOffset?:boolean
-    spam?:boolean
-    debug?:boolean
 }
 
 export class PrimeWheel extends Command {
-  static #fontColor:string
-  static #fontSize:string
-  static #fontFace:string
-  static #scale:number
+  static #fontColor:string  //!
+  static #fontSize:string  //!
+  static #fontFace:string  //!
+  static #spacing:number  //!
   //static #interval:number
-  static #useRandomOffset:boolean
-  static #spam:boolean
-  static #debug:boolean
-  static #xOffset:number
-  static #yOffset:number
+  static #useRandomOffset:boolean  //!
+  static #xOffset:number  //!
+  static #yOffset:number  //!
   static #width:number
   static #height:number
   static #centerX:number
   static #centerY:number
-  static #lastPrime:number
+  static #primeTable:Array<number>
+  static #tableIdx:number  //!
   static #animateFunc:FrameRequestCallback
 
   /**
@@ -53,46 +51,43 @@ export class PrimeWheel extends Command {
     PrimeWheel.#fontColor = options.fontColor || '#0000FF'
     PrimeWheel.#fontSize = options.fontSize || '8px'
     PrimeWheel.#fontFace = options.fontFace || 'Arial'
-    PrimeWheel.#scale = options.scale || 4
     //PrimeWheel.#interval = options.interval || 1
     PrimeWheel.#useRandomOffset = options.useRandomOffset || true
-    PrimeWheel.#spam = options.spam || false
-    PrimeWheel.#debug = options.debug || false
     PrimeWheel.#xOffset = 0
     PrimeWheel.#yOffset = 0
-    PrimeWheel.#lastPrime = 2
 
     PrimeWheel.#width = TermRenderer.width
     PrimeWheel.#height = TermRenderer.height
     PrimeWheel.#centerX = PrimeWheel.#width / 2
     PrimeWheel.#centerY = PrimeWheel.#height / 2
 
+    PrimeWheel.#spacing = 10
+
+    PrimeWheel.#tableIdx = 0
+    PrimeWheel.#primeTable = []
+    const tempTable = primeTableString.split(',')
+    tempTable.forEach(prime => PrimeWheel.#primeTable.push(Number(prime)))
+    console.log(PrimeWheel.#primeTable)
+
     //  Primewheel animation function
     PrimeWheel.#animateFunc = ((_timeStamp) => {
-      //  Prime number found, draw it using cartesian coordinates
-      if(PrimeWheel.#isPrime(PrimeWheel.#lastPrime)) {
-        if(PrimeWheel.#spam) console.log('Found prime: ' + PrimeWheel.#lastPrime)
-        TermRenderer.ctx.font = PrimeWheel.#fontSize + ' ' + PrimeWheel.#fontFace
-        TermRenderer.ctx.fillStyle = PrimeWheel.#fontColor
-        TermRenderer.ctx.fillText(`${PrimeWheel.#lastPrime}`,
-          (PrimeWheel.#centerX + PrimeWheel.#xOffset) + (PrimeWheel.#lastPrime * Math.cos(PrimeWheel.#lastPrime)),
-          (PrimeWheel.#centerY + PrimeWheel.#yOffset) - (PrimeWheel.#lastPrime * Math.sin(PrimeWheel.#lastPrime))
-        )
-      }
+      TermRenderer.ctx.font = PrimeWheel.#fontSize + ' ' + PrimeWheel.#fontFace
+      TermRenderer.ctx.fillStyle = PrimeWheel.#fontColor
+      TermRenderer.ctx.fillText(`${PrimeWheel.#primeTable[PrimeWheel.#tableIdx]}`,
+        (PrimeWheel.#centerX + PrimeWheel.#xOffset) + (PrimeWheel.#primeTable[PrimeWheel.#tableIdx] * Math.cos(PrimeWheel.#primeTable[PrimeWheel.#tableIdx])) / PrimeWheel.#spacing,
+        (PrimeWheel.#centerY + PrimeWheel.#yOffset) - (PrimeWheel.#primeTable[PrimeWheel.#tableIdx] * Math.sin(PrimeWheel.#primeTable[PrimeWheel.#tableIdx])) / PrimeWheel.#spacing)
 
-      PrimeWheel.#lastPrime++
-
-      if(PrimeWheel.#lastPrime > 1400 * PrimeWheel.#scale) {
-        PrimeWheel.#lastPrime = 2
-        PrimeWheel.#centerX = PrimeWheel.#width / 2
-        PrimeWheel.#centerY = PrimeWheel.#height / 2
-        TermRenderer.clear()
-      }
+      PrimeWheel.#tableIdx++
+      //  Reset wheel
+      if(PrimeWheel.#tableIdx === PrimeWheel.#primeTable.length - 1)
+        PrimeWheel.#primeWheelReset()
     })
 
     const observer = new ResizeObserver(() => {
       PrimeWheel.#width = TermRenderer.width
       PrimeWheel.#height = TermRenderer.height
+      PrimeWheel.#centerX = PrimeWheel.#width / 2
+      PrimeWheel.#centerY = PrimeWheel.#height / 2
     })
     observer.observe(document.documentElement)
   }
@@ -126,18 +121,6 @@ export class PrimeWheel extends Command {
   }
 
   /**
-   * Function to check if a number is prime
-   * @param num Number to check
-   * @returns True if prime, else false
-   */
-  static #isPrime(num:number) {
-    for(let i = 2; i < num; i++) {
-      if(num % i === 0) return false
-    }
-    return true
-  }
-
-  /**
    * Generate a random x,y offset for drawing the wheel
    */
   static #setOffset() {
@@ -150,23 +133,24 @@ export class PrimeWheel extends Command {
   /** Resets the effect */
   static #primeWheelReset() {
     TermRenderer.clear()
-    PrimeWheel.#lastPrime = 2
+    PrimeWheel.#tableIdx = 0
+    PrimeWheel.#centerX = PrimeWheel.#width / 2
+    PrimeWheel.#centerY = PrimeWheel.#height / 2
     if(PrimeWheel.#useRandomOffset) PrimeWheel.#setOffset()
-    if(PrimeWheel.#debug) console.log('Prime wheel reset')
   }
 
   /** Start the prime wheel */
   static #primeWheelStart() {
     PrimeWheel.#primeWheelStop()
+    PrimeWheel.#tableIdx = 0
+    if(PrimeWheel.#useRandomOffset) PrimeWheel.#setOffset()
     TermRenderer.setRenderer(PrimeWheel.#animateFunc)
     TermRenderer.start()
-    if(PrimeWheel.#debug) console.log('Prime wheel started')
   }
 
   /** Stop the prime wheel */
   static #primeWheelStop() {
     PrimeWheel.#primeWheelReset()
     TermRenderer.stop()
-    if(PrimeWheel.#debug) console.log('Prime wheel stopped')
   }
 }
