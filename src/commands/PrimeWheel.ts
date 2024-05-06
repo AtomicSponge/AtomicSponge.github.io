@@ -15,26 +15,28 @@ export interface PrimeWheelOptions {
     fontColor?:string
     fontSize?:string
     fontFace?:string
-    interval?:number
+    durration?:number
     useRandomOffset?:boolean
 }
 
 export class PrimeWheel extends Command {
-  static #fontColor:string  //!
-  static #fontSize:string  //!
-  static #fontFace:string  //!
-  static #spacing:number  //!
-  //static #interval:number
-  static #useRandomOffset:boolean  //!
-  static #xOffset:number  //!
-  static #yOffset:number  //!
   static #width:number
   static #height:number
   static #centerX:number
   static #centerY:number
   static #primeTable:Array<number>
-  static #tableIdx:number  //!
   static #animateFunc:FrameRequestCallback
+  static #startTime:DOMHighResTimeStamp
+  
+  static #fontColor:string
+  static #fontSize:string
+  static #fontFace:string
+  static #spacing:number
+  static #durration:number
+  static #useRandomOffset:boolean
+  static #xOffset:number
+  static #yOffset:number
+  static #tableIdx:number
 
   /**
    * Initialize PrimeWheel
@@ -51,7 +53,7 @@ export class PrimeWheel extends Command {
     PrimeWheel.#fontColor = options.fontColor || '#0000FF'
     PrimeWheel.#fontSize = options.fontSize || '8px'
     PrimeWheel.#fontFace = options.fontFace || 'Arial'
-    //PrimeWheel.#interval = options.interval || 1
+    PrimeWheel.#durration = options.durration || 20
     PrimeWheel.#useRandomOffset = options.useRandomOffset || true
     PrimeWheel.#xOffset = 0
     PrimeWheel.#yOffset = 0
@@ -69,21 +71,22 @@ export class PrimeWheel extends Command {
     tempTable.forEach(prime => PrimeWheel.#primeTable.push(Number(prime)))
 
     //  Primewheel animation function
-    PrimeWheel.#animateFunc = ((_timeStamp) => {
-      TermRenderer.ctx.font = PrimeWheel.#fontSize + ' ' + PrimeWheel.#fontFace
-      TermRenderer.ctx.fillStyle = PrimeWheel.#fontColor
-      const locX = (PrimeWheel.#centerX + PrimeWheel.#xOffset) +
-                   (PrimeWheel.#primeTable[PrimeWheel.#tableIdx] *
-                    Math.cos(PrimeWheel.#primeTable[PrimeWheel.#tableIdx])) / PrimeWheel.#spacing
-      const locY = (PrimeWheel.#centerY + PrimeWheel.#yOffset) -
-                   (PrimeWheel.#primeTable[PrimeWheel.#tableIdx] *
-                    Math.sin(PrimeWheel.#primeTable[PrimeWheel.#tableIdx])) / PrimeWheel.#spacing
-      TermRenderer.ctx.fillText(`${PrimeWheel.#primeTable[PrimeWheel.#tableIdx]}`, locX, locY)
+    PrimeWheel.#animateFunc = ((timeStamp) => {
+      const timeFraction = (timeStamp - PrimeWheel.#startTime) / (PrimeWheel.#durration * 1000)
 
-      PrimeWheel.#tableIdx++
-      //  Reset wheel
-      if(PrimeWheel.#tableIdx === PrimeWheel.#primeTable.length)
-        PrimeWheel.#primeWheelReset()
+      if(timeFraction < 1) {
+        TermRenderer.ctx.font = PrimeWheel.#fontSize + ' ' + PrimeWheel.#fontFace
+        TermRenderer.ctx.fillStyle = PrimeWheel.#fontColor
+        const locX = (PrimeWheel.#centerX + PrimeWheel.#xOffset) +
+                    (PrimeWheel.#primeTable[PrimeWheel.#tableIdx] *
+                      Math.cos(PrimeWheel.#primeTable[PrimeWheel.#tableIdx])) / PrimeWheel.#spacing
+        const locY = (PrimeWheel.#centerY + PrimeWheel.#yOffset) -
+                    (PrimeWheel.#primeTable[PrimeWheel.#tableIdx] *
+                      Math.sin(PrimeWheel.#primeTable[PrimeWheel.#tableIdx])) / PrimeWheel.#spacing
+        TermRenderer.ctx.fillText(`${PrimeWheel.#primeTable[PrimeWheel.#tableIdx]}`, locX, locY)
+
+        PrimeWheel.#tableIdx++
+      } else PrimeWheel.#primeWheelReset()
     })
 
     const observer = new ResizeObserver(() => {
@@ -138,6 +141,7 @@ export class PrimeWheel extends Command {
     PrimeWheel.#centerX = PrimeWheel.#width / 2
     PrimeWheel.#centerY = PrimeWheel.#height / 2
     if(PrimeWheel.#useRandomOffset) PrimeWheel.#setOffset()
+    PrimeWheel.#startTime = <DOMHighResTimeStamp>document.timeline.currentTime
   }
 
   /** Start the prime wheel */
@@ -145,6 +149,7 @@ export class PrimeWheel extends Command {
     PrimeWheel.#primeWheelStop()
     PrimeWheel.#tableIdx = 0
     if(PrimeWheel.#useRandomOffset) PrimeWheel.#setOffset()
+    PrimeWheel.#startTime = <DOMHighResTimeStamp>document.timeline.currentTime
     TermRenderer.setRenderer(PrimeWheel.#animateFunc)
     TermRenderer.start()
   }
