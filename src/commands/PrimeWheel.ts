@@ -74,8 +74,12 @@ export class PrimeWheel extends Command {
       TermRenderer.ctx.font = PrimeWheel.#fontSize + ' ' + PrimeWheel.#fontFace
       TermRenderer.ctx.fillStyle = PrimeWheel.#fontColor
       TermRenderer.ctx.fillText(`${PrimeWheel.#primeTable[PrimeWheel.#tableIdx]}`,
-        (PrimeWheel.#centerX + PrimeWheel.#xOffset) + (PrimeWheel.#primeTable[PrimeWheel.#tableIdx] * Math.cos(PrimeWheel.#primeTable[PrimeWheel.#tableIdx])) / PrimeWheel.#spacing,
-        (PrimeWheel.#centerY + PrimeWheel.#yOffset) - (PrimeWheel.#primeTable[PrimeWheel.#tableIdx] * Math.sin(PrimeWheel.#primeTable[PrimeWheel.#tableIdx])) / PrimeWheel.#spacing)
+        (PrimeWheel.#centerX + PrimeWheel.#xOffset) +
+          (PrimeWheel.#primeTable[PrimeWheel.#tableIdx] *
+            Math.cos(PrimeWheel.#primeTable[PrimeWheel.#tableIdx])) / PrimeWheel.#spacing,
+        (PrimeWheel.#centerY + PrimeWheel.#yOffset) -
+          (PrimeWheel.#primeTable[PrimeWheel.#tableIdx] *
+            Math.sin(PrimeWheel.#primeTable[PrimeWheel.#tableIdx])) / PrimeWheel.#spacing)
 
       PrimeWheel.#tableIdx++
       //  Reset wheel
