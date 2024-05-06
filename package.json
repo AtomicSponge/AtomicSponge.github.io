@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "bin": {
+    "copyreadme": "scripts/copyreadme.js",
     "getstats": "scripts/getstats.js",
     "primetable": "scripts/primetable.js"
   },
