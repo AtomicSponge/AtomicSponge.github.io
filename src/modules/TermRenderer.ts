@@ -25,10 +25,6 @@ export class TermRenderer {
   static #renderFunc:FrameRequestCallback
   /** Background color */
   static #bgColor:string = 'rgba(0, 0, 0, 0.66)'
-  /** Zero timer - point in time when first frame is drawn for a new animation */
-  static #zero:number = <number>document.timeline.currentTime
-  /** Start timer - point in time when renderer starts */
-  static #start:number = <number>document.timeline.currentTime
 
   constructor() { return false }  //  Don't allow direct construction
 
@@ -88,28 +84,17 @@ export class TermRenderer {
     if(TermRenderer.isRunning) TermRenderer.stop()
     TermRenderer.clear()
     TermRenderer.show()
-    TermRenderer.#start = <number>document.timeline.currentTime
-    TermRenderer.#renderProc = window.requestAnimationFrame(TermRenderer.#firstFrame)
-  }
-
-  /** First animation frame */
-  static #firstFrame() {
-    TermRenderer.#zero = <number>document.timeline.currentTime
-    TermRenderer.#animate(<number>document.timeline.currentTime)
+    TermRenderer.#renderProc = window.requestAnimationFrame(TermRenderer.#animate)
   }
 
   /**
    * Perform rendering
    * Calls the provided animation function
-   * @param timeStamp Current time
+   * @param timeStamp Time the last frame ended its rendering
    */
-  static #animate(timeStamp:number) {
-    const value = (timeStamp - TermRenderer.#zero) /
-      (<number>document.timeline.currentTime - TermRenderer.#start)
-    if(value < 1) {
-      TermRenderer.#renderFunc(timeStamp)
-      TermRenderer.#renderProc = requestAnimationFrame((timeStamp) => TermRenderer.#animate(timeStamp))
-    }
+  static #animate(timeStamp:DOMHighResTimeStamp) {
+    TermRenderer.#renderFunc(timeStamp)
+    TermRenderer.#renderProc = requestAnimationFrame(TermRenderer.#animate)
   }
 
   /** Stop the renderer */

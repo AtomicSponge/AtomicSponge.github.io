@@ -68,7 +68,7 @@ export class PrimeWheel extends Command {
     PrimeWheel.#centerY = PrimeWheel.#height / 2
 
     //  Primewheel animation function
-    PrimeWheel.#animateFunc = (() => {
+    PrimeWheel.#animateFunc = ((_timeStamp) => {
       //  Prime number found, draw it using cartesian coordinates
       if(PrimeWheel.#isPrime(PrimeWheel.#lastPrime)) {
         if(PrimeWheel.#spam) console.log('Found prime: ' + PrimeWheel.#lastPrime)
