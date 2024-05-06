@@ -82,7 +82,17 @@ export class Command {
    * @returns True if valid, else false
    */
   testRgb(str:string) {
+    str = str.replace(/,\s+/g, ',')
     return /^(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d\.]+%?\)$/i.test(str)
+  }
+
+  /**
+   * Test for valid pixel format (NNpx)
+   * @param str String to test
+   * @returns True if valid pixel format, else false
+   */
+  testPixel(str:string) {
+    return /^([0-9]+)px$/i.test(str)
   }
 
   /**
