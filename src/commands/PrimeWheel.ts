@@ -73,13 +73,13 @@ export class PrimeWheel extends Command {
     PrimeWheel.#animateFunc = ((_timeStamp) => {
       TermRenderer.ctx.font = PrimeWheel.#fontSize + ' ' + PrimeWheel.#fontFace
       TermRenderer.ctx.fillStyle = PrimeWheel.#fontColor
-      TermRenderer.ctx.fillText(`${PrimeWheel.#primeTable[PrimeWheel.#tableIdx]}`,
-        (PrimeWheel.#centerX + PrimeWheel.#xOffset) +
-          (PrimeWheel.#primeTable[PrimeWheel.#tableIdx] *
-            Math.cos(PrimeWheel.#primeTable[PrimeWheel.#tableIdx])) / PrimeWheel.#spacing,
-        (PrimeWheel.#centerY + PrimeWheel.#yOffset) -
-          (PrimeWheel.#primeTable[PrimeWheel.#tableIdx] *
-            Math.sin(PrimeWheel.#primeTable[PrimeWheel.#tableIdx])) / PrimeWheel.#spacing)
+      const locX = (PrimeWheel.#centerX + PrimeWheel.#xOffset) +
+                   (PrimeWheel.#primeTable[PrimeWheel.#tableIdx] *
+                    Math.cos(PrimeWheel.#primeTable[PrimeWheel.#tableIdx])) / PrimeWheel.#spacing
+      const locY = (PrimeWheel.#centerY + PrimeWheel.#yOffset) -
+                   (PrimeWheel.#primeTable[PrimeWheel.#tableIdx] *
+                    Math.sin(PrimeWheel.#primeTable[PrimeWheel.#tableIdx])) / PrimeWheel.#spacing
+      TermRenderer.ctx.fillText(`${PrimeWheel.#primeTable[PrimeWheel.#tableIdx]}`, locX, locY)
 
       PrimeWheel.#tableIdx++
       //  Reset wheel
