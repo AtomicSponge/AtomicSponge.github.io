@@ -47,4 +47,7 @@ TermProcessor.addModule(new PrimeWheel({
 	fontColor: '#ff4500', useRandomOffset: true
 }))
 
+import { TestPrism } from './commands/TestPrism'
+TermProcessor.addModule(new TestPrism())
+
 createApp(App).mount('#app')

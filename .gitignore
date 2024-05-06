@@ -2,4 +2,3 @@ node_modules
 dist
 
 src/commands/FibonacciSequence.ts
-src/commands/PostRenderer.ts
