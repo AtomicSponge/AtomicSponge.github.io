@@ -26,7 +26,7 @@ const outputLocation = path.normalize(
   `${process.env.npm_config_local_prefix}/src/assets/markdown/`)
 
 const primeTable = []
-for(let i = 2; i < 15000; i++) {
+for(let i = 2; i < 20000; i++) {
   if(isPrime(i)) primeTable.push(i)
 }
 

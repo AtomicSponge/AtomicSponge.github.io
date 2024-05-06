@@ -9,11 +9,13 @@
 import showdown from 'showdown'
 import Prism from 'prismjs'
 
-export const renderPrism = (text:string) => {
+export const renderPrism = (text:string):string => {
   const codeLang = 'javascript'
   text = Prism.highlight(text, Prism.languages[codeLang], codeLang)
 
   //  Use showdown to process markdown
   const converter = new showdown.Converter()
   text = converter.makeHtml(text)
+
+  return text
 }
