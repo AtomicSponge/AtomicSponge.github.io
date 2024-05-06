@@ -7,17 +7,18 @@
  */
 
 import showdown from 'showdown'
-//import Prism from 'prismjs'
+import Prism from 'prismjs'
 
 import { createApp } from 'vue'
 import App from './App.vue'
 import './style.styl'
 
+//  Configure showdown
 showdown.setOption('parseImgDimensions', true)
 showdown.setOption('tables', true)
 showdown.setOption('emoji', true)
 
-//Prism.manual = true  //  Disable PrismJS's auto highlighting
+Prism.manual = true  //  Disable PrismJS's auto highlighting
 
 /*
  * Set up the command processor and its modules
@@ -45,10 +46,5 @@ import { PrimeWheel } from './commands/PrimeWheel'
 TermProcessor.addModule(new PrimeWheel({
 	fontColor: '#ff4500', useRandomOffset: true
 }))
-
-//import { PostRenderer } from './modules/PostRenderer'
-//TermProcessor.addModule(new PostRenderer('api/posts.json'))
-//  Load posts
-//TermProcessor.getModule('posts').getPosts()
 
 createApp(App).mount('#app')

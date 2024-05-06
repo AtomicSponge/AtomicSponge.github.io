@@ -8,6 +8,7 @@
 
 import { Command } from './Command.js'
 import { TermRenderer } from '../modules/TermRenderer.js'
+import { testHex, testRgb } from '../extras/regexps.js'
 
 import primeTableString from '../assets/markdown/primetable.md?raw'
 
@@ -115,7 +116,7 @@ export class PrimeWheel extends Command {
       return 'Prime wheel reset.'
     }
     if(String(args[0]).toLowerCase() === 'color') {
-      if(this.testHex(args[1]) || this.testRgb(args[1])) {
+      if(testHex(args[1]) || testRgb(args[1])) {
         PrimeWheel.#fontColor = args[1]
         return 'Color set.'
       }

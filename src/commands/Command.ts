@@ -6,8 +6,6 @@
  * 
  */
 
-import showdown from 'showdown'
-
 import { TermError } from '../modules/TermError'
 
 export class Command {
@@ -51,75 +49,6 @@ export class Command {
    */
   async exec(_args:Array<string>):Promise<string> {
     throw new TermError('Member \'exec()\' must be implemented!', this.exec)
-  }
-
-  /**
-   * Take a Markdown file and parse to HTML
-   * @param mdFileName Markdown file to render (placed in /assets/markdown)
-   * @returns The rendered & formatted text
-   */
-  renderText(text:string, usePrism?:boolean):string {
-    const converter = new showdown.Converter()
-    const resText = converter.makeHtml(text)
-    if(usePrism) {
-      console.log('prism highlighting enabled')
-    }
-    return resText
-  }
-
-  /**
-   * Regex that tests for hex
-   * @param str String to test
-   * @returns True if valid, else false
-   */
-  testHex(str:string) {
-    return /^#[0-9a-f]{3,4}([0-9a-f]{3,4})?$/i.test(str)
-  }
-
-  /**
-   * Regex that tests for rgb(a) or hsl(a)
-   * @param str String to test
-   * @returns True if valid, else false
-   */
-  testRgb(str:string) {
-    str = str.replace(/,\s+/g, ',')
-    return /^(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d\.]+%?\)$/i.test(str)
-  }
-
-  /**
-   * Test for valid pixel format (NNpx)
-   * @param str String to test
-   * @returns True if valid pixel format, else false
-   */
-  testPixel(str:string) {
-    return /^([0-9]+)px$/i.test(str)
-  }
-
-  /**
-   * Test for alphabetic charecters
-   * @param str String to test
-   * @returns True if the string is only alpha, else false
-   */
-  testAlpha(str:string) {
-    return /^[A-Za-z]+$/g.test(str)
-  }
-
-  /**
-   * Test for numeric charecters
-   * @param str String to test
-   * @returns True if the string is only numeric, else false
-   */
-  testNumeric(str:string) {
-    return /^\d+$/g.test(str)
-  }
-
-  /**
-   * Test for alphabetic and numeric charecters
-   * @param str String to test
-   * @returns True if the string is only alpha and numeric, else false
-   */
-  testAlphaNumeric(str:string) {
-    return /^[a-zA-Z0-9]+$/g.test(str)
   }
 
   /**
