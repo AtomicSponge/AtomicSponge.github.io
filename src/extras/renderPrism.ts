@@ -10,7 +10,7 @@ import Prism from 'prismjs'
 import showdown from 'showdown'
 
 /**
- * WIP - Render a markdown file that contains Prism highlighting
+ * Render a markdown file that contains Prism highlighting
  * @param text Text to convert
  * @returns Converted string of text
  */
