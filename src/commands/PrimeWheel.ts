@@ -61,7 +61,7 @@ export class PrimeWheel extends Command {
     PrimeWheel.#centerX = PrimeWheel.#width / 2
     PrimeWheel.#centerY = PrimeWheel.#height / 2
 
-    PrimeWheel.#spacing = 10
+    PrimeWheel.#spacing = 20
 
     PrimeWheel.#tableIdx = 0
     PrimeWheel.#primeTable = []
@@ -86,8 +86,6 @@ export class PrimeWheel extends Command {
     const observer = new ResizeObserver(() => {
       PrimeWheel.#width = TermRenderer.width
       PrimeWheel.#height = TermRenderer.height
-      PrimeWheel.#centerX = PrimeWheel.#width / 2
-      PrimeWheel.#centerY = PrimeWheel.#height / 2
     })
     observer.observe(document.documentElement)
   }
