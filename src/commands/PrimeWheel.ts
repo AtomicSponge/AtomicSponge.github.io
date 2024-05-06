@@ -67,7 +67,6 @@ export class PrimeWheel extends Command {
     PrimeWheel.#primeTable = []
     const tempTable = primeTableString.split(',')
     tempTable.forEach(prime => PrimeWheel.#primeTable.push(Number(prime)))
-    console.log(PrimeWheel.#primeTable)
 
     //  Primewheel animation function
     PrimeWheel.#animateFunc = ((_timeStamp) => {
