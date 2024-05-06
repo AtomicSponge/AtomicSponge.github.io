@@ -83,7 +83,7 @@ export class PrimeWheel extends Command {
 
       PrimeWheel.#tableIdx++
       //  Reset wheel
-      if(PrimeWheel.#tableIdx === PrimeWheel.#primeTable.length - 1)
+      if(PrimeWheel.#tableIdx === PrimeWheel.#primeTable.length)
         PrimeWheel.#primeWheelReset()
     })
 
