@@ -11,6 +11,10 @@
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
+  "bin": {
+    "getstats": "scripts/getstats.js",
+    "primetable": "scripts/primetable.js"
+  },
   "dependencies": {
     "prismjs": "^1.29.0",
     "showdown": "^2.1.0",
@@ -23,7 +27,7 @@
     "stylus": "^0.63.0",
     "stylus-loader": "^8.1.0",
     "typescript": "^5.4.5",
-    "vite": "^5.2.10",
+    "vite": "^5.2.11",
     "vue-tsc": "^2.0.16"
   }
 }

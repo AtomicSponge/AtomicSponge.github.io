@@ -131,7 +131,7 @@ export class PrimeWheel extends Command {
    * @returns True if prime, else false
    */
   static #isPrime(num:number) {
-    for(var i = 2; i < num; i++) {
+    for(let i = 2; i < num; i++) {
       if(num % i === 0) return false
     }
     return true

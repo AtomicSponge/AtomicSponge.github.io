@@ -1,7 +1,5 @@
 node_modules
 dist
 
-scripts
-
 src/commands/FibonacciSequence.ts
 src/commands/PostRenderer.ts
