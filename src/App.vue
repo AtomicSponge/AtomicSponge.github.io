@@ -35,7 +35,34 @@ const processInput = async (cmd:string) => {
  * @returns 
  */
 const resolveCommand = async (cmd:string) => {
+  /**
+   * Find a string grouping and ignore spaces
+   * @param cmd Command being ran
+   * @param regex Grouping regex
+   */
+  const processGroup = (cmd:string, regex:RegExp) => {
+    const group = cmd.match(regex)
+    const groupRes:Array<string> = []
+    group?.forEach(item => groupRes.push(item.replace(/\s+/g, '%%__%%')))
+    group?.forEach((item, idx) => cmd = cmd.replace(item, groupRes[idx]))
+    return cmd
+  }
+  //  Match the ( ) grouping and remove spaces
+  cmd = processGroup(cmd, /(?<=\()(.*?)(?=\))/g)
+  //  Match the [ ] grouping and remove spaces
+  cmd = processGroup(cmd, /(?<=\[)(.*?)(?=\])/g)
+  //  Match the " " grouping and remove spaces
+  cmd = processGroup(cmd, /(?<=\")(.*?)(?=\")/g)
+  //  Match the ' ' grouping and remove spaces
+  cmd = processGroup(cmd, /(?<=\')(.*?)(?=\')/g)
+  //  Match the ` ` grouping and remove spaces
+  cmd = processGroup(cmd, /(?<=\`)(.*?)(?=\`)/g)
+
   const cmdArr:Array<string> = cmd.split(' ')
+  //  Add spaces back to the groups
+  cmdArr.forEach((cmd, idx, arr) => {
+    arr[idx] = cmd.replace(/%%__%%+/g, ' ')
+  })
   if(String(cmdArr[0]).toLowerCase() === 'clear') return 'clear'  //  Special case for clearing console
   return await TermProcessor.processCommand(cmdArr)
 }
