@@ -203,8 +203,16 @@ This is an IIFE:
 This is some C++
 
 {% highlight language-cpp %}
-template <> inline benchmark<std::chrono::microseconds>::benchmark(const std::string& label) :
-benchmark_label(label), time_label("microseconds") {};
+bool world::delete_entity(const entity_id& e_id) {
+  auto e_it = std::find_if(entity_vec.begin(), entity_vec.end(),
+                           [&e_id](const entity& e){ return e.first == e_id; });
+  if(e_it == entity_vec.end()) return false;
+
+  _world.erase(e_id);      //  Remove all associated componenets.
+  entity_vec.erase(e_it);  //  Delete the entity.
+
+  return true;
+}
 {% endhighlight %}
 
 Done!
