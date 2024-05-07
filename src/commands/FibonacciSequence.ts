@@ -14,13 +14,13 @@ export class FibonacciSequence extends Command {
   static #centerY:number = 0
   static #lastFib:number = 0
   static #thisFib:number = 1
-  static #begX = FibonacciSequence.#centerX
-  static #begY = FibonacciSequence.#centerY
-  static #midX = 0
-  static #midY = 0
-  static #endX = 0
-  static #endY = 0
-  static #counter = 0
+  static #begX:number = 0
+  static #begY:number = 0
+  static #midX:number = 0
+  static #midY:number = 0
+  static #endX:number = 0
+  static #endY:number = 0
+  static #counter:number = 0
 
   static #animateFunc:FrameRequestCallback
 
@@ -29,11 +29,6 @@ export class FibonacciSequence extends Command {
     this.command = 'fibseq'
     this.description = 'Fibonacci Sequence Effect'
     this.help = ''
-
-    FibonacciSequence.#centerX = TermRenderer.width / 2
-    FibonacciSequence.#centerY = TermRenderer.height / 2
-    FibonacciSequence.#begX = FibonacciSequence.#centerX
-    FibonacciSequence.#begY = FibonacciSequence.#centerY
 
     FibonacciSequence.#animateFunc = (() => {
       TermRenderer.ctx.strokeStyle = '#FFFF00'
