@@ -42,7 +42,7 @@ export class SetColor extends Command {
    * @returns 
    */
   async exec(args:Array<string>):Promise<string> {
-    var errMsg = 'See <span style=\"font-weight: bold;\">setcolor help</span> for more info.'
+    var errMsg = 'See <code>setcolor help</code> for more info.'
     switch(String(args[0]).toLowerCase()) {
       case 'help': return this.help
       case 'reset':

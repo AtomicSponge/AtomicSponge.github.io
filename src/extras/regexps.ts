@@ -21,7 +21,6 @@ export const testHex = (str:string) => {
  * @returns True if valid, else false
  */
 export const testRgb = (str:string) => {
-  str = str.replace(/,\s+/g, ',')
   return /^(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d\.]+%?\)$/i.test(str)
 }
 
