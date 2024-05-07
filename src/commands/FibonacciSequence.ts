@@ -23,7 +23,7 @@ export class FibonacciSequence extends Command {
   static #counter = 0
 
   static #animateFunc:FrameRequestCallback
-  
+
   constructor() {
     super()
     this.command = 'fibseq'
