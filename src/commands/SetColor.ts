@@ -37,9 +37,9 @@ export class SetColor extends Command {
   }
 
   /**
-   * Process command
-   * @param args 
-   * @returns 
+   * Process Set Color commands
+   * @param args Arguments to the command
+   * @returns Result of the command
    */
   async exec(args:Array<string>):Promise<string> {
     var errMsg = 'See <code>setcolor help</code> for more info.'
