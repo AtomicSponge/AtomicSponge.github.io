@@ -18,7 +18,7 @@ const userIP = ref('127.0.0.1')
 
 /**
  * Get data from input component
- * @param cmd 
+ * @param cmd Command to process
  */
 const processInput = async (cmd:string) => {
   const displayData = await resolveCommand(cmd)
