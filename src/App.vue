@@ -60,10 +60,9 @@ const resolveCommand = async (cmd:string) => {
 
   const cmdArr:Array<string> = cmd.split(' ')
   //  Add spaces back to the groups
-  cmdArr.forEach((cmd, idx, arr) => {
-    arr[idx] = cmd.replace(/%%__%%+/g, ' ')
-  })
-  if(String(cmdArr[0]).toLowerCase() === 'clear') return 'clear'  //  Special case for clearing console
+  cmdArr.forEach((cmd, idx, arr) => { arr[idx] = cmd.replace(/%%__%%+/g, ' ') })
+  //  Special case for clearing console
+  if(String(cmdArr[0]).toLowerCase() === 'clear') return 'clear'
   return await TermProcessor.processCommand(cmdArr)
 }
 

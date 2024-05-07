@@ -43,9 +43,12 @@ import { SetColor } from './commands/SetColor'
 TermProcessor.addModule(new SetColor())
 
 import { PrimeWheel } from './commands/PrimeWheel'
-TermProcessor.addModule(new PrimeWheel({
-	fontColor: '#ff4500', useRandomOffset: true
-}))
+TermProcessor.addModule(new PrimeWheel([
+	{ fontColor: '#ff4500' },
+	{ fontColor: '#0000ff', useRandomOffset: true, durration: 5 },
+	{ fontColor: '#00ff00', useRandomOffset: true,
+		durration: 3, spacing: 10 }
+]))
 
 import { TestPrism } from './commands/TestPrism'
 TermProcessor.addModule(new TestPrism())
