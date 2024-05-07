@@ -49,7 +49,7 @@ export class PrimeWheel extends Command {
 
   /**
    * Initialize PrimeWheel
-   * @param options 
+   * @param options List of wheels to add
    */
   constructor(options:WheelList) {
     super()
@@ -145,7 +145,8 @@ export class PrimeWheel extends Command {
   }
 
   /**
-   * Generate a random x,y offset for drawing the wheel
+   * Generate a random x,y offset for a wheel
+   * @param wheel Wheel to generate offset for
    */
   static #setOffset(wheel:Wheel) {
     wheel.xOffset = Math.floor(Math.random() * (PrimeWheel.#centerX * 2 / 3) + 1)
