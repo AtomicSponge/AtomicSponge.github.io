@@ -45,9 +45,6 @@ export class FibonacciSequence extends Command {
     FibonacciSequence.#thisFib = 1
 
     FibonacciSequence.#animateFunc = (() => {
-      TermRenderer.ctx.strokeStyle = FibonacciSequence.#color
-      TermRenderer.ctx.lineWidth = 1
-  
       //  For each step, swap the direction of the blocks
       switch(FibonacciSequence.#counter) {
         case 0:
@@ -81,11 +78,14 @@ export class FibonacciSequence extends Command {
       }
   
       //  Draw curve using calculated points
+      TermRenderer.ctx.strokeStyle = FibonacciSequence.#color
+      TermRenderer.ctx.lineWidth = 1
       TermRenderer.ctx.beginPath()
       TermRenderer.ctx.moveTo(FibonacciSequence.#begX, FibonacciSequence.#begY)
       TermRenderer.ctx.quadraticCurveTo(FibonacciSequence.#midX, FibonacciSequence.#midY,
         FibonacciSequence.#endX, FibonacciSequence.#endY)
       TermRenderer.ctx.stroke()
+
       //  Reset for next curve
       FibonacciSequence.#begX = FibonacciSequence.#endX
       FibonacciSequence.#begY = FibonacciSequence.#endY

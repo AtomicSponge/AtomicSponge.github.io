@@ -46,8 +46,10 @@ export class SetColor extends Command {
     switch(String(args[0]).toLowerCase()) {
       case 'help': return this.help
       case 'reset':
-        this.#setBgColor(this.initialBgColor)
-        this.#setFontColor(this.initialFgColor)
+        if(!this.#loadColors()) {
+          this.#setBgColor(this.initialBgColor)
+          this.#setFontColor(this.initialFgColor)
+        }
         return 'Colors reset.'
       case 'default':
         this.#setBgColor(this.defaultBgColor)
