@@ -50,6 +50,9 @@ TermProcessor.addModule(new PrimeWheel([
 		durration: 3, spacing: 10 }
 ]))
 
+import { FibonacciSequence } from './commands/FibonacciSequence'
+TermProcessor.addModule(new FibonacciSequence())
+
 import { TestPrism } from './commands/TestPrism'
 TermProcessor.addModule(new TestPrism())
 

@@ -125,7 +125,7 @@ export class PrimeWheel extends Command {
   }
 
   /**
-   * Process command
+   * Process Prime Wheel commands
    * @param args Arguments to the command
    * @returns Result of the command
    */
