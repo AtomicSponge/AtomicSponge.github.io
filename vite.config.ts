@@ -8,7 +8,7 @@ export default defineConfig({
     vue(),
     prism({
       languages: [
-        'javascript', 'typescript', 'css', 'html', 'cpp', 'cmake'
+        'javascript', 'typescript', 'cpp', 'cmake'
       ],
       theme: 'twilight',
       css: true

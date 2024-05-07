@@ -49,7 +49,7 @@ export const renderPrism = (text:string):string => {
     //  Highlight with PrismJS
     tempStr = Prism.highlight(tempStr, Prism.languages[codeLang], codeLang)
     //  Add background formatting
-    tempStr = `<pre class=\"${codeLang}\">${tempStr}</pre>`
+    tempStr = `<pre class=\"language-${codeLang}\">${tempStr}</pre>`
     //  Push to the formatted code array
     formattedCode.push(tempStr)
   }
