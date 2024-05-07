@@ -36,7 +36,7 @@ const processInput = async (cmd:string) => {
  */
 const resolveCommand = async (cmd:string) => {
   /**
-   * Find a string grouping and ignore spaces
+   * Find a string grouping and replace spaces
    * @param cmd Command being ran
    * @param regex Grouping regex
    */
