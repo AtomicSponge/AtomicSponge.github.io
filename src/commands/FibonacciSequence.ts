@@ -8,6 +8,8 @@
 
 import { Command } from './Command.js'
 import { TermRenderer } from '../modules/TermRenderer.js'
+import { TermError } from '../modules/TermError.js'
+import { testHex, testRgb } from '../extras/regexps.js'
 
 export class FibonacciSequence extends Command {
   static #centerX:number
@@ -21,20 +23,28 @@ export class FibonacciSequence extends Command {
   static #endX:number
   static #endY:number
   static #counter:number
+  static #color:string
 
   static #animateFunc:FrameRequestCallback
 
-  constructor() {
+  /**
+   * Set up the Fibonacci Sequence
+   * @param color Color of the spiral effect
+   */
+  constructor(color:string) {
     super()
     this.command = 'fibseq'
     this.description = 'Fibonacci Sequence Effect'
     this.help = ''
 
+    if(!testHex(color) && !testRgb(color))
+      throw new TermError(`Incorrect color code '${color}' when setting up Fibonacci Sequence!`, this.constructor)
+    FibonacciSequence.#color = color
     FibonacciSequence.#lastFib = 0
     FibonacciSequence.#thisFib = 1
 
     FibonacciSequence.#animateFunc = (() => {
-      TermRenderer.ctx.strokeStyle = '#FFFF00'
+      TermRenderer.ctx.strokeStyle = FibonacciSequence.#color
       TermRenderer.ctx.lineWidth = 1
   
       //  For each step, swap the direction of the blocks
@@ -106,6 +116,14 @@ export class FibonacciSequence extends Command {
     if(String(args[0]).toLowerCase() === 'reset') {
       FibonacciSequence.#reset()
       return 'Fibonacci Sequence reset.'
+    }
+    if(String(args[0]).toLowerCase() === 'color') {
+      if(testHex(args[1]) || testRgb(args[1])) {
+        FibonacciSequence.#color = args[1]
+        FibonacciSequence.#reset()
+        return 'Color set.'
+      }
+      return 'Incorrect color code.'
     }
     return this.help
   }
