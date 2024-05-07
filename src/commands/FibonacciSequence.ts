@@ -10,17 +10,17 @@ import { Command } from './Command.js'
 import { TermRenderer } from '../modules/TermRenderer.js'
 
 export class FibonacciSequence extends Command {
-  static #centerX:number = 0
-  static #centerY:number = 0
-  static #lastFib:number = 0
-  static #thisFib:number = 1
-  static #begX:number = 0
-  static #begY:number = 0
-  static #midX:number = 0
-  static #midY:number = 0
-  static #endX:number = 0
-  static #endY:number = 0
-  static #counter:number = 0
+  static #centerX:number
+  static #centerY:number
+  static #lastFib:number
+  static #thisFib:number
+  static #begX:number
+  static #begY:number
+  static #midX:number
+  static #midY:number
+  static #endX:number
+  static #endY:number
+  static #counter:number
 
   static #animateFunc:FrameRequestCallback
 
@@ -29,6 +29,9 @@ export class FibonacciSequence extends Command {
     this.command = 'fibseq'
     this.description = 'Fibonacci Sequence Effect'
     this.help = ''
+
+    FibonacciSequence.#lastFib = 0
+    FibonacciSequence.#thisFib = 1
 
     FibonacciSequence.#animateFunc = (() => {
       TermRenderer.ctx.strokeStyle = '#FFFF00'
