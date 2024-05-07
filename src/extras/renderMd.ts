@@ -13,7 +13,7 @@ import showdown from 'showdown'
  * @param text Markdown file to render (placed in /assets/markdown)
  * @returns The rendered & formatted text
  */
-export const renderText = (text:string):string => {
+export const renderMd = (text:string):string => {
   const converter = new showdown.Converter()
   return converter.makeHtml(text)
 }

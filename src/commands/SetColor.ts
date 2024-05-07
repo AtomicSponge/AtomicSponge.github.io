@@ -7,7 +7,7 @@
  */
 
 import { Command } from './Command.js'
-import { renderText } from '../extras/renderText.js'
+import { renderMd } from '../extras/renderMd.js'
 import { testHex, testRgb } from '../extras/regexps.js'
 
 import setColorHelp from '../assets/markdown/setcolor_help.md?raw'
@@ -29,7 +29,7 @@ export class SetColor extends Command {
     super()
     this.command = 'setcolor'
     this.description = 'Set terminal colors'
-    this.help = renderText(setColorHelp)
+    this.help = renderMd(setColorHelp)
 
     this.#loadColors()
     this.initialBgColor = document.body.style.backgroundColor

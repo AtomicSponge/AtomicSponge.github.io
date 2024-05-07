@@ -7,7 +7,7 @@
  */
 
 import { Command } from './Command.js'
-import { renderText } from '../extras/renderText.js'
+import { renderMd } from '../extras/renderMd.js'
 
 import jabbaMarkdown from '../assets/markdown/jabbascript.md?raw'
 
@@ -27,6 +27,6 @@ export class JabbaCmd extends Command {
    * @returns 
    */
   async exec():Promise<string> {
-    return renderText(jabbaMarkdown)
+    return renderMd(jabbaMarkdown)
   }
 }
