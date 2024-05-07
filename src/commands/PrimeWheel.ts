@@ -72,7 +72,8 @@ export class PrimeWheel extends Command {
         tableIdx: 0,
         complete: false
       }
-      PrimeWheel.#wheels.push(temp)
+      if(PrimeWheel.#wheels.length < PrimeWheel.maxWheels)
+        PrimeWheel.#wheels.push(temp)
     })
 
     PrimeWheel.#width = TermRenderer.width
@@ -179,4 +180,9 @@ export class PrimeWheel extends Command {
     PrimeWheel.#primeWheelReset()
     TermRenderer.stop()
   }
+
+  /** Get number of created wheels */
+  static get numWheels() { return PrimeWheel.#wheels.length }
+  /** Get the max number of wheels allowed */
+  static get maxWheels() { return 5 }
 }
