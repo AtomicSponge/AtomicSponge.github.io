@@ -13,7 +13,7 @@ import { testHex, testRgb, testPixel } from '../extras/regexps.js'
 
 import primeTableString from '../assets/markdown/primetable.md?raw'
 
-export interface PrimeWheelOptions {
+interface PrimeWheelOptions {
   fontColor?:string
   fontSize?:string
   fontFace?:string
@@ -23,7 +23,7 @@ export interface PrimeWheelOptions {
   xOffset?:number
   yOffset?:number
 }
-export type WheelList = PrimeWheelOptions[]
+type WheelList = PrimeWheelOptions[]
 
 interface Wheel {
   fontColor:string
