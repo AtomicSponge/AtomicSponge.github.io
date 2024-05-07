@@ -51,7 +51,8 @@ export class PrimeWheel extends Command {
   /**
    * Initialize PrimeWheel
    * @param options List of wheels to add
-   * @throws Throws error if a color code is incorret
+   * @throws Throws error if a color code is incorrect
+   * @throws Throws error if the pixel format is incorrect
    */
   constructor(options:WheelList) {
     super()
