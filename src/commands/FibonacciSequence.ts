@@ -35,7 +35,8 @@ export class FibonacciSequence extends Command {
     super()
     this.command = 'fibseq'
     this.description = 'Fibonacci Sequence Effect'
-    this.help = ''
+    this.help = `<span style=\"font-weight: bold;\">Usage:</span> ` +
+      `fibseq <em>start</em>|<em>stop</em>|<em>reset</em>|<em>color</em>`
 
     if(!testHex(color) && !testRgb(color))
       throw new TermError(`Incorrect color code '${color}' when setting up Fibonacci Sequence!`, this.constructor)

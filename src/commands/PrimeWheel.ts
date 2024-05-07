@@ -58,9 +58,8 @@ export class PrimeWheel extends Command {
     super()
     this.command = 'primewheel'
     this.description = 'Prime Wheel Effect'
-    this.help =
-      `<span style=\"font-weight: bold;\">Usage:</span> ` +
-        `primewheel <em>start</em>|<em>stop</em>|<em>reset</em>|<em>color</em>`
+    this.help = `<span style=\"font-weight: bold;\">Usage:</span> ` +
+      `primewheel <em>start</em>|<em>stop</em>|<em>reset</em>`
 
     options.forEach(option => {
       const temp:Wheel = {
