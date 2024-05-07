@@ -8,7 +8,8 @@
 
 import { Command } from './Command.js'
 import { TermRenderer } from '../modules/TermRenderer.js'
-//import { testHex, testRgb } from '../extras/regexps.js'
+import { TermError } from '../modules/TermError.js'
+import { testHex, testRgb, testPixel } from '../extras/regexps.js'
 
 import primeTableString from '../assets/markdown/primetable.md?raw'
 
@@ -50,6 +51,7 @@ export class PrimeWheel extends Command {
   /**
    * Initialize PrimeWheel
    * @param options List of wheels to add
+   * @throws Throws error if a color code is incorret
    */
   constructor(options:WheelList) {
     super()
@@ -72,6 +74,11 @@ export class PrimeWheel extends Command {
         tableIdx: 0,
         complete: false
       }
+      if(!testHex(temp.fontColor) && !testRgb(temp.fontColor))
+        throw new TermError(`Incorrect color code '${temp.fontColor}' when adding to Prime Wheel!`, this.constructor)
+      if(!testPixel(temp.fontSize))
+        throw new TermError(`Incorrect pixel size '${temp.fontSize}' when adding to Prime Wheel!`, this.constructor)
+
       if(PrimeWheel.#wheels.length < PrimeWheel.maxWheels)
         PrimeWheel.#wheels.push(temp)
     })
