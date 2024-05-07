@@ -41,6 +41,7 @@ export const renderPrism = (text:string):string => {
     const codeLang = (() => {
       const temp = tempStr.match(/(?<={% highlight language-+).*?(?=\s+%})/)
       if(temp !== null) return temp[0]
+      console.error(`PROBLEMS DETERMINING CODE LANGUAGE IN FUNCTION RENDERPRISM!`)
       return 'javascript' //  Didn't find language, use JavaScript
     })()
 
