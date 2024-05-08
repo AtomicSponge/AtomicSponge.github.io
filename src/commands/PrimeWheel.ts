@@ -10,7 +10,9 @@ import { Command } from './Command.js'
 import { TermRenderer } from '../modules/TermRenderer.js'
 import { TermError } from '../modules/TermError.js'
 import { testHex, testRgb, testPixel, testNumeric } from '../extras/regexps.js'
+import { renderMd } from '../extras/renderMd.js'
 
+import primeHelpString from '../assets/markdown/primewheel_help.md?raw'
 import primeTableString from '../assets/markdown/primetable.md?raw'
 
 interface PrimeWheelOptions {
@@ -58,8 +60,7 @@ export class PrimeWheel extends Command {
     super()
     this.command = 'primewheel'
     this.description = 'Prime Wheel Effect'
-    this.help = `<span style=\"font-weight: bold;\">Usage:</span> ` +
-      `primewheel <em>start</em>|<em>stop</em>|<em>reset</em>`
+    this.help = renderMd(primeHelpString)
 
     options.forEach(option => {
       const temp:Wheel = {
@@ -154,16 +155,20 @@ export class PrimeWheel extends Command {
         return `added`
       case 'remove':
         if(!testNumeric(args[1])) return `${args[1]} is not a number!`
-        const temp = Number(args[1])
-        if(temp >= PrimeWheel.#wheels.length || temp < 0)
+        const tempR = Number(args[1])
+        if(tempR >= PrimeWheel.#wheels.length || tempR < 0)
           return `Bad index, no wheel at position ${args[1]}`
-        PrimeWheel.#wheels = PrimeWheel.#wheels.slice(0, temp).concat(PrimeWheel.#wheels.slice(temp + 1))
+        PrimeWheel.#wheels = PrimeWheel.#wheels.slice(0, tempR).concat(PrimeWheel.#wheels.slice(tempR + 1))
         return `Removed wheel at index ${args[1]}`
       case 'color':
-        /*if(testHex(args[1]) || testRgb(args[1])) {
-          PrimeWheel.#fontColor = args[1]
+        if(!testNumeric(args[1])) return `${args[1]} is not a number!`
+        const tempC = Number(args[1])
+        if(tempC >= PrimeWheel.#wheels.length || tempC < 0)
+          return `Bad index, no wheel at position ${args[1]}`
+        if(testHex(args[2]) || testRgb(args[2])) {
+          PrimeWheel.#wheels[tempC].fontColor = args[2]
           return 'Color set.'
-        }*/
+        }
         return 'Incorrect color code.'
       default:
         return this.help
