@@ -53,8 +53,7 @@ export class PrimeWheel extends Command {
   /**
    * Initialize PrimeWheel
    * @param options List of wheels to add
-   * @throws Throws error if a color code is incorrect
-   * @throws Throws error if the pixel format is incorrect
+   * @throws Throws error when problems with adding a new wheel
    */
   constructor(options:WheelList) {
     super()
@@ -63,25 +62,14 @@ export class PrimeWheel extends Command {
     this.help = renderMd(primeHelpString)
 
     options.forEach(option => {
-      const temp:Wheel = {
-        fontColor: option.fontColor || '#0000FF',
-        fontSize: option.fontSize || '8px',
-        fontFace: option.fontFace || 'Arial',
-        spacing: option.spacing || 20,
-        durration: option.durration || 20,
-        useRandomOffset: option.useRandomOffset || false,
-        xOffset: option.xOffset || 0,
-        yOffset: option.yOffset || 0,
-        tableIdx: 0,
-        complete: false
-      }
-      if(!testHex(temp.fontColor) && !testRgb(temp.fontColor))
-        throw new TermError(`Incorrect color code '${temp.fontColor}' when adding to Prime Wheel!`, this.constructor)
-      if(!testPixel(temp.fontSize))
-        throw new TermError(`Incorrect pixel size '${temp.fontSize}' when adding to Prime Wheel!`, this.constructor)
+      const temp = PrimeWheel.#makeWheel(option)
+      if(temp === null)
+        throw new TermError(`Bad wheel '${option}' when adding to Prime Wheel!`, this.constructor)
 
       if(PrimeWheel.#wheels.length < PrimeWheel.maxWheels)
         PrimeWheel.#wheels.push(temp)
+      else
+        throw new TermError(`Max number of wheels allowed reached!`, this.constructor)
     })
 
     PrimeWheel.#width = TermRenderer.width
@@ -152,7 +140,14 @@ export class PrimeWheel extends Command {
         resStr += '</table>'
         return resStr
       case 'add':
-        return `added`
+        if(PrimeWheel.#wheels.length >= PrimeWheel.maxWheels)
+          return 'Max number of wheels allowed reached.'
+        const addArgs = args.slice(1)
+        addArgs.forEach(arg => {
+          const prop = arg.split('=')
+          console.log(prop)
+        })
+        return `Added new wheel.`
       case 'remove':
         if(!testNumeric(args[1])) return `${args[1]} is not a number!`
         const tempR = Number(args[1])
@@ -211,6 +206,29 @@ export class PrimeWheel extends Command {
   static #primeWheelStop() {
     PrimeWheel.#primeWheelReset()
     TermRenderer.stop()
+  }
+
+  /**
+   * Create a new Prime Wheel
+   * @param options Options for the new wheel
+   * @returns A new wheel object, or null if the object does not pass tests
+   */
+  static #makeWheel(options:PrimeWheelOptions):Wheel | null {
+    const temp:Wheel = {
+      fontColor: options.fontColor || '#0000FF',
+      fontSize: options.fontSize || '8px',
+      fontFace: options.fontFace || 'Arial',
+      spacing: options.spacing || 20,
+      durration: options.durration || 20,
+      useRandomOffset: options.useRandomOffset || false,
+      xOffset: options.xOffset || 0,
+      yOffset: options.yOffset || 0,
+      tableIdx: 0,
+      complete: false
+    }
+    if(!testHex(temp.fontColor) && !testRgb(temp.fontColor)) return null
+    if(!testPixel(temp.fontSize)) return null
+    return temp
   }
 
   /** Get number of created wheels */
