@@ -14,7 +14,7 @@ import prmwhlCodeText from './PrimeWheel.ts?raw'
 import fibseqCodeText from './FibonacciSequence.ts?raw'
 
 export class CodeExample extends Command {
-  static #projects:Array<{name:string, code:string}>
+  static #projects:Array<{name:string, code:string, lang:string}>
 
   /**
    * Initialize 
@@ -25,8 +25,8 @@ export class CodeExample extends Command {
     this.description = 'View the source code for the effects'
 
     CodeExample.#projects = [ 
-      { name: 'primewheel', code: prmwhlCodeText },
-      { name: 'fibseq', code: fibseqCodeText }
+      { name: 'primewheel', code: prmwhlCodeText, lang: 'typescript' },
+      { name: 'fibseq', code: fibseqCodeText, lang: 'typescript' }
     ]
 
     let tempStr = 'Projects: '
@@ -48,7 +48,7 @@ export class CodeExample extends Command {
         return
       }
       if(String(args[0]).toLowerCase() === project.name) {
-        res = renderPrism(`{% highlight language-typescript %}${project.code}{% endhighlight %}`)
+        res = renderPrism(`{% highlight language-${project.lang} %}${project.code}{% endhighlight %}`)
         return
       }
     })
