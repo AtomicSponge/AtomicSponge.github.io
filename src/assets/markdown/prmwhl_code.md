@@ -1,3 +1,4 @@
+{% highlight language-javascript %}
 /**
  * 
  * @author Matthew Evans
@@ -269,3 +270,4 @@ export class PrimeWheel extends Command {
   /** Get the max number of wheels allowed */
   static get maxWheels():number { return 5 }
 }
+{% endhighlight %}
