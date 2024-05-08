@@ -27,6 +27,6 @@ export class CodeExample extends Command {
    * @returns 
    */
   async exec():Promise<string> {
-    return renderPrism(`{% highlight language-javascript %}${prmwhlCodeText}{% endhighlight %}`)
+    return renderPrism(`{% highlight language-typescript %}${prmwhlCodeText}{% endhighlight %}`)
   }
 }
