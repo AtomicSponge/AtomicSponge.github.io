@@ -20,7 +20,7 @@ const userIP = ref('127.0.0.1')
  * Get data from input component
  * @param cmd Command to process
  */
-const processInput = async (cmd:string) => {
+const processInput = async (cmd:string):Promise<void> => {
   const displayData = await resolveCommand(cmd)
   history.value = cmd
   display.value = displayData
@@ -34,7 +34,7 @@ const processInput = async (cmd:string) => {
  * @param cmd 
  * @returns 
  */
-const resolveCommand = async (cmd:string) => {
+const resolveCommand = async (cmd:string):Promise<string> => {
   /**
    * Find a string grouping and replace spaces
    * @param cmd Command being ran

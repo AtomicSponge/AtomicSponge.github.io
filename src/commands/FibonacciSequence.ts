@@ -134,7 +134,7 @@ export class FibonacciSequence extends Command {
   }
 
   /** Resets the effect */
-  static #reset() {
+  static #reset():void {
     FibonacciSequence.#centerX = TermRenderer.width / 2
     FibonacciSequence.#centerY = TermRenderer.height / 2
     FibonacciSequence.#lastFib = 0
@@ -150,14 +150,14 @@ export class FibonacciSequence extends Command {
   }
 
   /** Start the effect */
-  static #start() {
+  static #start():void {
     FibonacciSequence.#stop()
     TermRenderer.setRenderer(FibonacciSequence.#animateFunc)
     TermRenderer.start()
   }
 
   /** Stop the effect */
-  static #stop() {
+  static #stop():void {
     FibonacciSequence.#reset()
     TermRenderer.stop()
   }

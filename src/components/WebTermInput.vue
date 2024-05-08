@@ -17,7 +17,7 @@ var history:Array<string> = []  //  Array of previously ran commands
 var historyIndex:number = -1    //  Index for browsing previous commands
 
 /** Run when the input form is submitted */
-const submit = () => {
+const submit = ():void => {
   if (!userInput.value) return  //  no input, don't process
   //  add the entered command to the start of the history
   history.unshift(<string>userInput.value)
@@ -31,7 +31,7 @@ const submit = () => {
 }
 
 /** Up arrow event to cycle input history */
-const historyUp = () => {
+const historyUp = ():void => {
   if(history.length > 0) {  //  Make sure there's history
     //  Iterate only if we're not at the end
     if(historyIndex < history.length - 1) {
@@ -42,7 +42,7 @@ const historyUp = () => {
 }
 
 /** Down arrow event to cycle input history */
-const historyDown = () => {
+const historyDown = ():void => {
   //  Iterate only if we're not at the start
   if(historyIndex > 0) {
     historyIndex -= 1

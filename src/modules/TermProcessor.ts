@@ -36,7 +36,7 @@ export class TermProcessor {
    * @throws Error if the command and description parameters are not set
    * @throws Error if the command already exists
    */
-  static addModule(obj:Command) {
+  static addModule(obj:Command):void {
     if(!(obj instanceof Command))
       throw new TermError("'addModule()' Error: Not an instance of Command.", TermProcessor.addModule)
     if(obj.command === "error" || obj.description === "error")
@@ -54,7 +54,7 @@ export class TermProcessor {
    * @returns Command object with matching command name
    * @throws Error if the command is not found
    */
-  static getModule(cmd:string) {
+  static getModule(cmd:string):Command {
     const res = TermProcessor.#commands.find(elm => elm.command === cmd)
     if(res === undefined)
       throw new TermError(`'getModule()' Error: Module '${cmd}' not found!`, TermProcessor.getModule)
@@ -67,7 +67,7 @@ export class TermProcessor {
      * @param commands 
      * @returns The Help display
      */
-    help(commands:Array<Command>) {
+    help(commands:Array<Command>):string {
       var help = "<table style=\"border: 0px;\">"
       help += "<tr><th style=\"text-align: left;\">Command</th>"
       help += "<th>&nbsp;&nbsp;&nbsp;</th><th>Description</th></tr>"

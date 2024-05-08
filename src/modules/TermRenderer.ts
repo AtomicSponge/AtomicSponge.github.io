@@ -29,7 +29,7 @@ export class TermRenderer {
   constructor() { return false }  //  Don't allow direct construction
 
   /** Set up the TermRenderer */
-  static initialize = () => {
+  static initialize = ():void => {
     if(TermRenderer.#initialized)
       throw new TermError('TermRenderer already initialized!', this.constructor)
     //  Append canvas css styling
@@ -71,7 +71,7 @@ export class TermRenderer {
    * Set the renderer's animation function
    * @param func Animation function
    */
-  static setRenderer = (func:FrameRequestCallback) => {
+  static setRenderer = (func:FrameRequestCallback):void => {
     if(!(func instanceof Function))
       throw new TermError('Provided animation is not a function!', TermRenderer.setRenderer)
     TermRenderer.#renderFunc = func
@@ -79,7 +79,7 @@ export class TermRenderer {
   }
 
   /** Start the renderer */
-  static start = () => {
+  static start = ():void => {
     if(!TermRenderer.isReady) return  //  Prevent running if an animation function was not set
     if(TermRenderer.isRunning) TermRenderer.stop()
     TermRenderer.clear()
@@ -92,30 +92,30 @@ export class TermRenderer {
    * Calls the provided animation function
    * @param timeStamp Time the last frame ended its rendering
    */
-  static #animate(timeStamp:DOMHighResTimeStamp) {
+  static #animate(timeStamp:DOMHighResTimeStamp):void {
     TermRenderer.#renderFunc(timeStamp)
     TermRenderer.#renderProc = requestAnimationFrame(TermRenderer.#animate)
   }
 
   /** Stop the renderer */
-  static stop = () => {
+  static stop = ():void => {
     TermRenderer.hide()
     window.cancelAnimationFrame(TermRenderer.#renderProc)
     TermRenderer.#renderProc = 0
   }
 
   /** Clear the renderer */
-  static clear = () => {
+  static clear = ():void => {
     TermRenderer.#ctx.clearRect(0, 0, TermRenderer.width, TermRenderer.height)
   }
 
   /** Show the renderer */
-  static show = () => {
+  static show = ():void => {
     TermRenderer.#canvas.style.display = 'block'
   }
 
   /** Hide the renderer */
-  static hide = () => {
+  static hide = ():void => {
     TermRenderer.#canvas.style.display = 'none'
   }
 

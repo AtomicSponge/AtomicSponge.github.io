@@ -10,9 +10,10 @@ const props = defineProps<{
 }>()
 
 /**
- * 
+ * Get the current time (HH:MM:SS)
+ * @returns Current time formatted as a string
  */
-const currentTime = () => {
+const currentTime = ():string => {
   return new Date().toLocaleTimeString(navigator.language, {
     hour12: false,
     hour: '2-digit',

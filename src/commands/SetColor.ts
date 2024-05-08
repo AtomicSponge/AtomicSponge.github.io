@@ -82,7 +82,7 @@ export class SetColor extends Command {
    * 
    * @param color 
    */
-  #setBgColor(color:string) {
+  #setBgColor(color:string):void {
     document.body.style.backgroundColor = color
   }
 
@@ -90,7 +90,7 @@ export class SetColor extends Command {
    * 
    * @param color 
    */
-  #setFontColor(color:string) {
+  #setFontColor(color:string):void {
     document.body.style.color = color
   }
 

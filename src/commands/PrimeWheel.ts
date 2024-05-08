@@ -177,7 +177,7 @@ export class PrimeWheel extends Command {
    * Generate a random x,y offset for a wheel
    * @param wheel Wheel to generate offset for
    */
-  static #setOffset(wheel:Wheel) {
+  static #setOffset(wheel:Wheel):void {
     wheel.xOffset = Math.floor(Math.random() * (PrimeWheel.#centerX * 2 / 3) + 1)
     wheel.xOffset = wheel.xOffset * (Math.random() < 0.5 ? -1 : 1)
     wheel.yOffset = Math.floor(Math.random() * (PrimeWheel.#centerY * 2 / 3) + 1)
@@ -185,7 +185,7 @@ export class PrimeWheel extends Command {
   }
 
   /** Resets the effect */
-  static #primeWheelReset() {
+  static #primeWheelReset():void {
     TermRenderer.clear()
     PrimeWheel.#centerX = PrimeWheel.#width / 2
     PrimeWheel.#centerY = PrimeWheel.#height / 2
@@ -198,7 +198,7 @@ export class PrimeWheel extends Command {
   }
 
   /** Start the prime wheel */
-  static #primeWheelStart() {
+  static #primeWheelStart():void {
     PrimeWheel.#primeWheelStop()
     TermRenderer.setRenderer(PrimeWheel.#animateFunc)
     PrimeWheel.#startTime = <DOMHighResTimeStamp>document.timeline.currentTime
@@ -206,7 +206,7 @@ export class PrimeWheel extends Command {
   }
 
   /** Stop the prime wheel */
-  static #primeWheelStop() {
+  static #primeWheelStop():void {
     PrimeWheel.#primeWheelReset()
     TermRenderer.stop()
   }
@@ -235,7 +235,7 @@ export class PrimeWheel extends Command {
   }
 
   /** Get number of created wheels */
-  static get numWheels() { return PrimeWheel.#wheels.length }
+  static get numWheels():number { return PrimeWheel.#wheels.length }
   /** Get the max number of wheels allowed */
-  static get maxWheels() { return 5 }
+  static get maxWheels():number { return 5 }
 }

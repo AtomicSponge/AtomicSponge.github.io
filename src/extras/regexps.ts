@@ -11,7 +11,7 @@
  * @param str String to test
  * @returns True if valid, else false
  */
-export const testHex = (str:string) => {
+export const testHex = (str:string):boolean => {
   return /^#[0-9a-f]{3,4}([0-9a-f]{3,4})?$/i.test(str)
 }
 
@@ -20,7 +20,7 @@ export const testHex = (str:string) => {
  * @param str String to test
  * @returns True if valid, else false
  */
-export const testRgb = (str:string) => {
+export const testRgb = (str:string):boolean => {
   return /^(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d\.]+%?\)$/i.test(str)
 }
 
@@ -29,7 +29,7 @@ export const testRgb = (str:string) => {
  * @param str String to test
  * @returns True if valid pixel format, else false
  */
-export const testPixel = (str:string) => {
+export const testPixel = (str:string):boolean => {
   return /^([0-9]+)px$/i.test(str)
 }
 
@@ -38,7 +38,7 @@ export const testPixel = (str:string) => {
  * @param str String to test
  * @returns True if the string is only alpha, else false
  */
-export const testAlpha = (str:string) => {
+export const testAlpha = (str:string):boolean => {
   return /^[A-Za-z]+$/g.test(str)
 }
 
@@ -47,7 +47,7 @@ export const testAlpha = (str:string) => {
  * @param str String to test
  * @returns True if the string is only numeric, else false
  */
-export const testNumeric = (str:string) => {
+export const testNumeric = (str:string):boolean => {
   return /^\d+$/g.test(str)
 }
 
@@ -56,6 +56,6 @@ export const testNumeric = (str:string) => {
  * @param str String to test
  * @returns True if the string is only alpha and numeric, else false
  */
-export const testAlphaNumeric = (str:string) => {
+export const testAlphaNumeric = (str:string):boolean => {
   return /^[a-zA-Z0-9]+$/g.test(str)
 }
