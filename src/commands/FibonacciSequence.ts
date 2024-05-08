@@ -98,6 +98,11 @@ export class FibonacciSequence extends Command {
       if(FibonacciSequence.#thisFib === Number.MAX_SAFE_INTEGER)
         FibonacciSequence.#reset()
     })
+
+    const observer = new ResizeObserver(() => {
+      FibonacciSequence.#reset()
+    })
+    observer.observe(document.documentElement)
   }
 
   /**
