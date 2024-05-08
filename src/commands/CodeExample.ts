@@ -9,7 +9,7 @@
 import { Command } from './Command.js'
 import { renderPrism } from '../extras/renderPrism.js'
 
-import prmwhlCodeText from '../assets/markdown/prmwhl_code.md?raw'
+import prmwhlCodeText from './PrimeWheel.ts?raw'
 
 export class CodeExample extends Command {
   /**
@@ -27,6 +27,6 @@ export class CodeExample extends Command {
    * @returns 
    */
   async exec():Promise<string> {
-    return renderPrism(prmwhlCodeText)
+    return renderPrism(`{% highlight language-javascript %}${prmwhlCodeText}{% endhighlight %}`)
   }
 }
