@@ -121,15 +121,15 @@ export class PrimeWheel extends Command {
     switch(String(args[0]).toLowerCase()) {
       case 'start':
         PrimeWheel.#primeWheelStart()
-        return 'Prime wheel started.'
+        return `Prime wheel started.`
       case 'stop':
         PrimeWheel.#primeWheelStop()
-        return 'Prime wheel stopped.'
+        return `Prime wheel stopped.`
       case 'reset':
         PrimeWheel.#primeWheelReset()
-        return 'Prime wheel reset.'
+        return `Prime wheel reset.`
       case 'list':
-        let resStr = '<table>'
+        let resStr = `<table>`
         PrimeWheel.#wheels.forEach((wheel, idx) => {
           resStr += `<tr><td>Wheel ${idx}:</td>`
           resStr += `<td>Color: ${wheel.fontColor}</td>`
@@ -137,16 +137,19 @@ export class PrimeWheel extends Command {
           resStr += `<td>Durration: ${wheel.durration}</td>`
           resStr += `<td>Offset: ${wheel.useRandomOffset}</td></tr>`
         })
-        resStr += '</table>'
+        resStr += `</table>`
         return resStr
       case 'add':
         if(PrimeWheel.#wheels.length >= PrimeWheel.maxWheels)
-          return 'Max number of wheels allowed reached.'
+          return `Max number of wheels allowed reached.`
         const addArgs = args.slice(1)
         addArgs.forEach(arg => {
           const prop = arg.split('=')
           console.log(prop)
         })
+        /*const tempWheel = PrimeWheel.#makeWheel(option)
+        if(tempWheel === null) return `Problems adding the new wheel!  Make sure your parameters are valid!`
+        PrimeWheel.#wheels.push(tempWheel)*/
         return `Added new wheel.`
       case 'remove':
         if(!testNumeric(args[1])) return `${args[1]} is not a number!`
@@ -162,9 +165,9 @@ export class PrimeWheel extends Command {
           return `Bad index, no wheel at position ${args[1]}`
         if(testHex(args[2]) || testRgb(args[2])) {
           PrimeWheel.#wheels[tempC].fontColor = args[2]
-          return 'Color set.'
+          return `Color set.`
         }
-        return 'Incorrect color code.'
+        return `Incorrect color code.`
       default:
         return this.help
     }
