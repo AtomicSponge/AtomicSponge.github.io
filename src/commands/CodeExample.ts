@@ -41,12 +41,9 @@ export class CodeExample extends Command {
    * @returns Result of the command
    */
   async exec(args:Array<string>):Promise<string> {
+    if(String(args[0]).toLowerCase() === 'help') return this.help
     let res = ''
     CodeExample.#projects.forEach(project => {
-      if(String(args[0]).toLowerCase() === 'help') {
-        res = this.help
-        return
-      }
       if(String(args[0]).toLowerCase() === project.name) {
         res = renderPrism(`{% highlight language-${project.lang} %}${project.code}{% endhighlight %}`)
         return
