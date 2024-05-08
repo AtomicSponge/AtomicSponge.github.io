@@ -142,14 +142,42 @@ export class PrimeWheel extends Command {
       case 'add':
         if(PrimeWheel.#wheels.length >= PrimeWheel.maxWheels)
           return `Max number of wheels allowed reached.`
+        const options = {
+          fontColor: '#ffffff',
+          spacing: 10,
+          durration: 10,
+          useRandomOffset: true
+        }
         const addArgs = args.slice(1)
-        addArgs.forEach(arg => {
-          const prop = arg.split('=')
-          console.log(prop)
-        })
-        /*const tempWheel = PrimeWheel.#makeWheel(option)
+        try {
+          addArgs.forEach(arg => {
+            const prop = arg.split('=')
+            if(prop.length === 2 && prop[0] != '' && prop[1] != '') {
+              switch(prop[0]) {
+                case 'color':
+                  options.fontColor = prop[1]
+                  break
+                case 'spacing':
+                  options.spacing = Number(prop[1])
+                  break
+                case 'durration':
+                  options.durration = Number(prop[1])
+                  break
+                case 'offset':
+                  options.useRandomOffset = Boolean(prop[1])
+                  break
+                default:
+                  throw new Error(`Problems adding the new wheel!  Bad argument '${arg}'!`)
+              }
+            } else {
+              throw new Error(`Problems adding the new wheel!  Bad argument '${arg}'!`)
+            }
+          })
+        } catch(error:any) { return error.message }
+        const tempWheel = PrimeWheel.#makeWheel(options)
         if(tempWheel === null) return `Problems adding the new wheel!  Make sure your parameters are valid!`
-        PrimeWheel.#wheels.push(tempWheel)*/
+        PrimeWheel.#wheels.push(tempWheel)
+        PrimeWheel.#primeWheelReset()
         return `Added new wheel.`
       case 'remove':
         if(!testNumeric(args[1])) return `${args[1]} is not a number!`
@@ -157,6 +185,7 @@ export class PrimeWheel extends Command {
         if(tempR >= PrimeWheel.#wheels.length || tempR < 0)
           return `Bad index, no wheel at position ${args[1]}`
         PrimeWheel.#wheels = PrimeWheel.#wheels.slice(0, tempR).concat(PrimeWheel.#wheels.slice(tempR + 1))
+        PrimeWheel.#primeWheelReset()
         return `Removed wheel at index ${args[1]}`
       case 'color':
         if(!testNumeric(args[1])) return `${args[1]} is not a number!`
@@ -165,6 +194,7 @@ export class PrimeWheel extends Command {
           return `Bad index, no wheel at position ${args[1]}`
         if(testHex(args[2]) || testRgb(args[2])) {
           PrimeWheel.#wheels[tempC].fontColor = args[2]
+          PrimeWheel.#primeWheelReset()
           return `Color set.`
         }
         return `Incorrect color code.`

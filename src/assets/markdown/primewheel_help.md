@@ -1,4 +1,4 @@
-## __Prime Wheel Effect Help__
+## :question:__Prime Wheel Effect Help__:question:
 ```
 primewheel start|stop|reset|list|add|remove|color
 ```
@@ -7,7 +7,15 @@ primewheel start|stop|reset|list|add|remove|color
 - __stop:__  Stops running the effect.
 - __reset:__  Reset the effect to start.
 - __list:__  List available wheels by index.
-- __add:__  Add a new wheel.  (WIP)
+- __add:__  Add a new wheel.  Accepts the following parameters:
+    - *color=* The color of the new wheel.  Accepts RGB, HSL or HEX values.
+    - *spacing=* Spacing between the wheel.  Higher value the closer the spacing.
+    - *durration=* Durration to run the wheel in seconds.
+    - *offset=* Use random offset (true or false).
+<br/>Example:
+```
+primewheel add color=#ffff00 durration=5 offset=false
+```
 - __remove:__  Remove a wheel by index.  Example:
 ```
 primewheel remove 1
