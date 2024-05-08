@@ -12,15 +12,22 @@ primewheel start|stop|reset|list|add|remove|color
     - *spacing=* Spacing between the wheel.  Higher value the closer the spacing.
     - *durration=* Durration to run the wheel in seconds.
     - *offset=* Use random offset (true or false).
-<br/>Example:
+<p>Example:</p>
 ```
 primewheel add color=#ffff00 durration=5 offset=false
 ```
-- __remove:__  Remove a wheel by index.  Example:
+- __remove:__  Remove a wheel by index.
+<p>Example:</p>
 ```
 primewheel remove 1
 ```
-- __color:__  Change a wheel color by index.  Example:
+- __color:__  Change a wheel color by index.
+<p>Example:</p>
 ```
 primewheel color 1 rgb(255, 255, 0)
+```
+
+To see the source for the Prime Wheel, enter:
+```
+showcode
 ```

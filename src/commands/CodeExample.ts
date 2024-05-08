@@ -18,7 +18,7 @@ export class CodeExample extends Command {
   constructor() {
     super()
     this.command = 'showcode'
-    this.description = 'Show a code formatting example with Prism'
+    this.description = 'View the source code for the Prime Wheel'
   }
 
   /**
