@@ -29,10 +29,10 @@ export class ShowCode extends Command {
       { name: 'fibseq', code: fibseqCodeText, lang: 'typescript' }
     ]
 
-    let tempStr = 'Projects: '
+    let tempStr = 'Effects: '
     ShowCode.#projects.forEach(project => tempStr += `*${project.name}* | `)
     tempStr = tempStr.slice(0, -3).trim()
-    this.help = renderMd(`Usage: \`showcode [project]\`<br/><br/>${tempStr}`)
+    this.help = renderMd(`Usage: \`showcode [effect]\`<br/><br/>${tempStr}`)
   }
 
   /**
@@ -50,6 +50,6 @@ export class ShowCode extends Command {
       }
     })
     if(res !== '') return res
-    return `Nothing found with name ${args[0]}\n${this.help}`
+    return `Nothing found with effect name ${args[0]}\n${this.help}`
   }
 }
