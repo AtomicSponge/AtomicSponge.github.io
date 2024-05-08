@@ -9,16 +9,16 @@
 import { Command } from './Command.js'
 import { renderPrism } from '../extras/renderPrism.js'
 
-import prismTestText from '../assets/markdown/prism_test.md?raw'
+import prmwhlCodeText from '../assets/markdown/prmwhl_code.md?raw'
 
-export class TestPrism extends Command {
+export class CodeExample extends Command {
   /**
    * Initialize 
    */
   constructor() {
     super()
-    this.command = 'testprism'
-    this.description = 'Prism formatting test'
+    this.command = 'showcode'
+    this.description = 'Show a code formatting example with Prism'
   }
 
   /**
@@ -27,6 +27,6 @@ export class TestPrism extends Command {
    * @returns 
    */
   async exec():Promise<string> {
-    return renderPrism(prismTestText)
+    return renderPrism(prmwhlCodeText)
   }
 }
