@@ -129,17 +129,20 @@ export class PrimeWheel extends Command {
    * @returns Result of the command
    */
   async exec(args:Array<string>):Promise<string> {
-    if(String(args[0]).toLowerCase() === 'start') {
-      PrimeWheel.#primeWheelStart()
-      return 'Prime wheel started.'
-    }
-    if(String(args[0]).toLowerCase() === 'stop') {
-      PrimeWheel.#primeWheelStop()
-      return 'Prime wheel stopped.'
-    }
-    if(String(args[0]).toLowerCase() === 'reset') {
-      PrimeWheel.#primeWheelReset()
-      return 'Prime wheel reset.'
+    switch(String(args[0]).toLowerCase()) {
+      case 'start':
+        PrimeWheel.#primeWheelStart()
+        return 'Prime wheel started.'
+      case 'stop':
+        PrimeWheel.#primeWheelStop()
+        return 'Prime wheel stopped.'
+      case 'reset':
+        PrimeWheel.#primeWheelReset()
+        return 'Prime wheel reset.'
+      case 'list':
+        //
+      default:
+        return this.help
     }
     /*if(String(args[0]).toLowerCase() === 'color') {
       if(testHex(args[1]) || testRgb(args[1])) {
@@ -148,7 +151,6 @@ export class PrimeWheel extends Command {
       }
       return 'Incorrect color code.'
     }*/
-    return this.help
   }
 
   /**

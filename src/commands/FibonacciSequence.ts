@@ -111,27 +111,26 @@ export class FibonacciSequence extends Command {
    * @returns Result of the command
    */
   async exec(args:Array<string>):Promise<string> {
-    if(String(args[0]).toLowerCase() === 'start') {
-      FibonacciSequence.#start()
-      return 'Fibonacci Sequence started.'
-    }
-    if(String(args[0]).toLowerCase() === 'stop') {
-      FibonacciSequence.#stop()
-      return 'Fibonacci Sequence stopped.'
-    }
-    if(String(args[0]).toLowerCase() === 'reset') {
-      FibonacciSequence.#reset()
-      return 'Fibonacci Sequence reset.'
-    }
-    if(String(args[0]).toLowerCase() === 'color') {
-      if(testHex(args[1]) || testRgb(args[1])) {
-        FibonacciSequence.#color = args[1]
+    switch(String(args[0]).toLowerCase()) {
+      case 'start':
+        FibonacciSequence.#start()
+        return 'Fibonacci Sequence started.'
+      case 'stop':
+        FibonacciSequence.#stop()
+        return 'Fibonacci Sequence stopped.'
+      case 'reset':
         FibonacciSequence.#reset()
-        return 'Color set.'
-      }
-      return 'Incorrect color code.'
+        return 'Fibonacci Sequence reset.'
+      case 'color':
+        if(testHex(args[1]) || testRgb(args[1])) {
+          FibonacciSequence.#color = args[1]
+          FibonacciSequence.#reset()
+          return 'Color set.'
+        }
+        return 'Incorrect color code.'
+      default:
+        return this.help
     }
-    return this.help
   }
 
   /** Resets the effect */

@@ -73,8 +73,9 @@ export class SetColor extends Command {
           return 'Font color set.'
         }
         return 'Incorrect color code. ' + errMsg
+      default:
+        return this.help
     }
-    return this.help
   }
 
   /**
