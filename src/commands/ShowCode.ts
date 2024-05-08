@@ -13,7 +13,7 @@ import { renderPrism } from '../extras/renderPrism.js'
 import prmwhlCodeText from './PrimeWheel.ts?raw'
 import fibseqCodeText from './FibonacciSequence.ts?raw'
 
-export class CodeExample extends Command {
+export class ShowCode extends Command {
   static #projects:Array<{name:string, code:string, lang:string}>
 
   /**
@@ -24,13 +24,13 @@ export class CodeExample extends Command {
     this.command = 'showcode'
     this.description = 'View the source code for the effects'
 
-    CodeExample.#projects = [ 
+    ShowCode.#projects = [ 
       { name: 'primewheel', code: prmwhlCodeText, lang: 'typescript' },
       { name: 'fibseq', code: fibseqCodeText, lang: 'typescript' }
     ]
 
     let tempStr = 'Projects: '
-    CodeExample.#projects.forEach(project => tempStr += `*${project.name}* | `)
+    ShowCode.#projects.forEach(project => tempStr += `*${project.name}* | `)
     tempStr = tempStr.slice(0, -3).trim()
     this.help = renderMd(`Usage: \`showcode [project]\`<br/><br/>${tempStr}`)
   }
@@ -43,7 +43,7 @@ export class CodeExample extends Command {
   async exec(args:Array<string>):Promise<string> {
     if(String(args[0]).toLowerCase() === 'help') return this.help
     let res = ''
-    CodeExample.#projects.forEach(project => {
+    ShowCode.#projects.forEach(project => {
       if(String(args[0]).toLowerCase() === project.name) {
         res = renderPrism(`{% highlight language-${project.lang} %}${project.code}{% endhighlight %}`)
         return

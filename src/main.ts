@@ -53,7 +53,7 @@ TermProcessor.addModule(new PrimeWheel([
 import { FibonacciSequence } from './commands/FibonacciSequence'
 TermProcessor.addModule(new FibonacciSequence('#ffd700'))
 
-import { CodeExample } from './commands/CodeExample'
-TermProcessor.addModule(new CodeExample())
+import { ShowCode } from './commands/ShowCode'
+TermProcessor.addModule(new ShowCode())
 
 createApp(App).mount('#app')
