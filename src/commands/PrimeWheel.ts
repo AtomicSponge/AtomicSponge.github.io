@@ -9,7 +9,7 @@
 import { Command } from './Command.js'
 import { TermRenderer } from '../modules/TermRenderer.js'
 import { TermError } from '../modules/TermError.js'
-import { testHex, testRgb, testPixel } from '../extras/regexps.js'
+import { testHex, testRgb, testPixel, testNumeric } from '../extras/regexps.js'
 
 import primeTableString from '../assets/markdown/primetable.md?raw'
 
@@ -140,17 +140,34 @@ export class PrimeWheel extends Command {
         PrimeWheel.#primeWheelReset()
         return 'Prime wheel reset.'
       case 'list':
-        //
+        let resStr = '<table>'
+        PrimeWheel.#wheels.forEach((wheel, idx) => {
+          resStr += `<tr><td>Wheel ${idx}:</td>`
+          resStr += `<td>Color: ${wheel.fontColor}</td>`
+          resStr += `<td>Spacing: ${wheel.spacing}</td>`
+          resStr += `<td>Durration: ${wheel.durration}</td>`
+          resStr += `<td>Offset: ${wheel.useRandomOffset}</td></tr>`
+        })
+        resStr += '</table>'
+        return resStr
+      case 'add':
+        return `added`
+      case 'remove':
+        if(!testNumeric(args[1])) return `${args[1]} is not a number!`
+        const temp = Number(args[1])
+        if(temp >= PrimeWheel.#wheels.length || temp < 0)
+          return `Bad index, no wheel at position ${args[1]}`
+        PrimeWheel.#wheels = PrimeWheel.#wheels.slice(0, temp).concat(PrimeWheel.#wheels.slice(temp + 1))
+        return `Removed wheel at index ${args[1]}`
+      case 'color':
+        /*if(testHex(args[1]) || testRgb(args[1])) {
+          PrimeWheel.#fontColor = args[1]
+          return 'Color set.'
+        }*/
+        return 'Incorrect color code.'
       default:
         return this.help
     }
-    /*if(String(args[0]).toLowerCase() === 'color') {
-      if(testHex(args[1]) || testRgb(args[1])) {
-        PrimeWheel.#fontColor = args[1]
-        return 'Color set.'
-      }
-      return 'Incorrect color code.'
-    }*/
   }
 
   /**
