@@ -29,5 +29,5 @@ primewheel color 1 rgb(255, 255, 0)
 
 ### To see the source for the Prime Wheel, enter:
 ```
-showcode
+showcode primewheel
 ```
