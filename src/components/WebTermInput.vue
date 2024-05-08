@@ -71,12 +71,10 @@ const historyDown = () => {
 @import '../style.styl'
 
 #terminal-input
-  //termstyle()
   display flex
   flex-direction column
 
 #input-area
-  //termstyle()
   display flex
   flex-direction row
 

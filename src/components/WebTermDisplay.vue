@@ -18,13 +18,7 @@ const props = defineProps<{
 </template>
 
 <style lang="stylus" scoped>
-@import '../style.styl'
-
 .term-display
   display flex
   flex-direction column
-  //termstyle()
-
-//:deep(.term-display)
-  //termstyle()
 </style>

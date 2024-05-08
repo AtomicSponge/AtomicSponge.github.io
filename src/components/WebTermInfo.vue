@@ -36,7 +36,6 @@ const currentTime = () => {
 @import '../style.styl'
 
 .term-info
-  //termstyle()
   display inline
   margin-bottom 6px
 

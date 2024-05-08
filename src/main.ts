@@ -51,7 +51,7 @@ TermProcessor.addModule(new PrimeWheel([
 ]))
 
 import { FibonacciSequence } from './commands/FibonacciSequence'
-TermProcessor.addModule(new FibonacciSequence('#ffff00'))
+TermProcessor.addModule(new FibonacciSequence('#ffd700'))
 
 import { TestPrism } from './commands/TestPrism'
 TermProcessor.addModule(new TestPrism())

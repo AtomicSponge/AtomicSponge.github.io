@@ -24,12 +24,6 @@ const props = defineProps<{
 
 <style lang="stylus" scoped>
 @import '../style.styl'
-
-//.term-history
-  //termstyle()
-  //display flex
-  //flex-direction column
-
 .prompt
   prompt()
 </style>
