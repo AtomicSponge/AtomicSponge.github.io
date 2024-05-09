@@ -79,16 +79,16 @@ export class SetColor extends Command {
   }
 
   /**
-   * 
-   * @param color 
+   * Set the background color
+   * @param color Color to set
    */
   #setBgColor(color:string):void {
     document.body.style.backgroundColor = color
   }
 
   /**
-   * 
-   * @param color 
+   * Set the font color
+   * @param color Color to set
    */
   #setFontColor(color:string):void {
     document.body.style.color = color
@@ -96,7 +96,7 @@ export class SetColor extends Command {
 
   /**
    * Check if color settings exist locally
-   * @returns 
+   * @returns True if they do, else false
    */
   #settingsExist():boolean {
     if(localStorage.getItem('bgcolor') === null) return false
@@ -106,7 +106,7 @@ export class SetColor extends Command {
 
   /**
    * Save color settings to localstore
-   * @returns 
+   * @returns True if settings were saved, else false
    */
   #saveColors():boolean {
     localStorage.setItem('bgcolor', document.body.style.backgroundColor)
@@ -117,7 +117,7 @@ export class SetColor extends Command {
 
   /**
    * Load color settings from localstore
-   * @returns 
+   * @returns True if settings were loaded, else false
    */
   #loadColors():boolean {
     if(this.#settingsExist()) {
