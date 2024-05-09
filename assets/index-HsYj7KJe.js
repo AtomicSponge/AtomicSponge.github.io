@@ -390,6 +390,7 @@ export class TermRenderer {
     TermRenderer.#ctx = <CanvasRenderingContext2D>TermRenderer.#canvas.getContext("2d")
     TermRenderer.#renderProc = 0
 
+    //  Watch for resize, scale & redraw canvas
     const observer = new ResizeObserver(() => {
       const temp = TermRenderer.#ctx.getImageData(0, 0, TermRenderer.#canvas.width, TermRenderer.#canvas.height)
       TermRenderer.#canvas.width = document.documentElement.clientWidth
