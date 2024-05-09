@@ -37,10 +37,12 @@ const totalsize = getTotalSize(buildLocation)
 
 //  Aggragate results and write to file
 const result = {
-  size: size,
+  size: (size / 1000).toFixed(2),
   createdAt: birthtime,
-  totalsize: totalsize
+  totalsize: (totalsize / 1000).toFixed(2)
 }
-let outputStr = `${size}<br/>${totalsize}<br/>${birthtime}`
+let outputStr = `Size of website source:  ${result.size} kB<br/><br/>`
+outputStr += `Total size of website:  ${result.totalsize} kB<br/><br/>`
+outputStr += `Site built at:<br/>${result.createdAt}`
 const outLocation = path.normalize(`${buildLocation}/assets/`)
 fs.writeFileSync(`${outLocation}site_stats.html`, outputStr)
