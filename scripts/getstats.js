@@ -42,8 +42,8 @@ const result = {
   totalsize: (totalsize / 1000).toFixed(2)
 }
 let outputStr = `<!doctype html><html lang="en"><head>`
-outputStr += `<style>body { font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; font-size: large; font-weight: 400; line-height: 1.2; `
-outputStr += `color: rgba(255, 255, 255, 0.87); background-color: rgb(36, 36, 36); }<style>`
+outputStr += `<style>:root { font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; font-size: large; font-weight: 400; line-height: 1.2; `
+outputStr += `color: rgba(255, 255, 255, 0.87); background-color: rgb(36, 36, 36); }</style>`
 outputStr += `</head><body>`
 outputStr += `Size of website source:  ${result.size} kB<br/><br/>`
 outputStr += `Total size of website:  ${result.totalsize} kB<br/><br/>`
