@@ -14,7 +14,7 @@ import setColorHelp from '../assets/markdown/setcolor_help.md?raw'
 
 export class SetColor extends Command {
   /** Store the default background color */
-  defaultBgColor:string = '#242424'
+  defaultBgColor:string = 'rgb(36, 36, 36)'
   /** Store the default foreground color */
   defaultFgColor:string = 'rgba(255, 255, 255, 0.87)'
   /** Store the initial background color */
