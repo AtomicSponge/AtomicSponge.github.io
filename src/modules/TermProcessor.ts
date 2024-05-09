@@ -48,10 +48,10 @@ export class TermProcessor {
     //  Add spaces back to the groups
     cmdArr.forEach((cmd, idx, arr) => { arr[idx] = cmd.replace(/%%__%%+/g, ' ') })
 
-    if(String(cmdArr[0]).toLowerCase() === "help") return this.#render.help(TermProcessor.#commands)
+    if(String(cmdArr[0]).toLowerCase() === 'help') return this.#render.help(TermProcessor.#commands)
     const res = TermProcessor.#commands.find(elm => elm.command === String(cmdArr[0]).toLowerCase())
     if(res === undefined)
-      return "<span style=\"font-weight: bold;\">command not found:</span> " + cmdArr[0]
+      return `<span style="font-weight: bold;">command not found:</span> ${cmdArr[0]}`
     return await res.exec(cmdArr.splice(1, cmdArr.length))
   }
 
@@ -65,12 +65,12 @@ export class TermProcessor {
    */
   static addModule(obj:Command):void {
     if(!(obj instanceof Command))
-      throw new TermError("'addModule()' Error: Not an instance of Command.", TermProcessor.addModule)
-    if(obj.command === "error" || obj.description === "error")
-      throw new TermError("'addModule()' Error: Command or description parameters not defined.", TermProcessor.addModule)
+      throw new TermError(`Error: Not an instance of Command.`, TermProcessor.addModule)
+    if(obj.command === 'error' || obj.description === 'error')
+      throw new TermError(`Error: Command or description parameters not defined.`, TermProcessor.addModule)
     for(let i = 0; i < TermProcessor.#commands.length; i++) {
       if(TermProcessor.#commands[i].command === obj.command)
-        throw new TermError(`'addModule()' Error: Command '${obj.command}' already exists.`, TermProcessor.addModule)
+        throw new TermError(`Error: Command '${obj.command}' already exists.`, TermProcessor.addModule)
     }
     TermProcessor.#commands.push(obj)
   }
@@ -84,7 +84,7 @@ export class TermProcessor {
   static getModule(cmd:string):Command {
     const res = TermProcessor.#commands.find(elm => elm.command === cmd)
     if(res === undefined)
-      throw new TermError(`'getModule()' Error: Module '${cmd}' not found!`, TermProcessor.getModule)
+      throw new TermError(`Error: Module '${cmd}' not found!`, TermProcessor.getModule)
     return res
   }
 
@@ -95,19 +95,19 @@ export class TermProcessor {
      * @returns The Help display
      */
     help(commands:Array<Command>):string {
-      var help = "<table style=\"border: 0px;\">"
-      help += "<tr><th style=\"text-align: left;\">Command</th>"
-      help += "<th>&nbsp;&nbsp;&nbsp;</th><th>Description</th></tr>"
+      var help = '<table style="border: 0px;">'
+      help += '<tr><th style="text-align: left;">Command</th>'
+      help += '<th>&nbsp;</th><th style="text-align: left;">Description</th></tr>'
       for(let i = 0; i < commands.length; i++) {
-        help += "<tr>"
-        help += "<td><span style=\"font-weight: bold;\">" + commands[i].command + "</span></td>"
-        help += "<td>&nbsp;&nbsp;&nbsp;</td>"
-        help += "<td>" + commands[i].description + "</td>"
-        help += "</tr>"
+        help += '<tr>'
+        help += `<td><span style="font-weight: bold;">${commands[i].command}</span></td>`
+        help += '<td>&nbsp;</td>'
+        help += `<td>${commands[i].description}</td>`
+        help += '</tr>'
       }
-      help += "<tr><td><span style=\"font-weight: bold;\">clear</span></td>"
-      help += "<td>&nbsp;&nbsp;&nbsp;</td>"
-      help += "<td>Clear the screen</td></tr></table>"
+      help += '<tr><td><span style=\"font-weight: bold;\">clear</span></td>'
+      help += '<td>&nbsp;&nbsp;&nbsp;</td>'
+      help += '<td>Clear the screen</td></tr></table>'
       return help
     }
   }
