@@ -23,8 +23,7 @@ export class JabbaCmd extends Command {
 
   /**
    * Process command
-   * @param args 
-   * @returns 
+   * @returns Result of the command
    */
   async exec():Promise<string> {
     let resStr = `<table><tr>`

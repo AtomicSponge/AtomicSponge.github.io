@@ -19,7 +19,7 @@ export class TermError extends Error {
    * Constructs the TermError class
    * @param message Error message
    * @param code Error code
-   * @param {number} [exitCode=1] Exit code
+   * @param exitCode Exit code
    */
   constructor(message:string, code:Object, exitCode?:number) {
 		super()

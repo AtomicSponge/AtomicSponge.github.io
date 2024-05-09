@@ -23,8 +23,7 @@ export class MotdCmd extends Command {
 
   /**
    * Process command
-   * @param args 
-   * @returns 
+   * @returns Rendered result
    */
   async exec():Promise<string> {
     return renderMd(motdMarkdown)
