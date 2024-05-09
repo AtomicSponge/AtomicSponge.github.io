@@ -237,7 +237,7 @@ export class TermProcessor {
 
   /**
    * Process a command
-   * @param cmd The command and parameters in an array
+   * @param cmd The command string passed from the Vue app
    * @returns A string with the result
    */
   static async processCommand(cmd:string):Promise<string> {
