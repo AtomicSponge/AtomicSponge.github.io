@@ -131,11 +131,11 @@ export class PrimeWheel extends Command {
       case 'list':
         let resStr = `<table>`
         PrimeWheel.#wheels.forEach((wheel, idx) => {
-          resStr += `<tr><td>Wheel ${idx}:</td>`
-          resStr += `<td>Color: ${wheel.fontColor}</td>`
-          resStr += `<td>Spacing: ${wheel.spacing}</td>`
-          resStr += `<td>Durration: ${wheel.durration}</td>`
-          resStr += `<td>Offset: ${wheel.useRandomOffset}</td></tr>`
+          resStr += `<tr><td style="font-weight: bold;">Wheel ${idx}:</td>`
+          resStr += `<td style="color: ${wheel.fontColor}"><em>Color:</em> ${wheel.fontColor}</td>`
+          resStr += `<td><em>Spacing:</em> ${wheel.spacing}</td>`
+          resStr += `<td><em>Durration:</em> ${wheel.durration}</td>`
+          resStr += `<td><em>Offset:</em> ${wheel.useRandomOffset}</td></tr>`
         })
         resStr += `</table>`
         return resStr
