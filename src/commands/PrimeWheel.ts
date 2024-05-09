@@ -152,7 +152,7 @@ export class PrimeWheel extends Command {
         try {
           addArgs.forEach(arg => {
             const prop = arg.split('=')
-            if(prop.length === 2 && prop[1] != '') {
+            if(prop.length === 2 && prop[1] !== '') {
               switch(prop[0]) {
                 case 'color':
                   options.fontColor = prop[1]
