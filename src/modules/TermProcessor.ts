@@ -95,7 +95,7 @@ export class TermProcessor {
      * @returns The Help display
      */
     help(commands:Array<Command>):string {
-      var help = '<table style="border: 0px;">'
+      let help = '<table style="border: 0px;">'
       help += '<tr><th style="text-align: left;">Command</th>'
       help += '<th>&nbsp;</th><th style="text-align: left;">Description</th></tr>'
       for(let i = 0; i < commands.length; i++) {
