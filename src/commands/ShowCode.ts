@@ -36,8 +36,12 @@ export class ShowCode extends Command {
     ]
 
     let tempStr = '__Options:__ '
-    ShowCode.#projects.forEach(project => tempStr += `*${project.name}* | `)
-    tempStr = tempStr.slice(0, -3).trim()
+    ShowCode.#projects.forEach((project, idx) => {
+      tempStr += `*${project.name}*`
+      if((idx + 1) % 5 === 0) tempStr += '<br/>'
+      else tempStr += ' | '
+    })
+    if(tempStr.slice(-3) === ' | ') tempStr = tempStr.slice(0, -3).trim()
     this.help = renderMd(`Usage: \`showcode [item]\`<br/><br/>${tempStr}`)
   }
 
