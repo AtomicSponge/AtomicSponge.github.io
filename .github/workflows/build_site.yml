@@ -13,7 +13,9 @@ jobs:
           node-version: '20.x'
       - run: npm ci
       - run: npx copyreadme
+      - run: npx primetable
       - run: npm run build
+      - run: npx getstats
 
       - name: Deploy website
         uses: s0/git-publish-subdir-action@develop
