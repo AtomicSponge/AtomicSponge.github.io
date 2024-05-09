@@ -41,8 +41,14 @@ const result = {
   createdAt: birthtime,
   totalsize: (totalsize / 1000).toFixed(2)
 }
-let outputStr = `Size of website source:  ${result.size} kB<br/><br/>`
+let outputStr = `<!doctype html><html lang="en"><head>`
+outputStr += `<style>:root { font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif; font-size: large; font-weight: 400; line-height: 1.2; `
+outputStr += `color: rgba(255, 255, 255, 0.87); background-color: rgb(36, 36, 36); }<style>`
+outputStr += `</head><body>`
+outputStr += `Size of website source:  ${result.size} kB<br/><br/>`
 outputStr += `Total size of website:  ${result.totalsize} kB<br/><br/>`
 outputStr += `Site built at:<br/>${result.createdAt}`
+outputStr += `</body></html>`
+
 const outLocation = path.normalize(`${buildLocation}/assets/`)
 fs.writeFileSync(`${outLocation}site_stats.html`, outputStr)
