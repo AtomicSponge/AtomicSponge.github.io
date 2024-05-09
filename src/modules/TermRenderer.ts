@@ -31,7 +31,7 @@ export class TermRenderer {
   /** Set up the TermRenderer */
   static initialize = ():void => {
     if(TermRenderer.#initialized)
-      throw new TermError('TermRenderer already initialized!', this.constructor)
+      throw new TermError('TermRenderer already initialized!', TermRenderer.initialize)
     //  Append canvas css styling
     const cssElem = document.createElement('style')
     cssElem.innerHTML = `
