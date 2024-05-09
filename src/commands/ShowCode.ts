@@ -10,6 +10,9 @@ import { Command } from './Command.js'
 import { renderMd } from '../extras/renderMd.js'
 import { renderPrism } from '../extras/renderPrism.js'
 
+import termprcCodeText from '../modules/TermProcessor.ts?raw'
+import termrndCodeText from '../modules/TermRenderer.ts?raw'
+import commandCodeText from './Command.ts?raw'
 import prmwhlCodeText from './PrimeWheel.ts?raw'
 import fibseqCodeText from './FibonacciSequence.ts?raw'
 
@@ -22,17 +25,20 @@ export class ShowCode extends Command {
   constructor() {
     super()
     this.command = 'showcode'
-    this.description = 'View the source code for the effects'
+    this.description = 'View the site source code'
 
     ShowCode.#projects = [ 
+      { name: 'termprocessor', code: termprcCodeText, lang: 'typescript' },
+      { name: 'termrenderer', code: termrndCodeText, lang: 'typescript' },
+      { name: 'command', code: commandCodeText, lang: 'typescript' },
       { name: 'primewheel', code: prmwhlCodeText, lang: 'typescript' },
       { name: 'fibseq', code: fibseqCodeText, lang: 'typescript' }
     ]
 
-    let tempStr = 'Effects: '
+    let tempStr = 'Options: '
     ShowCode.#projects.forEach(project => tempStr += `*${project.name}* | `)
     tempStr = tempStr.slice(0, -3).trim()
-    this.help = renderMd(`Usage: \`showcode [effect]\`<br/><br/>${tempStr}`)
+    this.help = renderMd(`Usage: \`showcode [item]\`<br/><br/>${tempStr}`)
   }
 
   /**

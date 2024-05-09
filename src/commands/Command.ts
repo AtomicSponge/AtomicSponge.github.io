@@ -44,7 +44,7 @@ export class Command {
 
   /**
    * Exec function to define what the command runs
-   * @param args List of arguments to pass to command
+   * @param _args List of arguments to pass to command
    * @throws Throws error if not implemented in overriding class
    */
   async exec(_args:Array<string>):Promise<string> {

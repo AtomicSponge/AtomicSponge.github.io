@@ -31,39 +31,13 @@ const processInput = async (cmd:string):Promise<void> => {
 
 /**
  * Process the received command
- * @param cmd 
- * @returns 
+ * @param cmd Command to process
+ * @returns The command's result formatted as HTML
  */
 const resolveCommand = async (cmd:string):Promise<string> => {
-  /**
-   * Find a string grouping and replace spaces
-   * @param cmd Command being ran
-   * @param regex Grouping regex
-   */
-  const processGroup = (cmd:string, regex:RegExp) => {
-    const group = cmd.match(regex)
-    const groupRes:Array<string> = []
-    group?.forEach(item => groupRes.push(item.replace(/\s+/g, '%%__%%')))
-    group?.forEach((item, idx) => cmd = cmd.replace(item, groupRes[idx]))
-    return cmd
-  }
-  //  Match the ( ) grouping and remove spaces
-  cmd = processGroup(cmd, /(?<=\()(.*?)(?=\))/g)
-  //  Match the [ ] grouping and remove spaces
-  cmd = processGroup(cmd, /(?<=\[)(.*?)(?=\])/g)
-  //  Match the " " grouping and remove spaces
-  cmd = processGroup(cmd, /(?<=\")(.*?)(?=\")/g)
-  //  Match the ' ' grouping and remove spaces
-  cmd = processGroup(cmd, /(?<=\')(.*?)(?=\')/g)
-  //  Match the ` ` grouping and remove spaces
-  cmd = processGroup(cmd, /(?<=\`)(.*?)(?=\`)/g)
-
-  const cmdArr:Array<string> = cmd.split(' ')
-  //  Add spaces back to the groups
-  cmdArr.forEach((cmd, idx, arr) => { arr[idx] = cmd.replace(/%%__%%+/g, ' ') })
   //  Special case for clearing console
-  if(String(cmdArr[0]).toLowerCase() === 'clear') return 'clear'
-  return await TermProcessor.processCommand(cmdArr)
+  if(String(cmd.split(' ')[0]).toLowerCase() === 'clear') return 'clear'
+  return await TermProcessor.processCommand(cmd)
 }
 
 //  Set vue before mount
@@ -73,13 +47,13 @@ onBeforeMount(async () => {
     try {
       const response = await fetch('https://api.ipify.org?format=json')
       return response.json()
-    } catch (error) {  //  Catch connection errors
+    } catch (error:any) {  //  Catch connection errors
       return { 'ip': '127.0.0.1' }
     }
   })()
   userIP.value = res.ip
 
-  display.value = await TermProcessor.processCommand(['motd'])
+  display.value = await TermProcessor.processCommand('motd')
 })
 </script>
 

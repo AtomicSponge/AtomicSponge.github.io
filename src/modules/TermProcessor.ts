@@ -13,19 +13,46 @@ export class TermProcessor {
   /** Store all the command objects */
   static #commands:Array<Command> = []
 
-  constructor() { return false }
+  constructor() { return false }  //  Prevent direct construction
 
   /**
    * Process a command
    * @param cmd The command and parameters in an array
    * @returns A string with the result
    */
-  static async processCommand(cmd:Array<string>):Promise<string> {
-    if(String(cmd[0]).toLowerCase() === "help") return this.#render.help(TermProcessor.#commands)
-    const res = TermProcessor.#commands.find(elm => elm.command === String(cmd[0]).toLowerCase())
+  static async processCommand(cmd:string):Promise<string> {
+    /**
+     * Find a string grouping and replace spaces
+     * @param cmd Command being ran
+     * @param regex Grouping regex
+     */
+    const processGroup = (cmd:string, regex:RegExp) => {
+      const group = cmd.match(regex)
+      const groupRes:Array<string> = []
+      group?.forEach(item => groupRes.push(item.replace(/\s+/g, '%%__%%')))
+      group?.forEach((item, idx) => cmd = cmd.replace(item, groupRes[idx]))
+      return cmd
+    }
+    //  Match the ( ) grouping and remove spaces
+    cmd = processGroup(cmd, /(?<=\()(.*?)(?=\))/g)
+    //  Match the [ ] grouping and remove spaces
+    cmd = processGroup(cmd, /(?<=\[)(.*?)(?=\])/g)
+    //  Match the " " grouping and remove spaces
+    cmd = processGroup(cmd, /(?<=\")(.*?)(?=\")/g)
+    //  Match the ' ' grouping and remove spaces
+    cmd = processGroup(cmd, /(?<=\')(.*?)(?=\')/g)
+    //  Match the ` ` grouping and remove spaces
+    cmd = processGroup(cmd, /(?<=\`)(.*?)(?=\`)/g)
+
+    const cmdArr:Array<string> = cmd.split(' ')
+    //  Add spaces back to the groups
+    cmdArr.forEach((cmd, idx, arr) => { arr[idx] = cmd.replace(/%%__%%+/g, ' ') })
+
+    if(String(cmdArr[0]).toLowerCase() === "help") return this.#render.help(TermProcessor.#commands)
+    const res = TermProcessor.#commands.find(elm => elm.command === String(cmdArr[0]).toLowerCase())
     if(res === undefined)
-      return "<span style=\"font-weight: bold;\">command not found:</span> " + cmd[0]
-    return await res.exec(cmd.splice(1, cmd.length))
+      return "<span style=\"font-weight: bold;\">command not found:</span> " + cmdArr[0]
+    return await res.exec(cmdArr.splice(1, cmdArr.length))
   }
 
   /**
