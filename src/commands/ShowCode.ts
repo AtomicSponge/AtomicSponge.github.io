@@ -35,7 +35,7 @@ export class ShowCode extends Command {
       { name: 'fibseq', code: fibseqCodeText, lang: 'typescript' }
     ]
 
-    let tempStr = 'Options: '
+    let tempStr = '__Options:__ '
     ShowCode.#projects.forEach(project => tempStr += `*${project.name}* | `)
     tempStr = tempStr.slice(0, -3).trim()
     this.help = renderMd(`Usage: \`showcode [item]\`<br/><br/>${tempStr}`)
