@@ -41,4 +41,6 @@ const result = {
   createdAt: birthtime,
   totalsize: totalsize
 }
-fs.writeFileSync(`${buildLocation}site_stats.json`, JSON.stringify(result))
+let outputStr = `${size}<br/>${totalsize}<br/>${birthtime}`
+const outLocation = path.normalize(`${buildLocation}/assets/`)
+fs.writeFileSync(`${outLocation}site_stats.html`, outputStr)
