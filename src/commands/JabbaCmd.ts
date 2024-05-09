@@ -29,7 +29,7 @@ export class JabbaCmd extends Command {
   async exec():Promise<string> {
     let resStr = `<table><tr>`
     resStr += `<td>${renderMd(jabbaMarkdown)}</td>`
-    resStr += `<td><iframe src="/assets/site_stats.html" id="statsFrame" title="Stats" width="320" height="300" style="border: none"/></td>`
+    resStr += `<td><iframe src="/assets/site_stats.html" width="320" height="220" style="border: none"/></td>`
     resStr += `</tr></table>`
     return resStr
   }
