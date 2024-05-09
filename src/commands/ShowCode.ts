@@ -56,6 +56,6 @@ export class ShowCode extends Command {
       }
     })
     if(res !== '') return res
-    return `Nothing found with effect name ${args[0]}\n${this.help}`
+    return `Nothing found with name ${args[0]}\n${this.help}`
   }
 }
