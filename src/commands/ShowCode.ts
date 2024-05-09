@@ -48,6 +48,7 @@ export class ShowCode extends Command {
    */
   async exec(args:Array<string>):Promise<string> {
     if(String(args[0]).toLowerCase() === 'help') return this.help
+    if(String(args[0]).toLowerCase() === 'list') return this.help
     let res = ''
     ShowCode.#projects.forEach(project => {
       if(String(args[0]).toLowerCase() === project.name) {
