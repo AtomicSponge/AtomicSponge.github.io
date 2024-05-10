@@ -53,6 +53,15 @@ const historyDown = ():void => {
     userInput.value = ''
   }
 }
+
+/**
+ * Handle keyboard up events
+ * @param event Keyboard event
+ */
+const keyUpEvent = (event:KeyboardEvent):void => {
+  if(event.key === 'ArrowUp') historyUp()
+  if(event.key === 'ArrowDown') historyDown()
+}
 </script>
 
 <template>
@@ -61,7 +70,7 @@ const historyDown = ():void => {
     <span id="input-area">
       <span class="prompt">$</span>&nbsp;
       <form @submit.prevent="submit">
-      <input type="text" name="input-box" v-model="userInput" @keyup.up="historyUp" @keyup.down="historyDown" autofocus/>
+        <input type="text" name="input-box" v-model="userInput" @keyup="keyUpEvent" autofocus/>
       </form>
     </span>
   </div>
