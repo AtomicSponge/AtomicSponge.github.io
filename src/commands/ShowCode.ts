@@ -50,6 +50,7 @@ export class ShowCode extends Command {
    * @returns Result of the command
    */
   async exec(args:Array<string>):Promise<string> {
+    if(args[0] === undefined) return this.help
     if(String(args[0]).toLowerCase() === 'help') return this.help
     if(String(args[0]).toLowerCase() === 'list') return this.help
     let res = ''
