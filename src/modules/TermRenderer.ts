@@ -34,7 +34,7 @@ export class TermRenderer {
       throw new TermError('TermRenderer already initialized!', TermRenderer.initialize)
     //  Append canvas css styling
     const cssElem = document.createElement('style')
-    cssElem.innerHTML = `
+    cssElem.innerText = `
       #${TermRenderer.#canvas_name} {
         pointer-events: none;
         position: fixed;
