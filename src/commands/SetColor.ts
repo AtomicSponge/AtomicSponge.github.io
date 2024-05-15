@@ -7,8 +7,8 @@
  */
 
 import { Command } from './Command.js'
-import { renderMd } from '../extras/renderMd.js'
-import { testHex, testRgb } from '../extras/regexps.js'
+import { parseMd } from '../parsers/parseMd.js'
+import { testHexColor, testRGB } from '@spongex/regexps'
 
 import setColorHelp from '../assets/markdown/setcolor_help.md?raw'
 
@@ -29,7 +29,7 @@ export class SetColor extends Command {
     super()
     this.command = 'setcolor'
     this.description = 'Set terminal colors'
-    this.help = renderMd(setColorHelp)
+    this.help = parseMd(setColorHelp)
 
     this.#loadColors()
     this.initialBgColor = document.body.style.backgroundColor
@@ -62,13 +62,13 @@ export class SetColor extends Command {
         if(this.#loadColors()) return 'Color settings loaded.'
         return 'Error loading color settings!'
       case 'background':
-        if(testHex(args[1]) || testRgb(args[1])) {
+        if(testHexColor(args[1]) || testRGB(args[1])) {
           this.#setBgColor(args[1])
           return 'Background color set.'
         }
         return 'Incorrect color code. ' + errMsg
       case 'font':
-        if(testHex(args[1]) || testRgb(args[1])) {
+        if(testHexColor(args[1]) || testRGB(args[1])) {
           this.#setFontColor(args[1])
           return 'Font color set.'
         }

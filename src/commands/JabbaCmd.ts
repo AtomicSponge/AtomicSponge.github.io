@@ -7,7 +7,7 @@
  */
 
 import { Command } from './Command.js'
-import { renderMd } from '../extras/renderMd.js'
+import { parseMd } from '../parsers/parseMd.js'
 
 import jabbaMarkdown from '../assets/markdown/jabbascript.md?raw'
 
@@ -27,7 +27,7 @@ export class JabbaCmd extends Command {
    */
   async exec():Promise<string> {
     let resStr = `<table><tr>`
-    resStr += `<td>${renderMd(jabbaMarkdown)}</td>`
+    resStr += `<td>${parseMd(jabbaMarkdown)}</td>`
     resStr += `<td><iframe src="/assets/site_stats.html" width="320" height="220" style="border: none"/></td>`
     resStr += `</tr></table>`
     return resStr

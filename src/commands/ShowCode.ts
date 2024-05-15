@@ -7,8 +7,8 @@
  */
 
 import { Command } from './Command.js'
-import { renderMd } from '../extras/renderMd.js'
-import { renderPrism } from '../extras/renderPrism.js'
+import { parseMd } from '../parsers/parseMd.js'
+import { parsePrism } from '../parsers/parsePrism.js'
 
 import termprcCodeText from '../modules/TermProcessor.ts?raw'
 import termrndCodeText from '../modules/TermRenderer.ts?raw'
@@ -41,7 +41,7 @@ export class ShowCode extends Command {
       {((idx + 1) % 5 === 0) ? tempStr += '<br/>' : tempStr += ' | '}
     })
     if(tempStr.slice(-3) === ' | ') tempStr = tempStr.slice(0, -3).trim()
-    this.help = renderMd(`Usage: \`showcode [item]\`<br/><br/>${tempStr}`)
+    this.help = parseMd(`Usage: \`showcode [item]\`<br/><br/>${tempStr}`)
   }
 
   /**
@@ -56,7 +56,7 @@ export class ShowCode extends Command {
     let res = ''
     ShowCode.#projects.forEach(project => {
       if(String(args[0]).toLowerCase() === project.name) {
-        res = renderPrism(`{% highlight language-${project.lang} %}${project.code}{% endhighlight %}`)
+        res = parsePrism(`{% highlight language-${project.lang} %}${project.code}{% endhighlight %}`)
         return
       }
     })

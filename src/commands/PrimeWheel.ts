@@ -9,8 +9,8 @@
 import { Command } from './Command.js'
 import { TermRenderer } from '../modules/TermRenderer.js'
 import { TermError } from '../modules/TermError.js'
-import { testHex, testRgb, testPixel, testNumeric } from '../extras/regexps.js'
-import { renderMd } from '../extras/renderMd.js'
+import { testHexColor, testRGB, testPixel, testNumeric } from '@spongex/regexps'
+import { parseMd } from '../parsers/parseMd.js'
 
 import primeHelpString from '../assets/markdown/primewheel_help.md?raw'
 import primeTableString from '../assets/markdown/primetable.md?raw'
@@ -59,7 +59,7 @@ export class PrimeWheel extends Command {
     super()
     this.command = 'primewheel'
     this.description = 'Prime Wheel Effect'
-    this.help = renderMd(primeHelpString)
+    this.help = parseMd(primeHelpString)
 
     options.forEach(option => {
       const temp = PrimeWheel.#makeWheel(option)
@@ -192,7 +192,7 @@ export class PrimeWheel extends Command {
         const tempC = Number(args[1])
         if(tempC >= PrimeWheel.#wheels.length || tempC < 0)
           return `Bad index, no wheel at position ${args[1]}`
-        if(testHex(args[2]) || testRgb(args[2])) {
+        if(testHexColor(args[2]) || testRGB(args[2])) {
           PrimeWheel.#wheels[tempC].fontColor = args[2]
           PrimeWheel.#primeWheelReset()
           return `Color set.`
@@ -259,7 +259,7 @@ export class PrimeWheel extends Command {
       tableIdx: 0,
       complete: false
     }
-    if(!testHex(temp.fontColor) && !testRgb(temp.fontColor)) return null
+    if(!testHexColor(temp.fontColor) && !testRGB(temp.fontColor)) return null
     if(!testPixel(temp.fontSize)) return null
     return temp
   }

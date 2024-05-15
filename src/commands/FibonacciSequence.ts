@@ -9,7 +9,7 @@
 import { Command } from './Command.js'
 import { TermRenderer } from '../modules/TermRenderer.js'
 import { TermError } from '../modules/TermError.js'
-import { testHex, testRgb } from '../extras/regexps.js'
+import { testHexColor, testRGB } from '@spongex/regexps'
 
 export class FibonacciSequence extends Command {
   static #centerX:number
@@ -38,7 +38,7 @@ export class FibonacciSequence extends Command {
     this.help = `<span style=\"font-weight: bold;\">Usage:</span> ` +
       `fibseq <em>start</em>|<em>stop</em>|<em>color</em>`
 
-    if(!testHex(color) && !testRgb(color))
+    if(!testHexColor(color) && !testRGB(color))
       throw new TermError(`Incorrect color code '${color}' when setting up Fibonacci Sequence!`, this.constructor)
     FibonacciSequence.#color = color
     FibonacciSequence.#lastFib = 0
@@ -119,7 +119,7 @@ export class FibonacciSequence extends Command {
         FibonacciSequence.#stop()
         return 'Fibonacci Sequence stopped.'
       case 'color':
-        if(testHex(args[1]) || testRgb(args[1])) {
+        if(testHexColor(args[1]) || testRGB(args[1])) {
           FibonacciSequence.#color = args[1]
           FibonacciSequence.#reset()
           return 'Color set.'

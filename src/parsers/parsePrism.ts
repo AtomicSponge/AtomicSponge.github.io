@@ -14,7 +14,7 @@ import showdown from 'showdown'
  * @param text Text to convert
  * @returns Converted string of text
  */
-export const renderPrism = (text:string):string => {
+export const parsePrism = (text:string):string => {
   //  First, find start/end indices of the code blocks
   const codeStartRx = /{% highlight.*/g
   const codeEndRx = /{% endhighlight %}/g

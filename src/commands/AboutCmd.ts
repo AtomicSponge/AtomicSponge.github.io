@@ -7,7 +7,7 @@
  */
 
 import { Command } from './Command.js'
-import { renderMd } from '../extras/renderMd.js'
+import { parseMd } from '../parsers/parseMd.js'
 
 import aboutMarkdown from '../assets/markdown/about.md?raw'
 
@@ -26,6 +26,6 @@ export class AboutCmd extends Command {
    * @returns Rendered result
    */
   async exec():Promise<string> {
-    return renderMd(aboutMarkdown)
+    return parseMd(aboutMarkdown)
   }
 }
