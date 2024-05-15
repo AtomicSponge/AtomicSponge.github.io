@@ -611,8 +611,8 @@ export class Command {
 import { Command } from './Command.js'
 import { TermRenderer } from '../modules/TermRenderer.js'
 import { TermError } from '../modules/TermError.js'
-import { testHex, testRgb, testPixel, testNumeric } from '../extras/regexps.js'
-import { renderMd } from '../extras/renderMd.js'
+import { testHexColor, testRGB, testPixel, testNumeric } from '@spongex/regexps'
+import { parseMd } from '../parsers/parseMd.js'
 
 import primeHelpString from '../assets/markdown/primewheel_help.md?raw'
 import primeTableString from '../assets/markdown/primetable.md?raw'
@@ -661,7 +661,7 @@ export class PrimeWheel extends Command {
     super()
     this.command = 'primewheel'
     this.description = 'Prime Wheel Effect'
-    this.help = renderMd(primeHelpString)
+    this.help = parseMd(primeHelpString)
 
     options.forEach(option => {
       const temp = PrimeWheel.#makeWheel(option)
@@ -794,7 +794,7 @@ export class PrimeWheel extends Command {
         const tempC = Number(args[1])
         if(tempC >= PrimeWheel.#wheels.length || tempC < 0)
           return \`Bad index, no wheel at position \${args[1]}\`
-        if(testHex(args[2]) || testRgb(args[2])) {
+        if(testHexColor(args[2]) || testRGB(args[2])) {
           PrimeWheel.#wheels[tempC].fontColor = args[2]
           PrimeWheel.#primeWheelReset()
           return \`Color set.\`
@@ -861,7 +861,7 @@ export class PrimeWheel extends Command {
       tableIdx: 0,
       complete: false
     }
-    if(!testHex(temp.fontColor) && !testRgb(temp.fontColor)) return null
+    if(!testHexColor(temp.fontColor) && !testRGB(temp.fontColor)) return null
     if(!testPixel(temp.fontSize)) return null
     return temp
   }
@@ -882,7 +882,7 @@ export class PrimeWheel extends Command {
 import { Command } from './Command.js'
 import { TermRenderer } from '../modules/TermRenderer.js'
 import { TermError } from '../modules/TermError.js'
-import { testHex, testRgb } from '../extras/regexps.js'
+import { testHexColor, testRGB } from '@spongex/regexps'
 
 export class FibonacciSequence extends Command {
   static #centerX:number
@@ -911,7 +911,7 @@ export class FibonacciSequence extends Command {
     this.help = \`<span style=\\"font-weight: bold;\\">Usage:</span> \` +
       \`fibseq <em>start</em>|<em>stop</em>|<em>color</em>\`
 
-    if(!testHex(color) && !testRgb(color))
+    if(!testHexColor(color) && !testRGB(color))
       throw new TermError(\`Incorrect color code '\${color}' when setting up Fibonacci Sequence!\`, this.constructor)
     FibonacciSequence.#color = color
     FibonacciSequence.#lastFib = 0
@@ -992,7 +992,7 @@ export class FibonacciSequence extends Command {
         FibonacciSequence.#stop()
         return 'Fibonacci Sequence stopped.'
       case 'color':
-        if(testHex(args[1]) || testRgb(args[1])) {
+        if(testHexColor(args[1]) || testRGB(args[1])) {
           FibonacciSequence.#color = args[1]
           FibonacciSequence.#reset()
           return 'Color set.'
