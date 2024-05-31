@@ -7,7 +7,7 @@
  * 
  */
 
-import fs from 'fs'
+import fs from 'node:fs'
 import path from 'node:path'
 
 const inputLocation = path.normalize(`${process.env.npm_config_local_prefix}/`)
