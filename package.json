@@ -20,7 +20,7 @@
     "@spongex/regexps": "^1.1.0",
     "prismjs": "^1.29.0",
     "showdown": "^2.1.0",
-    "vue": "^3.4.28"
+    "vue": "^3.4.29"
   },
   "devDependencies": {
     "@types/prismjs": "^1.26.4",
