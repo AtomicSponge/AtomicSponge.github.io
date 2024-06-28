@@ -20,7 +20,7 @@
     "@spongex/regexps": "^1.1.0",
     "prismjs": "^1.29.0",
     "showdown": "^2.1.0",
-    "vue": "^3.4.30"
+    "vue": "^3.4.31"
   },
   "devDependencies": {
     "@types/prismjs": "^1.26.4",
@@ -28,7 +28,7 @@
     "@vitejs/plugin-vue": "^5.0.5",
     "stylus": "^0.63.0",
     "typescript": "^5.5.2",
-    "vite": "^5.3.1",
+    "vite": "^5.3.2",
     "vite-plugin-css-injected-by-js": "^3.5.1",
     "vite-plugin-prismjs": "^0.0.11",
     "vue-tsc": "^2.0.22"
