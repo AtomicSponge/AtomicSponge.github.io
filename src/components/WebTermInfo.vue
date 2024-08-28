@@ -28,7 +28,7 @@ const currentTime = ():string => {
     <span class="time">{{ currentTime() }}</span>
     <span class="user">{{ props.userip }}</span>
     <span class="site">
-      <a href="https://atomicsponge.wtfsystems.net" style="color: inherit; text-decoration: none;">atomicsponge.wtfsystems.net</a>
+      <a href="https://www.wtfsystems.net" style="color: inherit; text-decoration: none;">www.wtfsystems.net</a>
     </span>
   </div>
 </template>
