@@ -1,3 +1,3 @@
 # My personal website
 
-## https://atomicsponge.wtfsystems.net/
+## https://www.wtfsystems.net/
